@@ -15,8 +15,8 @@ import javax.persistence.Table;
 public class DiaSemana {
 
     @Id
-    @Column(name = "id", length = 11, nullable = false)
-    private String id;
+    @Column(name = "id", nullable = false)
+    private Integer id;
 
     @Column(name = "dia", length = 13, nullable = false)
     private String dia;
