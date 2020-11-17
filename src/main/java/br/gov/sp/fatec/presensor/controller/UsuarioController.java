@@ -16,12 +16,8 @@ public class UsuarioController {
 
     private final UsuarioRepository usuarioRepository;
 
-    @GetMapping("/{email}/{senha}")
-    public UsuarioRs findByEmailAndSenha(@PathVariable("email") String email, @PathVariable("senha") String senha) throws Exception {
-
-        System.out.println(email);
-        System.out.println(senha);
-
+    @RequestMapping(path = "/usuario/{email}/{senha}", method = RequestMethod.GET)
+    public UsuarioRs findUsuarioByEmailAndSenha(@PathVariable("email") String email, @PathVariable("senha") String senha) throws Exception {
         Usuario usuario = usuarioRepository.findUsuarioByEmailAndSenha(email, senha);
 
         if(usuario != null) {
