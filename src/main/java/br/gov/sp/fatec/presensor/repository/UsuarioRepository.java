@@ -17,4 +17,6 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
             @Param("senha") String senha
     );
 
+    Usuario findByEmailAndSenha(String email, String senha);
+
 }
