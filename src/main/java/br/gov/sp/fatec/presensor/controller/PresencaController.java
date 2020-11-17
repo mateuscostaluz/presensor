@@ -4,6 +4,7 @@ import br.gov.sp.fatec.presensor.controller.dto.PresencaRq;
 import br.gov.sp.fatec.presensor.controller.dto.PresencaRs;
 import br.gov.sp.fatec.presensor.model.Presenca;
 import br.gov.sp.fatec.presensor.repository.PresencaRepository;
+import br.gov.sp.fatec.presensor.services.DateTimeServices;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,7 +34,7 @@ public class PresencaController {
 
         presenca.setUsuario(presencaRq.getUsuario());
         presenca.setHorarioDisciplina(presencaRq.getHorarioDisciplina());
-        presenca.setDataHora(presencaRq.getDataHora());
+        presenca.setDataHora(DateTimeServices.geTimestamp());
         presencaRepository.save(presenca);
     }
 

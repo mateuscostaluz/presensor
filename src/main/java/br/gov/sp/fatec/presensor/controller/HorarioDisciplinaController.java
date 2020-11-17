@@ -32,9 +32,9 @@ public class HorarioDisciplinaController {
     @GetMapping("/atual")
     public HorarioDisciplinaRs findHorarioDisciplinaByDiaSemanaAndHorario() throws Exception {
         HorarioDisciplina horarioDisciplina = horarioDisciplinaRepository
-                                                .findHorarioDisciplinaByDiaSemanaAndHorarioNamedParams(
-                                                  DateTimeServices.getDayOfWeek(),
-                                                  DateTimeServices.getDateTimeFormatted());
+                .findHorarioDisciplinaByDiaSemanaAndHorarioNamedParams(
+                DateTimeServices.getDayOfWeek(),
+                DateTimeServices.getLocalTime());
 
         if(horarioDisciplina != null) {
             return HorarioDisciplinaRs.converter(horarioDisciplina);

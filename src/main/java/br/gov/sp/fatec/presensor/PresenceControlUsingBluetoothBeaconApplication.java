@@ -1,6 +1,5 @@
 package br.gov.sp.fatec.presensor;
 
-import br.gov.sp.fatec.presensor.services.DateTimeServices;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
