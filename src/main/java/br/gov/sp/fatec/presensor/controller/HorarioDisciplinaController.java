@@ -2,8 +2,11 @@ package br.gov.sp.fatec.presensor.controller;
 
 
 import br.gov.sp.fatec.presensor.controller.dto.HorarioDisciplinaRs;
+import br.gov.sp.fatec.presensor.controller.dto.UsuarioRs;
 import br.gov.sp.fatec.presensor.model.HorarioDisciplina;
+import br.gov.sp.fatec.presensor.model.Usuario;
 import br.gov.sp.fatec.presensor.repository.HorarioDisciplinaRepository;
+import br.gov.sp.fatec.presensor.services.DateTimeServices;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +29,20 @@ public class HorarioDisciplinaController {
                 .stream()
                 .map(HorarioDisciplinaRs::converter)
                 .collect(Collectors.toList());
+    }
+
+    @GetMapping("/atual")
+    public HorarioDisciplinaRs findHorarioDisciplinaByDiaSemanaAndHorario() throws Exception {
+        HorarioDisciplina horarioDisciplina = horarioDisciplinaRepository
+                                                .findHorarioDisciplinaByDiaSemanaAndHorarioNamedParams(
+                                                  DateTimeServices.getDayOfWeek(),
+                                                  DateTimeServices.getDateTimeFormatted());
+
+        if(horarioDisciplina != null) {
+            return HorarioDisciplinaRs.converter(horarioDisciplina);
+        } else {
+            throw new Exception("Usuário não encontrado");
+        }
     }
 
 }
