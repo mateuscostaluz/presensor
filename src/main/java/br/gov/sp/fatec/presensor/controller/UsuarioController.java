@@ -30,6 +30,7 @@ public class UsuarioController {
     @PostMapping("/")
     public void saveUsuario(@Valid @RequestBody UsuarioRq usuarioRq) {
         Usuario usuario = new Usuario();
+
         usuario.setRa(usuarioRq.getRa());
         usuario.setEmail(usuarioRq.getEmail());
         usuario.setSenha(usuarioRq.getSenha());
