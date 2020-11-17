@@ -25,7 +25,6 @@ public class Presenca {
     @JoinColumn(name = "id_horario_disciplina")
     private HorarioDisciplina horarioDisciplina;
 
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "data_hora", nullable = false)
     private Timestamp dataHora;
 

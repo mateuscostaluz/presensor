@@ -29,11 +29,9 @@ public class HorarioDisciplina {
     @JoinColumn(name = "id_dia_semana")
     private DiaSemana diaSemana;
 
-    @Temporal(TemporalType.TIME)
     @Column(name = "horario_inicio", nullable = false)
     private Time horarioInicio;
 
-    @Temporal(TemporalType.TIME)
     @Column(name = "horario_fim", nullable = false)
     private Time horarioFim;
 
