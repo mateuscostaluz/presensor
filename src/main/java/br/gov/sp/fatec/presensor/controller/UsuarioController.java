@@ -22,7 +22,7 @@ public class UsuarioController {
         System.out.println(email);
         System.out.println(senha);
 
-        Usuario usuario = usuarioRepository.findByEmailAndSenha(email, senha);
+        Usuario usuario = usuarioRepository.findUsuarioByEmailAndSenha(email, senha);
 
         if(usuario != null) {
             return UsuarioRs.converter(usuario);
