@@ -1,8 +1,8 @@
 package br.gov.sp.fatec.presensor.services;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 
 public class DateTimeServices {
 
@@ -11,10 +11,8 @@ public class DateTimeServices {
         return localDateTime.getDayOfWeek().getValue();
     }
 
-    public static String getDateTimeFormatted() {
-        LocalDateTime localDateTime = LocalDateTime.now(ZoneId.of("America/Sao_Paulo"));
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-        return localDateTime.format(formatter);
+    public static LocalTime getDateTimeFormatted() {
+        return LocalTime.now(ZoneId.of("America/Sao_Paulo"));
     }
 
 }

@@ -28,7 +28,7 @@ public class UsuarioController {
                 .collect(Collectors.toList());
     }
 
-    @GetMapping("/{ra}/{senha}")
+    @GetMapping("/{email}/{senha}")
     public UsuarioRs findByEmailAndSenha(@PathVariable("email") String email, @PathVariable("senha") String senha) throws Exception {
         Usuario usuario = usuarioRepository.findUsuarioByEmailAndSenha(email, senha);
 

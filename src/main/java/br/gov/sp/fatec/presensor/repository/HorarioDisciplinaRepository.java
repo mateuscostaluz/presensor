@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalTime;
+
 @Repository
 public interface HorarioDisciplinaRepository extends JpaRepository<HorarioDisciplina, Long> {
 
@@ -15,7 +17,7 @@ public interface HorarioDisciplinaRepository extends JpaRepository<HorarioDiscip
                    "AND horario_fim >= :horario", nativeQuery = true)
     HorarioDisciplina findHorarioDisciplinaByDiaSemanaAndHorarioNamedParams(
             @Param("diaSemana") Integer diaSemana,
-            @Param("horario") String horario
+            @Param("horario") LocalTime horario
     );
 
 }

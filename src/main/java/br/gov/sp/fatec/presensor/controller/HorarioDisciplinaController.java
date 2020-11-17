@@ -2,9 +2,7 @@ package br.gov.sp.fatec.presensor.controller;
 
 
 import br.gov.sp.fatec.presensor.controller.dto.HorarioDisciplinaRs;
-import br.gov.sp.fatec.presensor.controller.dto.UsuarioRs;
 import br.gov.sp.fatec.presensor.model.HorarioDisciplina;
-import br.gov.sp.fatec.presensor.model.Usuario;
 import br.gov.sp.fatec.presensor.repository.HorarioDisciplinaRepository;
 import br.gov.sp.fatec.presensor.services.DateTimeServices;
 import lombok.AllArgsConstructor;
