@@ -9,7 +9,8 @@ public class DateTimeServices {
 
     public static Integer getDayOfWeek() {
         LocalDateTime localDateTime = LocalDateTime.now(ZoneId.of("America/Sao_Paulo"));
-        return localDateTime.getDayOfWeek().getValue();
+        Integer dayOfWeek = localDateTime.getDayOfWeek().getValue();
+        return dayOfWeek;
     }
 
     public static LocalTime getLocalTime() {
