@@ -28,13 +28,12 @@ public class UsuarioController {
                 .collect(Collectors.toList());
     }
 
-    @GetMapping("/{ra, senha}")
-    public UsuarioRs findByRa(@PathVariable("ra") Long ra) throws Exception {
-        Optional<Usuario> usuario = usuarioRepository.findById(ra);
+    @GetMapping("/{ra}/{senha}")
+    public UsuarioRs findByEmailAndSenha(@PathVariable("email") String email, @PathVariable("senha") String senha) throws Exception {
+        Usuario usuario = usuarioRepository.findByEmailAndSenha(email, senha);
 
-        if(usuario.isPresent()) {
-            Usuario usuarioView = usuario.get();
-            return UsuarioRs.converter(usuarioView);
+        if(usuario != null) {
+            return UsuarioRs.converter(usuario);
         } else {
             throw new Exception("Usuário não encontrado");
         }
