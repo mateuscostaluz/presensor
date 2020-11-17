@@ -10,13 +10,7 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 public class PresenceControlUsingBluetoothBeaconApplication {
 
 	public static void main(String[] args) {
-		// SpringApplication.run(PresenceControlUsingBluetoothBeaconApplication.class, args);
-
-		String dts = DateTimeServices.getDateTimeFormatted();
-		Integer dow = DateTimeServices.getDayOfWeek();
-
-		System.out.println(dts);
-		System.out.println(dow);
+		SpringApplication.run(PresenceControlUsingBluetoothBeaconApplication.class, args);
 
 	}
 
