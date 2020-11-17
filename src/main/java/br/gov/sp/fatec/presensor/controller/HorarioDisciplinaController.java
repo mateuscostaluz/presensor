@@ -39,7 +39,7 @@ public class HorarioDisciplinaController {
         if(horarioDisciplina != null) {
             return HorarioDisciplinaRs.converter(horarioDisciplina);
         } else {
-            throw new Exception("Usuário não encontrado");
+            throw new Exception("Sem aula no momento");
         }
     }
 
