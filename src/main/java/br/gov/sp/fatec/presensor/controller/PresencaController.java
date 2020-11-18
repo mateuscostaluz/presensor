@@ -37,13 +37,13 @@ public class PresencaController {
     @RequestMapping(path = "/{raUsuario}/{idHorarioDisciplina}", method = RequestMethod.POST)
     public void savePresenca(@PathVariable("raUsuario") Long raUsuario, @PathVariable("idHorarioDisciplina") Long idHorarioDisciplina) throws Exception {
 
-        Optional<Presenca> presenca = Optional.ofNullable(presencaRepository.findPresencaByUsuarioAndHorarioDisciplinaAndDataHora(
+        Presenca presenca = presencaRepository.findPresencaByUsuarioAndHorarioDisciplinaAndDataHora(
                 raUsuario,
                 idHorarioDisciplina,
                 DateTimeServices.getLocalDate()
-        ));
+        );
 
-        if(presenca.isPresent()) {
+        if(presenca != null) {
             throw new Exception("Presença já registrada");
         }
 
