@@ -12,6 +12,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -37,15 +38,19 @@ public class PresencaController {
     @RequestMapping(path = "/{raUsuario}/{idHorarioDisciplina}", method = RequestMethod.POST)
     public void savePresenca(@PathVariable("raUsuario") Long raUsuario, @PathVariable("idHorarioDisciplina") Long idHorarioDisciplina) throws Exception {
 
+        Long raUsuarioQuery = raUsuario;
+        Long idHorarioDisciplinaQuery = idHorarioDisciplina;
+
+
         Presenca presenca = presencaRepository.findPresencaByUsuarioAndHorarioDisciplinaAndDataHora(
-                raUsuario,
-                idHorarioDisciplina,
+                raUsuarioQuery,
+                idHorarioDisciplinaQuery,
                 DateTimeServices.getLocalDate()
         );
 
         System.out.println(presenca.toString());
 
-        if(presenca != null) {
+        if(Objects.equals(raUsuario, presenca.getUsuario().getRa())) {
             throw new Exception("Presença já registrada");
         }
 
