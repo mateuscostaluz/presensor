@@ -11,6 +11,7 @@ import br.gov.sp.fatec.presensor.services.DateTimeServices;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -70,9 +71,12 @@ public class PresencaController {
                 DateTimeServices.getLocalDate()
         );
 
+        Date datePresencaSave = new Date(presencaSave.getDataHora().getTime());
+        Date datePresencaQuery = new Date(presencaQuery.getDataHora().getTime());
+
         if(Objects.equals(presencaSave.getUsuario().getRa(), presencaQuery.getUsuario().getRa()) &&
            Objects.equals(presencaSave.getHorarioDisciplina().getId(), presencaQuery.getHorarioDisciplina().getId()) &&
-           presencaSave.getDataHora().compareTo(presencaQuery.getDataHora()) == 0) {
+           datePresencaSave.compareTo(datePresencaQuery) == 0) {
             throw new Exception("Usuário já registrado");
         } else {
             presencaRepository.save(presencaSave);
