@@ -8,6 +8,7 @@ import br.gov.sp.fatec.presensor.repository.HorarioDisciplinaRepository;
 import br.gov.sp.fatec.presensor.repository.PresencaRepository;
 import br.gov.sp.fatec.presensor.repository.UsuarioRepository;
 import br.gov.sp.fatec.presensor.services.DateTimeServices;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -74,9 +75,13 @@ public class PresencaController {
         Date datePresencaSave = new Date(presencaSave.getDataHora().getTime());
         Date datePresencaQuery = new Date(presencaQuery.getDataHora().getTime());
 
-        if(Objects.equals(presencaSave.getUsuario().getRa(), presencaQuery.getUsuario().getRa()) &&
-           Objects.equals(presencaSave.getHorarioDisciplina().getId(), presencaQuery.getHorarioDisciplina().getId()) &&
-           datePresencaSave.compareTo(datePresencaQuery) == 0) {
+        boolean raUsuarioEquals = presencaSave.getUsuario().getRa().toString().equals(
+                                  presencaQuery.getUsuario().getRa().toString());
+        boolean idHorarioDisciplinaEquals = presencaSave.getHorarioDisciplina().getId().toString().equals(
+                                            presencaQuery.getHorarioDisciplina().getId().toString());
+        boolean dateEquals = (datePresencaSave.compareTo(datePresencaQuery) == 0);
+
+        if((raUsuarioEquals) && (idHorarioDisciplinaEquals) && (dateEquals)) {
             throw new Exception("Usuário já registrado");
         } else {
             presencaRepository.save(presencaSave);

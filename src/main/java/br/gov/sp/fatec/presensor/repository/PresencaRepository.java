@@ -16,7 +16,8 @@ public interface PresencaRepository extends JpaRepository<Presenca, Long> {
     @Query(value = "SELECT * FROM presencas " +
             "WHERE ra_usuario = :usuario " +
             "AND id_horario_disciplina = :horarioDisciplina " +
-            "AND DATE(data_hora) = :data", nativeQuery = true)
+            "AND DATE(data_hora) = :data " +
+            "LIMIT 1", nativeQuery = true)
     Presenca findPresencaByUsuarioAndHorarioDisciplinaAndDataHora (
             @Param("usuario") Usuario usuario,
             @Param("horarioDisciplina") HorarioDisciplina horarioDisciplina,
