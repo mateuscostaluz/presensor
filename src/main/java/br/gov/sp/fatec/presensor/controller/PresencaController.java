@@ -70,7 +70,9 @@ public class PresencaController {
                 DateTimeServices.getLocalDate()
         );
 
-        if(Objects.equals(presencaSave, presencaQuery)) {
+        if(Objects.equals(presencaSave.getUsuario().getRa(), presencaQuery.getUsuario().getRa()) &&
+           Objects.equals(presencaSave.getHorarioDisciplina().getId(), presencaQuery.getHorarioDisciplina().getId()) &&
+           presencaSave.getDataHora().compareTo(presencaQuery.getDataHora()) == 0) {
             throw new Exception("Usuário já registrado");
         } else {
             presencaRepository.save(presencaSave);
