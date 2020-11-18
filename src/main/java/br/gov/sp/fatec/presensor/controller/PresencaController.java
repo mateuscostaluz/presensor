@@ -43,6 +43,8 @@ public class PresencaController {
                 DateTimeServices.getLocalDate()
         );
 
+        System.out.println(presenca.toString());
+
         if(presenca != null) {
             throw new Exception("Presença já registrada");
         }
