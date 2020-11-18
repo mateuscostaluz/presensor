@@ -64,7 +64,7 @@ public class PresencaController {
         presencaSave.setHorarioDisciplina(horarioDisciplinaSave);
         presencaSave.setDataHora(DateTimeServices.geTimestamp());
 
-        Presenca presencaQuery = presencaRepository.findPresencaByRaUsuarioAndIdHorarioDisciplinaAndDataHora(
+        Presenca presencaQuery = presencaRepository.findPresencaByUsuarioAndHorarioDisciplinaAndDataHora(
                 usuarioSave,
                 horarioDisciplinaSave,
                 DateTimeServices.getLocalDate()
