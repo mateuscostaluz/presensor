@@ -59,8 +59,8 @@ public class PresencaController {
 
         Presenca presencaSave = new Presenca();
 
-        presencaSave.setUsuario(usuarioSave);
-        presencaSave.setHorarioDisciplina(horarioDisciplinaSave);
+        presencaSave.setRaUsuario(usuarioSave.getRa());
+        presencaSave.setIdHorarioDisciplina(horarioDisciplinaSave.getId());
         presencaSave.setData(DateTimeServices.getLocalDate());
         presencaRepository.save(presencaSave);
     }

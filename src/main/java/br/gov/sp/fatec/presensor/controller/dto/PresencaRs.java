@@ -12,15 +12,14 @@ import java.time.LocalDate;
 @Setter
 public class PresencaRs {
 
-    private Long id;
-    private Usuario usuario;
-    private HorarioDisciplina horarioDisciplina;
+    private Long raUsuario;
+    private Long idHorarioDisciplina;
     private LocalDate data;
 
     public static PresencaRs converter(Presenca p) {
         PresencaRs presencaRs = new PresencaRs();
-        presencaRs.setUsuario(p.getUsuario());
-        presencaRs.setHorarioDisciplina(p.getHorarioDisciplina());
+        presencaRs.setRaUsuario(p.getRaUsuario());
+        presencaRs.setIdHorarioDisciplina(p.getIdHorarioDisciplina());
         presencaRs.setData(p.getData());
         return presencaRs;
     }
