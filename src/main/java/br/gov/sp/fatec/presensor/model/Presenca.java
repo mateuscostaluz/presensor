@@ -20,7 +20,6 @@ public class Presenca {
     @JoinColumn(name = "id_horario_disciplina")
     private HorarioDisciplina horarioDisciplina;
 
-    @Id
     @Column(name = "data", nullable = false)
     private LocalDate data;
 
