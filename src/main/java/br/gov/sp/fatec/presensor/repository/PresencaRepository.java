@@ -1,6 +1,8 @@
 package br.gov.sp.fatec.presensor.repository;
 
+import br.gov.sp.fatec.presensor.model.HorarioDisciplina;
 import br.gov.sp.fatec.presensor.model.Presenca;
+import br.gov.sp.fatec.presensor.model.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -12,13 +14,13 @@ import java.time.LocalDate;
 public interface PresencaRepository extends JpaRepository<Presenca, Long> {
 
     @Query(value = "SELECT * FROM presencas " +
-            "WHERE ra_usuario = :ra_usuario " +
-            "AND id_horario_disciplina = :id_horario_disciplina " +
-            "AND DATE(data_hora) = :dataHora", nativeQuery = true)
+            "WHERE ra_usuario = :usuario " +
+            "AND id_horario_disciplina = :horarioDisciplina " +
+            "AND DATE(data_hora) = :data", nativeQuery = true)
     Presenca findPresencaByRaUsuarioAndIdHorarioDisciplinaAndDataHora (
-            @Param("raUsuario") Long raUsuario,
-            @Param("idHorario") Long idHorario,
-            @Param("dataHora") LocalDate dataHora
+            @Param("usuario") Usuario usuario,
+            @Param("horarioDisciplina") HorarioDisciplina horarioDisciplina,
+            @Param("data") LocalDate data
     );
 
 }

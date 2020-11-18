@@ -58,22 +58,23 @@ public class PresencaController {
             throw new Exception("Disciplina não encontrada");
         }
 
-        Presenca presenca = presencaRepository.findPresencaByRaUsuarioAndIdHorarioDisciplinaAndDataHora(
-                raUsuario,
-                idHorarioDisciplina,
-                DateTimeServices.getLocalDate()
-        );
-
-        if(Objects.equals(presenca.getUsuario().getRa(), raUsuario)) {
-            throw new Exception("Presença já registrada");
-        }
-
         Presenca presencaSave = new Presenca();
 
         presencaSave.setUsuario(usuarioSave);
         presencaSave.setHorarioDisciplina(horarioDisciplinaSave);
         presencaSave.setDataHora(DateTimeServices.geTimestamp());
-        presencaRepository.save(presencaSave);
+
+        Presenca presencaQuery = presencaRepository.findPresencaByRaUsuarioAndIdHorarioDisciplinaAndDataHora(
+                usuarioSave,
+                horarioDisciplinaSave,
+                DateTimeServices.getLocalDate()
+        );
+
+        if(Objects.equals(presencaSave, presencaQuery)) {
+            throw new Exception("Usuário já registrado");
+        } else {
+            presencaRepository.save(presencaSave);
+        }
     }
 
 }
