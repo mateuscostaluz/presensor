@@ -39,8 +39,6 @@ public class PresencaController {
 
         Optional<Usuario> usuario = usuarioRepository.findById(raUsuario);
 
-        System.out.println(usuario.toString());
-
         Usuario usuarioSave;
 
         if(usuario.isPresent()) {
