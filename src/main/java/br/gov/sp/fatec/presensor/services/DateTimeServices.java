@@ -24,10 +24,4 @@ public class DateTimeServices {
         return localDate;
     }
 
-    public static Timestamp geTimestamp() {
-        LocalDateTime localDateTime = LocalDateTime.now(ZoneId.of("America/Sao_Paulo"));
-        Timestamp timestamp = Timestamp.valueOf(localDateTime);
-        return timestamp;
-    }
-
 }

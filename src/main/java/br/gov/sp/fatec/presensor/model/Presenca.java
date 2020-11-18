@@ -4,7 +4,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.sql.Date;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -13,19 +15,17 @@ import java.sql.Timestamp;
 public class Presenca {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
-
     @ManyToOne
     @JoinColumn(name = "ra_usuario")
     private Usuario usuario;
 
+    @Id
     @ManyToOne
     @JoinColumn(name = "id_horario_disciplina")
     private HorarioDisciplina horarioDisciplina;
 
-    @Column(name = "data_hora", nullable = false)
-    private Timestamp dataHora;
+    @Id
+    @Column(name = "data", nullable = false)
+    private LocalDate data;
 
 }

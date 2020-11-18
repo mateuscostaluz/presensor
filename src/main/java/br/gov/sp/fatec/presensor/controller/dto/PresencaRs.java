@@ -6,7 +6,7 @@ import br.gov.sp.fatec.presensor.model.Usuario;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.sql.Timestamp;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -15,14 +15,13 @@ public class PresencaRs {
     private Long id;
     private Usuario usuario;
     private HorarioDisciplina horarioDisciplina;
-    private Timestamp dataHora;
+    private LocalDate data;
 
     public static PresencaRs converter(Presenca p) {
         PresencaRs presencaRs = new PresencaRs();
-        presencaRs.setId(p.getId());
         presencaRs.setUsuario(p.getUsuario());
         presencaRs.setHorarioDisciplina(p.getHorarioDisciplina());
-        presencaRs.setDataHora(p.getDataHora());
+        presencaRs.setData(p.getData());
         return presencaRs;
     }
 
