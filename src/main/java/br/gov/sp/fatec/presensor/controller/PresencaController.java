@@ -38,17 +38,11 @@ public class PresencaController {
     @RequestMapping(path = "/{raUsuario}/{idHorarioDisciplina}", method = RequestMethod.POST)
     public void savePresenca(@PathVariable("raUsuario") Long raUsuario, @PathVariable("idHorarioDisciplina") Long idHorarioDisciplina) throws Exception {
 
-        Long raUsuarioQuery = raUsuario;
-        Long idHorarioDisciplinaQuery = idHorarioDisciplina;
-
-
-        Presenca presenca = presencaRepository.findPresencaByUsuarioAndHorarioDisciplinaAndDataHora(
-                raUsuarioQuery,
-                idHorarioDisciplinaQuery,
+        Presenca presenca = presencaRepository.findPresencaByRaUsuarioAndIdHorarioDisciplinaAndDataHora(
+                raUsuario,
+                idHorarioDisciplina,
                 DateTimeServices.getLocalDate()
         );
-
-        System.out.println(presenca.toString());
 
         if(Objects.equals(raUsuario, presenca.getUsuario().getRa())) {
             throw new Exception("Presença já registrada");
