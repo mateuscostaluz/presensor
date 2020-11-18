@@ -38,16 +38,6 @@ public class PresencaController {
     @RequestMapping(path = "/{raUsuario}/{idHorarioDisciplina}", method = RequestMethod.POST)
     public void savePresenca(@PathVariable("raUsuario") Long raUsuario, @PathVariable("idHorarioDisciplina") Long idHorarioDisciplina) throws Exception {
 
-        Presenca presenca = presencaRepository.findPresencaByRaUsuarioAndIdHorarioDisciplinaAndDataHora(
-                raUsuario,
-                idHorarioDisciplina,
-                DateTimeServices.getLocalDate()
-        );
-
-        if(Objects.equals(raUsuario, presenca.getUsuario().getRa())) {
-            throw new Exception("Presença já registrada");
-        }
-
         Optional<Usuario> usuario = usuarioRepository.findById(raUsuario);
 
         Usuario usuarioSave;
@@ -66,6 +56,16 @@ public class PresencaController {
             horarioDisciplinaSave = horarioDisciplina.get();
         } else {
             throw new Exception("Disciplina não encontrada");
+        }
+
+        Presenca presenca = presencaRepository.findPresencaByRaUsuarioAndIdHorarioDisciplinaAndDataHora(
+                raUsuario,
+                idHorarioDisciplina,
+                DateTimeServices.getLocalDate()
+        );
+
+        if(Objects.equals(presenca.getUsuario().getRa(), raUsuario)) {
+            throw new Exception("Presença já registrada");
         }
 
         Presenca presencaSave = new Presenca();

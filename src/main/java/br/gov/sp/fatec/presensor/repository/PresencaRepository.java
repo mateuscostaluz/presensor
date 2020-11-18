@@ -14,11 +14,11 @@ public interface PresencaRepository extends JpaRepository<Presenca, Long> {
     @Query(value = "SELECT * FROM presencas " +
             "WHERE ra_usuario = :ra_usuario " +
             "AND id_horario_disciplina = :id_horario_disciplina " +
-            "AND DATE(data_hora) = :localDate", nativeQuery = true)
+            "AND DATE(data_hora) = :dataHora", nativeQuery = true)
     Presenca findPresencaByRaUsuarioAndIdHorarioDisciplinaAndDataHora (
             @Param("raUsuario") Long raUsuario,
             @Param("idHorario") Long idHorario,
-            @Param("idHorario") LocalDate localDate
+            @Param("dataHora") LocalDate dataHora
     );
 
 }
