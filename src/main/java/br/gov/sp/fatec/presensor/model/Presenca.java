@@ -3,8 +3,10 @@ package br.gov.sp.fatec.presensor.model;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.*;
-import java.sql.Timestamp;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -12,15 +14,13 @@ import java.sql.Timestamp;
 @Table(name = "presencas")
 public class Presenca {
 
-    @ManyToOne
-    @JoinColumn(name = "ra_usuario")
-    private Usuario usuario;
+    @Column(name = "ra_usuario", length = 20, nullable = false)
+    private Long raUsuario;
 
-    @ManyToOne
-    @JoinColumn(name = "id_horario_disciplina")
-    private HorarioDisciplina horarioDisciplina;
+    @Column(name = "id_horario_disciplina", length = 20, nullable = false)
+    private Long idHorarioDisciplina;
 
     @Column(name = "data", nullable = false)
-    private Timestamp dataHora;
+    private LocalDate data;
 
 }

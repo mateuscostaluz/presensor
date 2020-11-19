@@ -9,10 +9,11 @@ import br.gov.sp.fatec.presensor.repository.PresencaRepository;
 import br.gov.sp.fatec.presensor.repository.UsuarioRepository;
 import br.gov.sp.fatec.presensor.services.DateTimeServices;
 import lombok.AllArgsConstructor;
+import org.apache.tomcat.jni.Local;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Date;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -41,50 +42,47 @@ public class PresencaController {
 
         Optional<Usuario> usuario = usuarioRepository.findById(raUsuario);
 
-        Usuario usuarioSave;
+        if (!usuario.isPresent()) {
 
-        if(usuario.isPresent()) {
-            usuarioSave = usuario.get();
-        } else {
             throw new Exception("Usuário não encontrado");
-        }
 
-        Optional<HorarioDisciplina> horarioDisciplina = horarioDisciplinaRepository.findById(idHorarioDisciplina);
-
-        HorarioDisciplina horarioDisciplinaSave;
-
-        if(horarioDisciplina.isPresent()) {
-            horarioDisciplinaSave = horarioDisciplina.get();
         } else {
-            throw new Exception("Disciplina não encontrada");
+
+            Optional<HorarioDisciplina> horarioDisciplina = horarioDisciplinaRepository.findById(idHorarioDisciplina);
+
+            if (!horarioDisciplina.isPresent()) {
+
+                throw new Exception("Disciplina não encontrada");
+
+            } else {
+
+                LocalDate data = DateTimeServices.getLocalDate();
+
+                Presenca presenca = presencaRepository
+                        .findPresencaByRaUsuarioAndIdHorarioDisciplinaAndData
+                                (raUsuario, idHorarioDisciplina, data);
+
+                if (presenca.getRaUsuario().equals(raUsuario) &&
+                        presenca.getIdHorarioDisciplina().equals(idHorarioDisciplina) &&
+                        presenca.getData().equals(data)) {
+
+                    throw new Exception("Usuário já registrado");
+
+                } else {
+
+                    Presenca presencaSave = new Presenca();
+
+                    presencaSave.setRaUsuario(raUsuario);
+                    presencaSave.setIdHorarioDisciplina(idHorarioDisciplina);
+                    presencaSave.setData(data);
+                    presencaRepository.save(presencaSave);
+
+                }
+
+            }
+
         }
 
-        Presenca presencaSave = new Presenca();
-
-        presencaSave.setUsuario(usuarioSave);
-        presencaSave.setHorarioDisciplina(horarioDisciplinaSave);
-        presencaSave.setData(DateTimeServices.getLocalDate());
-
-        Presenca presencaQuery = presencaRepository.findPresencaByUsuarioAndHorarioDisciplinaAndDataHora(
-                usuarioSave,
-                horarioDisciplinaSave,
-                DateTimeServices.getLocalDate()
-        );
-
-        LocalDate datePresencaSave = presencaSave.getData();
-        LocalDate datePresencaQuery = presencaQuery.getData();
-
-        boolean raUsuarioEquals = presencaSave.getUsuario().getRa().toString().equals(
-                                  presencaQuery.getUsuario().getRa().toString());
-        boolean idHorarioDisciplinaEquals = presencaSave.getHorarioDisciplina().getId().toString().equals(
-                                            presencaQuery.getHorarioDisciplina().getId().toString());
-        boolean dateEquals = (datePresencaSave.compareTo(datePresencaQuery) == 0);
-
-        if((raUsuarioEquals) && (idHorarioDisciplinaEquals) && (dateEquals)) {
-            throw new Exception("Usuário já registrado");
-        } else {
-            presencaRepository.save(presencaSave);
-        }
     }
 
 }
