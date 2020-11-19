@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.time.LocalDate;
 
 @Repository
-public interface PresencaRepository extends JpaRepository<Presenca, Long> {
+public interface PresencaRepository extends JpaRepository<Presenca, Presenca> {
 
     @Query(value = "SELECT * FROM presencas " +
             "WHERE ra_usuario = :ra_usuario " +
