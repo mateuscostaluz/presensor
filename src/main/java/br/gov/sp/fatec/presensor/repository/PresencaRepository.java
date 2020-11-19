@@ -12,9 +12,9 @@ import java.time.LocalDate;
 public interface PresencaRepository extends JpaRepository<Presenca, Presenca> {
 
     @Query(value = "SELECT * FROM presencas " +
-            "WHERE ra_usuario = :ra_usuario " +
-            "AND id_horario_disciplina = :id_horario_disciplina " +
-            "AND data = :data", nativeQuery = true)
+                   "WHERE ra_usuario = :ra_usuario " +
+                   "AND id_horario_disciplina = :id_horario_disciplina " +
+                   "AND data = :data", nativeQuery = true)
     Presenca findPresencaByRaUsuarioAndIdHorarioDisciplinaAndData(
             @Param("ra_usuario") Long raUsuario,
             @Param("id_horario_disciplina") Long idHorarioDisciplina,
