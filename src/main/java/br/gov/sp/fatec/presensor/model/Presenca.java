@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 import java.time.LocalDate;
 
@@ -14,12 +15,15 @@ import java.time.LocalDate;
 @Table(name = "presencas")
 public class Presenca {
 
+    @Id
     @Column(name = "ra_usuario", length = 20, nullable = false)
     private Long raUsuario;
 
+    @Id
     @Column(name = "id_horario_disciplina", length = 20, nullable = false)
     private Long idHorarioDisciplina;
 
+    @Id
     @Column(name = "data", nullable = false)
     private LocalDate data;
 
