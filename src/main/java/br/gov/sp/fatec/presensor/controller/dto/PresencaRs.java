@@ -10,7 +10,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
-import java.util.Optional;
 
 @Getter
 @Setter
@@ -27,24 +26,15 @@ public class PresencaRs {
 
         PresencaRs presencaRs = new PresencaRs();
 
-        Optional<Usuario> u = usuarioRepository.findById(p.getRaUsuario());
+        Usuario usuario = usuarioRepository.getOne(p.getRaUsuario());
 
-        if (u.isPresent()) {
-            Usuario usuario = u.get();
-            presencaRs.setUsuario(usuario);
-        }
-
-        Optional<HorarioDisciplina> hd = horarioDisciplinaRepository.findById(p.getIdHorarioDisciplina());
-
-        if (hd.isPresent()) {
-            HorarioDisciplina horarioDisciplina = hd.get();
-            presencaRs.setHorarioDisciplina(horarioDisciplina);
-        }
+        HorarioDisciplina horarioDisciplina = horarioDisciplinaRepository.getOne(p.getIdHorarioDisciplina());
 
         LocalDate data = DateTimeServices.getLocalDate();
 
+        presencaRs.setUsuario(usuario);
+        presencaRs.setHorarioDisciplina(horarioDisciplina);
         presencaRs.setData(data);
-
         return presencaRs;
     }
 
