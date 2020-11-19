@@ -32,9 +32,9 @@ public class PresencaController {
     public List<PresencaRs> findAll() {
         List<Presenca> presencas = presencaRepository.findAll();
         return presencas
-                .stream()
-                .map(PresencaRs::converter)
-                .collect(Collectors.toList());
+               .stream()
+               .map(PresencaRs::converter)
+               .collect(Collectors.toList());
     }
 
     @RequestMapping(path = "/{raUsuario}/{idHorarioDisciplina}", method = RequestMethod.POST)
