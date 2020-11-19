@@ -12,13 +12,13 @@ import java.time.LocalDate;
 @Table(name = "presencas")
 public class Presenca {
 
-    @Id
-    @Column(name = "ra_usuario", nullable = false)
-    private Long raUsuario;
+    @ManyToOne
+    @PrimaryKeyJoinColumn(name = "ra_usuario")
+    private Usuario usuario;
 
-    @Id
-    @Column(name = "id_horario_disciplina", nullable = false)
-    private Long idHorarioDisciplina;
+    @ManyToOne
+    @PrimaryKeyJoinColumn(name = "id_horario_disciplina")
+    private HorarioDisciplina horarioDisciplina;
 
     @Id
     @Column(name = "data", nullable = false)
