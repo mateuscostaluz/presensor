@@ -11,6 +11,8 @@ import br.gov.sp.fatec.presensor.services.DateTimeServices;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -62,7 +64,27 @@ public class PresencaController {
         presencaSave.setUsuario(usuarioSave);
         presencaSave.setHorarioDisciplina(horarioDisciplinaSave);
         presencaSave.setData(DateTimeServices.getLocalDate());
-        presencaRepository.save(presencaSave);
+
+        Presenca presencaQuery = presencaRepository.findPresencaByUsuarioAndHorarioDisciplinaAndDataHora(
+                usuarioSave,
+                horarioDisciplinaSave,
+                DateTimeServices.getLocalDate()
+        );
+
+        LocalDate datePresencaSave = presencaSave.getData();
+        LocalDate datePresencaQuery = presencaQuery.getData();
+
+        boolean raUsuarioEquals = presencaSave.getUsuario().getRa().toString().equals(
+                                  presencaQuery.getUsuario().getRa().toString());
+        boolean idHorarioDisciplinaEquals = presencaSave.getHorarioDisciplina().getId().toString().equals(
+                                            presencaQuery.getHorarioDisciplina().getId().toString());
+        boolean dateEquals = (datePresencaSave.compareTo(datePresencaQuery) == 0);
+
+        if((raUsuarioEquals) && (idHorarioDisciplinaEquals) && (dateEquals)) {
+            throw new Exception("Usuário já registrado");
+        } else {
+            presencaRepository.save(presencaSave);
+        }
     }
 
 }
