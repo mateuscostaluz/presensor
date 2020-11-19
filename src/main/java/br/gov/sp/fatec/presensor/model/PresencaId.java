@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 @AllArgsConstructor
 @Getter
@@ -13,5 +14,6 @@ public class PresencaId implements Serializable {
 
     private Long raUsuario;
     private Long idHorarioDisciplina;
+    private LocalDate data;
 
 }
