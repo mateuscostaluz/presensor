@@ -7,13 +7,14 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.io.Serializable;
 import java.time.LocalDate;
 
 @Getter
 @Setter
 @Entity
 @Table(name = "presencas")
-public class Presenca {
+public class Presenca implements Serializable {
 
     @Id
     @Column(name = "ra_usuario", length = 20, nullable = false)

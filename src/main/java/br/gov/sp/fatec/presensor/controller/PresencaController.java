@@ -43,44 +43,30 @@ public class PresencaController {
         Optional<Usuario> usuario = usuarioRepository.findById(raUsuario);
 
         if (!usuario.isPresent()) {
-
             throw new Exception("Usuário não encontrado");
+        }
 
+        Optional<HorarioDisciplina> horarioDisciplina = horarioDisciplinaRepository.findById(idHorarioDisciplina);
+
+        if (!horarioDisciplina.isPresent()) {
+            throw new Exception("Disciplina não encontrada");
+        }
+
+        LocalDate data = DateTimeServices.getLocalDate();
+
+        Presenca presenca = presencaRepository
+                .findPresencaByRaUsuarioAndIdHorarioDisciplinaAndData
+                        (raUsuario, idHorarioDisciplina, data);
+
+        if (presenca == null) {
+            Presenca presencaSave = new Presenca();
+
+            presencaSave.setRaUsuario(raUsuario);
+            presencaSave.setIdHorarioDisciplina(idHorarioDisciplina);
+            presencaSave.setData(data);
+            presencaRepository.save(presencaSave);
         } else {
-
-            Optional<HorarioDisciplina> horarioDisciplina = horarioDisciplinaRepository.findById(idHorarioDisciplina);
-
-            if (!horarioDisciplina.isPresent()) {
-
-                throw new Exception("Disciplina não encontrada");
-
-            } else {
-
-                LocalDate data = DateTimeServices.getLocalDate();
-
-                Presenca presenca = presencaRepository
-                        .findPresencaByRaUsuarioAndIdHorarioDisciplinaAndData
-                                (raUsuario, idHorarioDisciplina, data);
-
-                if (presenca.getRaUsuario().equals(raUsuario) &&
-                        presenca.getIdHorarioDisciplina().equals(idHorarioDisciplina) &&
-                        presenca.getData().equals(data)) {
-
-                    throw new Exception("Usuário já registrado");
-
-                } else {
-
-                    Presenca presencaSave = new Presenca();
-
-                    presencaSave.setRaUsuario(raUsuario);
-                    presencaSave.setIdHorarioDisciplina(idHorarioDisciplina);
-                    presencaSave.setData(data);
-                    presencaRepository.save(presencaSave);
-
-                }
-
-            }
-
+            throw new Exception("Usuário já registrado");
         }
 
     }
