@@ -4,14 +4,14 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.time.LocalDate;
 
 @Getter
 @Setter
 @Entity
 @Table(name = "presencas")
-public class Presenca implements Serializable {
+@IdClass(PresencaId.class)
+public class Presenca {
 
     @ManyToOne
     @Id
