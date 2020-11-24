@@ -43,7 +43,7 @@ public class HorarioDisciplinaController {
         if(horarioDisciplina != null) {
             return new ResponseEntity(horarioDisciplina, HttpStatus.OK);
         } else {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
         }
     }
 

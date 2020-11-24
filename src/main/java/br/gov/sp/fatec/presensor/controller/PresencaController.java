@@ -9,11 +9,9 @@ import br.gov.sp.fatec.presensor.repository.PresencaRepository;
 import br.gov.sp.fatec.presensor.repository.UsuarioRepository;
 import br.gov.sp.fatec.presensor.services.DateTimeServices;
 import lombok.AllArgsConstructor;
-import org.apache.tomcat.jni.Local;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
