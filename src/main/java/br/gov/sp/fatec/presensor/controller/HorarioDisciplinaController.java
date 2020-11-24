@@ -6,7 +6,10 @@ import br.gov.sp.fatec.presensor.model.HorarioDisciplina;
 import br.gov.sp.fatec.presensor.repository.HorarioDisciplinaRepository;
 import br.gov.sp.fatec.presensor.services.DateTimeServices;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,17 +32,18 @@ public class HorarioDisciplinaController {
                 .collect(Collectors.toList());
     }
 
-    @GetMapping("/atual")
-    public HorarioDisciplinaRs findHorarioDisciplinaByDiaSemanaAndHorario() throws Exception {
+    @GetMapping("/atual/{beacon}")
+    public ResponseEntity<HorarioDisciplinaRs> findHorarioDisciplinaByDiaSemanaAndHorario(@PathVariable("beacon") String beacon) throws Exception {
         HorarioDisciplina horarioDisciplina = horarioDisciplinaRepository
                 .findHorarioDisciplinaByDiaSemanaAndHorarioNamedParams(
                 DateTimeServices.getDayOfWeek(),
-                DateTimeServices.getLocalTime());
+                DateTimeServices.getLocalTime(),
+                beacon);
 
         if(horarioDisciplina != null) {
-            return HorarioDisciplinaRs.converter(horarioDisciplina);
+            return new ResponseEntity(horarioDisciplina, HttpStatus.OK);
         } else {
-            throw new Exception("Sem aula no momento");
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
     }
 

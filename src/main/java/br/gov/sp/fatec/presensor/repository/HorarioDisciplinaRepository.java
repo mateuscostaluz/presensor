@@ -14,10 +14,12 @@ public interface HorarioDisciplinaRepository extends JpaRepository<HorarioDiscip
     @Query(value = "SELECT * FROM horario_disciplinas " +
                    "WHERE id_dia_semana = :diaSemana " +
                    "AND horario_inicio <= :horario " +
-                   "AND horario_fim >= :horario", nativeQuery = true)
+                   "AND horario_fim >= :horario " +
+                   "AND uuid_beacon_sala = :beacon", nativeQuery = true)
     HorarioDisciplina findHorarioDisciplinaByDiaSemanaAndHorarioNamedParams(
             @Param("diaSemana") Integer diaSemana,
-            @Param("horario") LocalTime horario
+            @Param("horario") LocalTime horario,
+            @Param("beacon") String beacon
     );
 
 }
