@@ -9,7 +9,7 @@ import java.sql.Time;
 @Getter
 @Setter
 @Entity
-@Table(name = "horario_disciplinas")
+@Table(name = "horarios_disciplinas")
 public class HorarioDisciplina {
 
     @Id

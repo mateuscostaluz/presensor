@@ -9,20 +9,21 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @Entity
-@IdClass(PresencaId.class)
 @Table(name = "presencas")
 public class Presenca {
 
     @Id
-    @Column(name = "ra_usuario", length = 20, nullable = false)
-    private Long raUsuario;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
 
-    @Id
-    @Column(name = "id_horario_disciplina", length = 20, nullable = false)
-    private Long idHorarioDisciplina;
+    @JoinColumn(name = "ra_usuario", unique = true, nullable = false)
+    private Usuario usuario;
 
-    @Id
-    @Column(name = "data", nullable = false)
+    @JoinColumn(name = "id_horario_disciplina", unique = true, nullable = false)
+    private HorarioDisciplina horarioDisciplina;
+
+    @Column(name = "data", unique = true, nullable = false)
     private LocalDate data;
 
 }

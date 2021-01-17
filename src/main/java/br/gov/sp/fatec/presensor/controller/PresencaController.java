@@ -23,7 +23,6 @@ public class PresencaController {
 
     private final UsuarioRepository usuarioRepository;
     private final HorarioDisciplinaRepository horarioDisciplinaRepository;
-
     private final PresencaRepository presencaRepository;
 
     @GetMapping("/")
@@ -59,8 +58,8 @@ public class PresencaController {
         if (presenca == null) {
             Presenca presencaSave = new Presenca();
 
-            presencaSave.setRaUsuario(raUsuario);
-            presencaSave.setIdHorarioDisciplina(idHorarioDisciplina);
+            presencaSave.setUsuario(usuario.get());
+            presencaSave.setHorarioDisciplina(horarioDisciplina.get());
             presencaSave.setData(data);
             presencaRepository.save(presencaSave);
         } else {
