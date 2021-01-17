@@ -17,9 +17,11 @@ public class Presenca {
     @Column(name = "id")
     private Long id;
 
-    @JoinColumn(name = "ra_usuario", unique = true, nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "ra_usuario")
     private Usuario usuario;
 
+    @ManyToOne
     @JoinColumn(name = "id_horario_disciplina", unique = true, nullable = false)
     private HorarioDisciplina horarioDisciplina;
 
