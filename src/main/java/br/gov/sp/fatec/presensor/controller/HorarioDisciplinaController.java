@@ -27,7 +27,7 @@ public class HorarioDisciplinaController {
     private final HorarioDisciplinaRepository horarioDisciplinaRepository;
 
     @GetMapping("/")
-    public ResponseEntity<List<JSONObject>> findAll() {
+    public ResponseEntity<> findAll() {
         List<HorarioDisciplina> horarioDisciplinasList = horarioDisciplinaRepository.findAll();
 
         List<JSONObject> horarioDisciplinas = new ArrayList<JSONObject>();
@@ -39,6 +39,7 @@ public class HorarioDisciplinaController {
             horarioDisciplina.put("dia_semana", hd.getDiaSemana().getDia());
             horarioDisciplina.put("inicio", hd.getHorarioInicio());
             horarioDisciplina.put("fim", hd.getHorarioFim());
+            horarioDisciplinas.add(horarioDisciplina);
         }
 
         if(horarioDisciplinas != null) {
