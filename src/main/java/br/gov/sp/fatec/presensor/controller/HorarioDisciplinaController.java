@@ -27,23 +27,16 @@ public class HorarioDisciplinaController {
     private final HorarioDisciplinaRepository horarioDisciplinaRepository;
 
     @GetMapping("/")
-    public ResponseEntity<Object> findAll() {
-        List<HorarioDisciplina> horarioDisciplinasList = horarioDisciplinaRepository.findAll();
+    public ResponseEntity<HorarioDisciplinaRs> findAll() {
+        List<HorarioDisciplina> horarioDisciplinas = horarioDisciplinaRepository.findAll();
 
-        List<JSONObject> horarioDisciplinas = new ArrayList<JSONObject>();
-        for (HorarioDisciplina hd : horarioDisciplinasList) {
-            JSONObject horarioDisciplina = new JSONObject();
-            horarioDisciplina.put("id", hd.getId());
-            horarioDisciplina.put("nome_disciplina", hd.getDisciplina().getNome());
-            horarioDisciplina.put("numero_sala", hd.getSala().getNumero());
-            horarioDisciplina.put("dia_semana", hd.getDiaSemana().getDia());
-            horarioDisciplina.put("inicio", hd.getHorarioInicio());
-            horarioDisciplina.put("fim", hd.getHorarioFim());
-            horarioDisciplinas.add(horarioDisciplina);
-        }
+        List<HorarioDisciplinaRs> horarioDisciplinaRs = horarioDisciplinas
+                                                        .stream()
+                                                        .map(HorarioDisciplinaRs::converter)
+                                                        .collect(Collectors.toList());
 
-        if(horarioDisciplinas != null) {
-            return new ResponseEntity<>(horarioDisciplinas, HttpStatus.OK);
+        if(horarioDisciplinaRs != null) {
+            return new ResponseEntity(horarioDisciplinaRs, HttpStatus.OK);)
         } else {
             return new ResponseEntity(HttpStatus.NO_CONTENT);
         }
@@ -51,14 +44,17 @@ public class HorarioDisciplinaController {
 
     @GetMapping("/atual/{beacon}")
     public ResponseEntity<HorarioDisciplinaRs> findHorarioDisciplinaByDiaSemanaAndHorario(@PathVariable("beacon") String beacon) {
+
         HorarioDisciplina horarioDisciplina = horarioDisciplinaRepository
                 .findHorarioDisciplinaByDiaSemanaAndHorarioNamedParams(
                 DateTimeServices.getDayOfWeek(),
                 DateTimeServices.getLocalTime(),
                 beacon);
 
+        HorarioDisciplinaRs horarioDisciplinaRs = HorarioDisciplinaRs.converter(horarioDisciplina);
+
         if(horarioDisciplina != null) {
-            return new ResponseEntity(horarioDisciplina, HttpStatus.OK);
+            return new ResponseEntity(horarioDisciplinaRs, HttpStatus.OK);
         } else {
             return new ResponseEntity(HttpStatus.NO_CONTENT);
         }

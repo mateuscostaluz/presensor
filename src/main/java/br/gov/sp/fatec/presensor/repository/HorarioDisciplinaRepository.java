@@ -11,7 +11,7 @@ import java.time.LocalTime;
 @Repository
 public interface HorarioDisciplinaRepository extends JpaRepository<HorarioDisciplina, Long> {
 
-    @Query(value = "SELECT * FROM horario_disciplinas " +
+    @Query(value = "SELECT * FROM horarios_disciplinas " +
                    "WHERE id_dia_semana = :diaSemana " +
                    "AND horario_inicio <= :horario " +
                    "AND horario_fim >= :horario " +
