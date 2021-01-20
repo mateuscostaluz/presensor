@@ -27,7 +27,7 @@ public class HorarioDisciplinaController {
     private final HorarioDisciplinaRepository horarioDisciplinaRepository;
 
     @GetMapping("/")
-    public ResponseEntity<Object> findAll() {
+    public ResponseEntity<List<HorarioDisciplinaRs>> findAll() {
         List<HorarioDisciplina> horarioDisciplinas = horarioDisciplinaRepository.findAll();
 
         List<HorarioDisciplinaRs> horarioDisciplinaRs = horarioDisciplinas
@@ -36,7 +36,7 @@ public class HorarioDisciplinaController {
                                                         .collect(Collectors.toList());
 
         if(horarioDisciplinaRs != null) {
-            return new ResponseEntity<>(horarioDisciplinaRs, HttpStatus.OK);
+            return new ResponseEntity(horarioDisciplinaRs, HttpStatus.OK);
         } else {
             return new ResponseEntity(HttpStatus.NO_CONTENT);
         }
