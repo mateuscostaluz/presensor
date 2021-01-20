@@ -33,7 +33,7 @@ public class HorarioDisciplinaController {
     }
 
     @GetMapping("/atual/{beacon}")
-    public ResponseEntity<HorarioDisciplinaRs> findHorarioDisciplinaByDiaSemanaAndHorario(@PathVariable("beacon") String beacon) throws Exception {
+    public ResponseEntity<HorarioDisciplinaRs> findHorarioDisciplinaByDiaSemanaAndHorario(@PathVariable("beacon") String beacon) {
         HorarioDisciplina horarioDisciplina = horarioDisciplinaRepository
                 .findHorarioDisciplinaByDiaSemanaAndHorarioNamedParams(
                 DateTimeServices.getDayOfWeek(),
