@@ -36,7 +36,7 @@ public class HorarioDisciplinaController {
                                                         .collect(Collectors.toList());
 
         if(horarioDisciplinaRs != null) {
-            return new ResponseEntity(horarioDisciplinaRs, HttpStatus.OK);)
+            return new ResponseEntity(horarioDisciplinaRs, HttpStatus.OK);
         } else {
             return new ResponseEntity(HttpStatus.NO_CONTENT);
         }
