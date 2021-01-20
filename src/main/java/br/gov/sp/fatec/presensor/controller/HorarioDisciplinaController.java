@@ -27,7 +27,7 @@ public class HorarioDisciplinaController {
     private final HorarioDisciplinaRepository horarioDisciplinaRepository;
 
     @GetMapping("/")
-    public ResponseEntity<> findAll() {
+    public ResponseEntity<Object> findAll() {
         List<HorarioDisciplina> horarioDisciplinasList = horarioDisciplinaRepository.findAll();
 
         List<JSONObject> horarioDisciplinas = new ArrayList<JSONObject>();
