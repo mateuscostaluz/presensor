@@ -34,6 +34,18 @@ public class PresencaController {
                .collect(Collectors.toList());
     }
 
+    @GetMapping("/")
+    public List<PresencaRs> findByFilter(
+            @RequestParam(value = "disciplina", required = false) String disciplina,
+            @RequestParam("sala", required = false) Integer sala,
+            @RequestParam("data", required = false) LocalDate data) {
+        List<Presenca> presencas = (List<Presenca>) presencaRepository.findPresencaByDisciplinaAndSalaAndData(disciplina, sala, data);
+        return presencas
+                .stream()
+                .map(PresencaRs::converter)
+                .collect(Collectors.toList());
+    }
+
     @RequestMapping(path = "/{raUsuario}/{idHorarioDisciplina}", method = RequestMethod.POST)
     public void savePresenca(@PathVariable("raUsuario") Long raUsuario, @PathVariable("idHorarioDisciplina") Long idHorarioDisciplina) throws Exception {
 

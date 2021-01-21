@@ -48,10 +48,8 @@ public class HorarioDisciplinaController {
                 DateTimeServices.getLocalTime(),
                 beacon);
 
-        HorarioDisciplinaRs horarioDisciplinaRs = HorarioDisciplinaRs.converter(horarioDisciplina);
-
         if(horarioDisciplina != null) {
-            return new ResponseEntity(horarioDisciplinaRs, HttpStatus.OK);
+            return new ResponseEntity(HorarioDisciplinaRs.converter(horarioDisciplina), HttpStatus.OK);
         } else {
             return new ResponseEntity(HttpStatus.NO_CONTENT);
         }
