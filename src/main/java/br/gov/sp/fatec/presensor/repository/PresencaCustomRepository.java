@@ -10,7 +10,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 @AllArgsConstructor
 @Repository
@@ -49,15 +48,12 @@ public class PresencaCustomRepository {
         TypedQuery<Presenca> q = em.createQuery(query, Presenca.class);
 
         if(disciplina != null) {
-            Optional<Disciplina> disciplinaOptional = disciplinaRepository.findById(disciplina);
-            if(disciplinaOptional.isPresent()) {
-                Disciplina disciplinaObject = disciplinaOptional.get();
-                q.setParameter("disciplina", disciplinaObject);
-            }
+            Disciplina disciplinaObject = disciplinaRepository.findDisciplinaByBySiglaNamedParam(disciplina);
+            q.setParameter("disciplina", disciplinaObject);
         }
 
         if(sala != null) {
-            Sala salaObject = salaRepository.findSalaByNumeroNamedParams(sala);
+            Sala salaObject = salaRepository.findSalaByNumeroNamedParam(sala);
             q.setParameter("sala", salaObject);
         }
 
