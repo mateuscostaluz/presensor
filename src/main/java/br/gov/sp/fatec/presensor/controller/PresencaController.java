@@ -34,7 +34,7 @@ public class PresencaController {
                .collect(Collectors.toList());
     }
 
-    @GetMapping("/")
+    @GetMapping("")
     public List<PresencaRs> findByFilter(
             @RequestParam(value = "disciplina", required = false) String disciplina,
             @RequestParam(value = "sala", required = false) Integer sala,
