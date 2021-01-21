@@ -39,7 +39,7 @@ public class PresencaController {
                                        .map(PresencaRs::converter)
                                        .collect(Collectors.toList());
 
-        if(presencasRs != null) {
+        if(presencasRs.isEmpty()) {
             return new ResponseEntity(presencasRs, HttpStatus.OK);
         } else {
             return new ResponseEntity(HttpStatus.NO_CONTENT);
@@ -51,14 +51,20 @@ public class PresencaController {
             @RequestParam(value = "disciplina", required = false) String disciplina,
             @RequestParam(value = "sala", required = false) Integer sala,
             @RequestParam(value = "data", required = false) String data) {
-        List<Presenca> presencas = presencaCustomRepository.find(disciplina, sala, LocalDate.parse(data));
+        List<Presenca> presencas;
+
+        if(data != null) {
+            presencas = presencaCustomRepository.find(disciplina, sala, LocalDate.parse(data));
+        } else {
+            presencas = presencaCustomRepository.find(disciplina, sala, null);
+        }
 
         List<PresencaRs> presencasRs = presencas
                                        .stream()
                                        .map(PresencaRs::converter)
                                        .collect(Collectors.toList());
 
-        if(presencasRs != null) {
+        if(presencasRs.isEmpty()) {
             return new ResponseEntity(presencasRs, HttpStatus.OK);
         } else {
             return new ResponseEntity(HttpStatus.NO_CONTENT);

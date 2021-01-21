@@ -15,12 +15,12 @@ public class PresencaCustomRepository {
 
     private final EntityManager em;
 
-    public List<Presenca> find(String disciplina, Integer sala, LocalDate dataPresenca) {
+    public List<Presenca> find(String disciplina, Integer sala, LocalDate data) {
 
-        String query = "SELECT p FROM presencas p WHERE p.id IN (" +
-                "SELECT p.id FROM presencas p " +
-                "JOIN horarios_disciplinas hd ON p.id_horario_disciplina = hd.id " +
-                "JOIN salas s ON hd.uuid_beacon_sala = s.uuid_beacon";
+        String query = "SELECT ps FROM presencas ps WHERE ps.id IN (" +
+                           "SELECT ps.id FROM presencas p " +
+                           "JOIN horarios_disciplinas hd ON p.id_horario_disciplina = hd.id " +
+                           "JOIN salas s ON hd.uuid_beacon_sala = s.uuid_beacon";
 
         String condicao = " WHERE ";
 
@@ -34,8 +34,8 @@ public class PresencaCustomRepository {
             condicao = " AND ";
         }
 
-        if(dataPresenca != null) {
-            query += condicao + "p.data_presenca = :dataPresenca";
+        if(data != null) {
+            query += condicao + "p.data_presenca = :data_presenca";
         }
 
         query += ")";
@@ -50,8 +50,8 @@ public class PresencaCustomRepository {
             q.setParameter("sala", sala);
         }
 
-        if(dataPresenca != null) {
-            q.setParameter("data_presenca", dataPresenca);
+        if(data != null) {
+            q.setParameter("data_presenca", data);
         }
 
         return q.getResultList();

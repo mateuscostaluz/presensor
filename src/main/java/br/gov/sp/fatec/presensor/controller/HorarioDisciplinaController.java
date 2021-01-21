@@ -32,7 +32,7 @@ public class HorarioDisciplinaController {
                                                          .map(HorarioDisciplinaRs::converter)
                                                          .collect(Collectors.toList());
 
-        if(horarioDisciplinasRs != null) {
+        if(horarioDisciplinasRs.isEmpty()) {
             return new ResponseEntity(horarioDisciplinasRs, HttpStatus.OK);
         } else {
             return new ResponseEntity(HttpStatus.NO_CONTENT);

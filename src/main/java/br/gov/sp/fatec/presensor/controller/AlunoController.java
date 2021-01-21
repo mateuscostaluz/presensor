@@ -20,13 +20,12 @@ public class AlunoController {
 
     @GetMapping("")
     public ResponseEntity<AlunoRs> findAlunoByEmailAndSenha(
-            @RequestParam(value = "email", required = true) String email,
-            @RequestParam(value = "senha", required = true) String senha) {
+            @RequestParam(value = "email") String email,
+            @RequestParam(value = "senha") String senha) {
         Aluno aluno = alunoRepository.findAlunoByEmailAndSenha(email, senha);
 
-        AlunoRs alunoRs = AlunoRs.converter(aluno);
-
-        if(alunoRs != null) {
+        if(aluno != null) {
+            AlunoRs alunoRs = AlunoRs.converter(aluno);
             return new ResponseEntity(alunoRs, HttpStatus.OK);
         } else {
             return new ResponseEntity(HttpStatus.NO_CONTENT);
