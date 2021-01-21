@@ -49,13 +49,12 @@ public class PresencaCustomRepository {
 
         if(disciplina != null) {
             Disciplina disciplinaObject = disciplinaRepository.findDisciplinaByBySiglaNamedParam(disciplina);
+            System.out.println(disciplinaObject.getNome());
             q.setParameter("disciplina", disciplinaObject);
         }
 
         if(sala != null) {
-            System.out.println(sala.toString());
             Sala salaObject = salaRepository.findSalaByNumeroNamedParam(sala);
-            System.out.println(salaObject.toString());
             q.setParameter("sala", salaObject);
         }
 
