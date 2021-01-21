@@ -53,8 +53,7 @@ public class PresencaCustomRepository {
         }
 
         if(sala != null) {
-            Sala salaObject = salaRepository.findSalaByNumeroNamedParam(sala);
-            q.setParameter("sala", salaObject.getNumero());
+            q.setParameter("sala", sala);
         }
 
         if(dataPresenca != null) {
