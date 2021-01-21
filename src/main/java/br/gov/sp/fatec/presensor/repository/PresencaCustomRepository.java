@@ -40,6 +40,10 @@ public class PresencaCustomRepository {
 
         query += ")";
 
+        System.out.println();
+        System.out.println(query);
+        System.out.println();
+
         var q = em.createQuery(query, Presenca.class);
 
         if(disciplina != null) {
@@ -53,6 +57,10 @@ public class PresencaCustomRepository {
         if(data != null) {
             q.setParameter("data_presenca", data);
         }
+
+        System.out.println();
+        System.out.println(query);
+        System.out.println();
 
         return q.getResultList();
     }
