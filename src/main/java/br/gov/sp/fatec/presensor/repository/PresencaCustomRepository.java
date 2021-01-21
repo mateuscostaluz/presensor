@@ -54,9 +54,7 @@ public class PresencaCustomRepository {
 
         if(sala != null) {
             Sala salaObject = salaRepository.findSalaByNumeroNamedParam(sala);
-            System.out.println("VALOR DA SALA ENCONTRADA " + salaObject.getUuidBeacon());
-            q.setParameter("sala", salaObject);
-            System.out.println(q.toString());
+            q.setParameter("sala", salaObject.getNumero());
         }
 
         if(dataPresenca != null) {
