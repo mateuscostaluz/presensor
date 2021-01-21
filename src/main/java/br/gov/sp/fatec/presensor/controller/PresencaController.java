@@ -80,18 +80,18 @@ public class PresencaController {
             return new ResponseEntity("Disciplina não encontrada", HttpStatus.NOT_FOUND);
         }
 
-        LocalDate data = DateTimeServices.getLocalDate();
+        LocalDate dataPresenca = DateTimeServices.getLocalDate();
 
         Presenca presenca = presencaRepository
                 .findPresencaByRaAlunoAndIdHorarioDisciplinaAndData
-                        (raAluno, idHorarioDisciplina, data);
+                        (raAluno, idHorarioDisciplina, dataPresenca);
 
         if (presenca == null) {
             Presenca presencaSave = new Presenca();
 
             presencaSave.setAluno(aluno.get());
             presencaSave.setHorarioDisciplina(horarioDisciplina.get());
-            presencaSave.setData(data);
+            presencaSave.setDataPresenca(dataPresenca);
             presencaRepository.save(presencaSave);
         } else {
             return new ResponseEntity("Usuário já registrado", HttpStatus.BAD_REQUEST);
