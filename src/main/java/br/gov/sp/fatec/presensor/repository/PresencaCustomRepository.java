@@ -19,8 +19,8 @@ public class PresencaCustomRepository {
 
         String query = "SELECT ps FROM Presenca ps WHERE ps.id IN (" +
                            "SELECT ps.id FROM Presenca p " +
-                           "JOIN HorarioDisciplina hd ON p.id_horario_disciplina = hd.id " +
-                           "JOIN Sala s ON hd.uuid_beacon_sala = s.uuid_beacon";
+                           "JOIN HorarioDisciplina hd ON p.horarioDisciplina = hd.id " +
+                           "JOIN Sala s ON hd.sala = s.uuidBeacon";
 
         String condicao = " WHERE ";
 
