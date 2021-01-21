@@ -17,10 +17,10 @@ public class PresencaCustomRepository {
 
     public List<Presenca> find(String disciplina, Integer sala, LocalDate data) {
 
-        String query = "SELECT P FROM Presenca P WHERE P.id IN (" +
-                           "SELECT P.id FROM Presenca ps " +
-                           "JOIN horarios_disciplinas hd ON ps.id_horario_disciplina = hd.id " +
-                           "JOIN salas s ON hd.uuid_beacon_sala = s.uuid_beacon";
+        String query = "SELECT ps FROM Presenca ps WHERE ps.id IN (" +
+                           "SELECT ps.id FROM Presenca p " +
+                           "JOIN HorarioDisciplina hd ON p.id_horario_disciplina = hd.id " +
+                           "JOIN Sala s ON hd.uuid_beacon_sala = s.uuid_beacon";
 
         String condicao = " WHERE ";
 
@@ -40,15 +40,7 @@ public class PresencaCustomRepository {
 
         query += ")";
 
-        System.out.println("QUERY ORIGINAL AQUI: ");
-        System.out.println(query);
-        System.out.println();
-
         TypedQuery<Presenca> q = em.createQuery(query, Presenca.class);
-
-        System.out.println("TYPED QUERY AQUI: ");
-        System.out.println(q.toString());
-        System.out.println();
 
         if(disciplina != null) {
             q.setParameter("disciplina", disciplina);
@@ -61,10 +53,6 @@ public class PresencaCustomRepository {
         if(data != null) {
             q.setParameter("data_presenca", data);
         }
-
-        System.out.println("TYPED QUERY AQUI DEPOIS DE PARAMETRIZADA: ");
-        System.out.println(q.toString());
-        System.out.println(q.getResultList().toString());
 
         return q.getResultList();
     }
