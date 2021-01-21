@@ -39,7 +39,7 @@ public class PresencaController {
             @RequestParam(value = "disciplina", required = false) String disciplina,
             @RequestParam(value = "sala", required = false) Integer sala,
             @RequestParam(value = "data", required = false) String data) {
-        return presencaRepository.findPresencaByDisciplinaAndSalaAndData(disciplina, sala, data)
+        return presencaRepository.findPresencaByDisciplinaAndSalaAndData(disciplina, sala, LocalDate.parse(data))
                .stream()
                .map(PresencaRs::converter)
                .collect(Collectors.toList());

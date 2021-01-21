@@ -33,7 +33,7 @@ public interface PresencaRepository extends JpaRepository<Presenca, Long> {
     List<Presenca> findPresencaByDisciplinaAndSalaAndData(
             @Param("disciplina") String disciplina,
             @Param("sala") Integer sala,
-            @Param("data") String data
+            @Param("data") LocalDate data
     );
 
 }
