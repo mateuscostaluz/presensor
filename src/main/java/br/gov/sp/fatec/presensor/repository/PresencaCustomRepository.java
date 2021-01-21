@@ -19,7 +19,9 @@ public class PresencaCustomRepository {
 
         System.out.println(disciplina.toString() + sala.toString() + dataPresenca.toString());
 
-        String query = "SELECT * FROM presencas p WHERE p.id IN (" +
+        String query = "SELECT p.id, p.ra_aluno, p.id_horario_disciplina, p.data_presenca " +
+                       "FROM presencas p " +
+                       "WHERE p.id IN (" +
                            "SELECT p.id FROM presencas p " +
                            "JOIN horarios_disciplinas hd ON p.id_horario_disciplina = hd.id " +
                            "JOIN salas s ON hd.uuid_beacon_sala = s.uuid_beacon";
