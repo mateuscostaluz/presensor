@@ -17,25 +17,25 @@ public class PresencaCustomRepository {
 
     public List<Presenca> find(String disciplina, Integer sala, LocalDate data) {
 
-        String query = "SELECT * FROM presencas p WHERE p.id in ( " +
-                           "SELECT p.id from presencas p " +
+        String query = "SELECT * FROM presencas p WHERE p.id IN (" +
+                           "SELECT p.id FROM presencas p " +
                            "JOIN horarios_disciplinas hd ON p.id_horario_disciplina = hd.id " +
-                           "JOIN salas s on hd.uuid_beacon_sala = s.uuid_beacon ";
+                           "JOIN salas s ON hd.uuid_beacon_sala = s.uuid_beacon";
 
-        String condicao = "WHERE ";
+        String condicao = " WHERE ";
 
         if(disciplina != null) {
-            query += condicao + "hd.sigla_disciplina = :disciplina ";
-            condicao = "AND ";
+            query += condicao + "hd.sigla_disciplina = :disciplina";
+            condicao = " AND ";
         }
 
         if(sala != null) {
-            query += condicao + "s.numero = :sala ";
-            condicao = "AND ";
+            query += condicao + "s.numero = :sala";
+            condicao = " AND ";
         }
 
         if(data != null) {
-            query += condicao + "p.data = :data ";
+            query += condicao + "p.data = :data";
         }
 
         query += ")";
