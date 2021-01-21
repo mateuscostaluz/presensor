@@ -1,6 +1,5 @@
 package br.gov.sp.fatec.presensor.services;
 
-import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
