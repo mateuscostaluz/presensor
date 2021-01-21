@@ -49,8 +49,11 @@ public class PresencaCustomRepository {
         TypedQuery<Presenca> q = em.createQuery(query, Presenca.class);
 
         if(disciplina != null) {
-            Optional<Disciplina> disciplinaObject = disciplinaRepository.findById(disciplina);
-            q.setParameter("disciplina", disciplinaObject);
+            Optional<Disciplina> disciplinaOptional = disciplinaRepository.findById(disciplina);
+            if(disciplinaOptional.isPresent()) {
+                Disciplina disciplinaObject = disciplinaOptional.get();
+                q.setParameter("disciplina", disciplinaObject);
+            }
         }
 
         if(sala != null) {
