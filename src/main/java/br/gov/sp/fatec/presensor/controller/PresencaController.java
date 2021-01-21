@@ -40,9 +40,9 @@ public class PresencaController {
                                        .collect(Collectors.toList());
 
         if(presencasRs.isEmpty()) {
-            return new ResponseEntity(presencasRs, HttpStatus.OK);
-        } else {
             return new ResponseEntity(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity(presencasRs, HttpStatus.OK);
         }
     }
 
@@ -65,9 +65,9 @@ public class PresencaController {
                                        .collect(Collectors.toList());
 
         if(presencasRs.isEmpty()) {
-            return new ResponseEntity(presencasRs, HttpStatus.OK);
-        } else {
             return new ResponseEntity(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity(presencasRs, HttpStatus.OK);
         }
     }
 

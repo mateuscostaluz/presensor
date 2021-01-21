@@ -33,23 +33,23 @@ public class HorarioDisciplinaController {
                                                          .collect(Collectors.toList());
 
         if(horarioDisciplinasRs.isEmpty()) {
-            return new ResponseEntity(horarioDisciplinasRs, HttpStatus.OK);
-        } else {
             return new ResponseEntity(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity(horarioDisciplinasRs, HttpStatus.OK);
         }
     }
 
     @GetMapping("/atual/{beacon}")
-    public ResponseEntity<HorarioDisciplinaRs> findHorarioDisciplinaByDiaSemanaAndHorario(@PathVariable("beacon") String beacon) {
+    public ResponseEntity<HorarioDisciplina> findHorarioDisciplinaByDiaSemanaAndHorario(@PathVariable("beacon") String beacon) {
 
-        HorarioDisciplina horarioDisciplina = horarioDisciplinaRepository
-                .findHorarioDisciplinaByDiaSemanaAndHorarioNamedParams(
-                DateTimeServices.getDayOfWeek(),
-                DateTimeServices.getLocalTime(),
-                beacon);
+        HorarioDisciplina horarioDisciplinaRs = horarioDisciplinaRepository
+                                                .findHorarioDisciplinaByDiaSemanaAndHorarioNamedParams(
+                                                DateTimeServices.getDayOfWeek(),
+                                                DateTimeServices.getLocalTime(),
+                                                beacon);
 
-        if(horarioDisciplina != null) {
-            return new ResponseEntity(HorarioDisciplinaRs.converter(horarioDisciplina), HttpStatus.OK);
+        if(horarioDisciplinaRs != null) {
+            return new ResponseEntity(HorarioDisciplinaRs.converter(horarioDisciplinaRs), HttpStatus.OK);
         } else {
             return new ResponseEntity(HttpStatus.NO_CONTENT);
         }
