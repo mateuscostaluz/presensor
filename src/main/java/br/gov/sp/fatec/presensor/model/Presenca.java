@@ -25,7 +25,7 @@ public class Presenca {
     @JoinColumn(name = "id_horario_disciplina", unique = true, nullable = false)
     private HorarioDisciplina horarioDisciplina;
 
-    @Column(name = "data", unique = true, nullable = false)
-    private LocalDate data;
+    @Column(name = "data_presenca", unique = true, nullable = false)
+    private LocalDate dataPresenca;
 
 }

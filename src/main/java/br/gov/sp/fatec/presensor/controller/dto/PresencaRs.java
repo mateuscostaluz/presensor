@@ -42,7 +42,7 @@ public class PresencaRs {
 
         presencaRs.setDia_semana(p.getHorarioDisciplina().getDiaSemana().getDia());
 
-        presencaRs.setData_presenca(p.getData());
+        presencaRs.setData_presenca(p.getDataPresenca());
 
         return presencaRs;
     }
