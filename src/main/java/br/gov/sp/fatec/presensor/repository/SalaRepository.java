@@ -9,9 +9,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface SalaRepository extends JpaRepository<Sala, String> {
 
-    @Query(value = "SELECT * FROM salas WHERE numero = :numero", nativeQuery = true)
+    @Query(value = "SELECT * FROM salas WHERE numero = :sala", nativeQuery = true)
     Sala findSalaByNumeroNamedParam(
-            @Param("numero") Integer numero
+            @Param("sala") Integer sala
     );
 
 }
