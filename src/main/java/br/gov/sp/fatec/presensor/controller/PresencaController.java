@@ -10,6 +10,8 @@ import br.gov.sp.fatec.presensor.repository.PresencaCustomRepository;
 import br.gov.sp.fatec.presensor.repository.PresencaRepository;
 import br.gov.sp.fatec.presensor.services.DateTimeServices;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -29,38 +31,53 @@ public class PresencaController {
     private final PresencaCustomRepository presencaCustomRepository;
 
     @GetMapping("/")
-    public List<PresencaRs> findAll() {
+    public ResponseEntity<List<PresencaRs>> findAll() {
         List<Presenca> presencas = presencaRepository.findAll();
-        return presencas
-               .stream()
-               .map(PresencaRs::converter)
-               .collect(Collectors.toList());
+
+        List<PresencaRs> presencasRs = presencas
+                                       .stream()
+                                       .map(PresencaRs::converter)
+                                       .collect(Collectors.toList());
+
+        if(presencasRs != null) {
+            return new ResponseEntity(presencasRs, HttpStatus.OK);
+        } else {
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
+        }
     }
 
     @GetMapping("")
-    public List<PresencaRs> findByFilter(
+    public ResponseEntity<List<PresencaRs>> findByFilter(
             @RequestParam(value = "disciplina", required = false) String disciplina,
             @RequestParam(value = "sala", required = false) Integer sala,
             @RequestParam(value = "data", required = false) String data) {
-        return presencaCustomRepository.find(disciplina, sala, LocalDate.parse(data))
-               .stream()
-               .map(PresencaRs::converter)
-               .collect(Collectors.toList());
+        List<Presenca> presencas = presencaCustomRepository.find(disciplina, sala, LocalDate.parse(data));
+
+        List<PresencaRs> presencasRs = presencas
+                                       .stream()
+                                       .map(PresencaRs::converter)
+                                       .collect(Collectors.toList());
+
+        if(presencasRs != null) {
+            return new ResponseEntity(presencasRs, HttpStatus.OK);
+        } else {
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
+        }
     }
 
     @RequestMapping(path = "/{raAluno}/{idHorarioDisciplina}", method = RequestMethod.POST)
-    public void savePresenca(@PathVariable("raAluno") Long raAluno, @PathVariable("idHorarioDisciplina") Long idHorarioDisciplina) throws Exception {
+    public ResponseEntity<String> savePresenca(@PathVariable("raAluno") Long raAluno, @PathVariable("idHorarioDisciplina") Long idHorarioDisciplina) {
 
         Optional<Aluno> aluno = alunoRepository.findById(raAluno);
 
         if (!aluno.isPresent()) {
-            throw new Exception("Usuário não encontrado");
+            return new ResponseEntity("Usuário não encontrado", HttpStatus.NOT_FOUND);
         }
 
         Optional<HorarioDisciplina> horarioDisciplina = horarioDisciplinaRepository.findById(idHorarioDisciplina);
 
         if (!horarioDisciplina.isPresent()) {
-            throw new Exception("Disciplina não encontrada");
+            return new ResponseEntity("Disciplina não encontrada", HttpStatus.NOT_FOUND);
         }
 
         LocalDate data = DateTimeServices.getLocalDate();
@@ -77,8 +94,10 @@ public class PresencaController {
             presencaSave.setData(data);
             presencaRepository.save(presencaSave);
         } else {
-            throw new Exception("Usuário já registrado");
+            return new ResponseEntity("Usuário já registrado", HttpStatus.BAD_REQUEST);
         }
+
+        return new ResponseEntity("Presença registrada", HttpStatus.OK);
 
     }
 

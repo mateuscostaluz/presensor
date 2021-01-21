@@ -27,13 +27,13 @@ public class HorarioDisciplinaController {
     public ResponseEntity<List<HorarioDisciplinaRs>> findAll() {
         List<HorarioDisciplina> horarioDisciplinas = horarioDisciplinaRepository.findAll();
 
-        List<HorarioDisciplinaRs> horarioDisciplinaRs = horarioDisciplinas
-                                                        .stream()
-                                                        .map(HorarioDisciplinaRs::converter)
-                                                        .collect(Collectors.toList());
+        List<HorarioDisciplinaRs> horarioDisciplinasRs = horarioDisciplinas
+                                                         .stream()
+                                                         .map(HorarioDisciplinaRs::converter)
+                                                         .collect(Collectors.toList());
 
-        if(horarioDisciplinaRs != null) {
-            return new ResponseEntity(horarioDisciplinaRs, HttpStatus.OK);
+        if(horarioDisciplinasRs != null) {
+            return new ResponseEntity(horarioDisciplinasRs, HttpStatus.OK);
         } else {
             return new ResponseEntity(HttpStatus.NO_CONTENT);
         }

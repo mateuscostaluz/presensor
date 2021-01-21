@@ -5,6 +5,8 @@ import br.gov.sp.fatec.presensor.controller.dto.AlunoRs;
 import br.gov.sp.fatec.presensor.model.Aluno;
 import br.gov.sp.fatec.presensor.repository.AlunoRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -16,14 +18,18 @@ public class AlunoController {
 
     private final AlunoRepository alunoRepository;
 
-    @RequestMapping(path = "/{email}/{senha}", method = RequestMethod.GET)
-    public AlunoRs findAlunoByEmailAndSenha(@PathVariable("email") String email, @PathVariable("senha") String senha) throws Exception {
+    @GetMapping("")
+    public ResponseEntity<AlunoRs> findAlunoByEmailAndSenha(
+            @RequestParam(value = "email", required = true) String email,
+            @RequestParam(value = "senha", required = true) String senha) {
         Aluno aluno = alunoRepository.findAlunoByEmailAndSenha(email, senha);
 
-        if(aluno != null) {
-            return AlunoRs.converter(aluno);
+        AlunoRs alunoRs = AlunoRs.converter(aluno);
+
+        if(alunoRs != null) {
+            return new ResponseEntity(alunoRs, HttpStatus.OK);
         } else {
-            throw new Exception("Aluno não encontrado");
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
         }
     }
 
