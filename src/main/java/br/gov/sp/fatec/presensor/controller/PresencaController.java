@@ -37,8 +37,8 @@ public class PresencaController {
     @GetMapping("/")
     public List<PresencaRs> findByFilter(
             @RequestParam(value = "disciplina", required = false) String disciplina,
-            @RequestParam("sala", required = false) Integer sala,
-            @RequestParam("data", required = false) LocalDate data) {
+            @RequestParam(value = "sala", required = false) Integer sala,
+            @RequestParam(value = "data", required = false) LocalDate data) {
         return presencaRepository.findPresencaByDisciplinaAndSalaAndData(disciplina, sala, data)
                .stream()
                .map(PresencaRs::converter)
