@@ -7,6 +7,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Repository
 public interface PresencaRepository extends JpaRepository<Presenca, Long> {
@@ -29,7 +30,7 @@ public interface PresencaRepository extends JpaRepository<Presenca, Long> {
                        "WHERE s.numero = :sala " +
                        "AND hd.sigla_disciplina = :disciplina " +
                        "AND p.data = :data)", nativeQuery = true)
-    Presenca findPresencaByDisciplinaAndSalaAndData(
+    List<Presenca> findPresencaByDisciplinaAndSalaAndData(
             @Param("disciplina") String disciplina,
             @Param("sala") Integer sala,
             @Param("data") LocalDate data
