@@ -22,18 +22,4 @@ public interface PresencaRepository extends JpaRepository<Presenca, Long> {
             @Param("data") LocalDate data
     );
 
-    @Query(value = "SELECT * FROM presencas p " +
-                   "WHERE p.id in (" +
-                       "SELECT p.id from presencas p " +
-                       "JOIN horarios_disciplinas hd ON p.id_horario_disciplina = hd.id " +
-                       "JOIN salas s on hd.uuid_beacon_sala = s.uuid_beacon " +
-                       "WHERE s.numero = :sala " +
-                       "AND hd.sigla_disciplina = :disciplina " +
-                       "AND p.data_presenca = :data)", nativeQuery = true)
-    List<Presenca> findPresencaByDisciplinaAndSalaAndData(
-            @Param("disciplina") String disciplina,
-            @Param("sala") Integer sala,
-            @Param("data") LocalDate data
-    );
-
 }

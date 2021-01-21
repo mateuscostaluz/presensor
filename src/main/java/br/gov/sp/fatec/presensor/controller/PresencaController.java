@@ -6,6 +6,7 @@ import br.gov.sp.fatec.presensor.model.HorarioDisciplina;
 import br.gov.sp.fatec.presensor.model.Presenca;
 import br.gov.sp.fatec.presensor.repository.AlunoRepository;
 import br.gov.sp.fatec.presensor.repository.HorarioDisciplinaRepository;
+import br.gov.sp.fatec.presensor.repository.PresencaCustomRepository;
 import br.gov.sp.fatec.presensor.repository.PresencaRepository;
 import br.gov.sp.fatec.presensor.services.DateTimeServices;
 import lombok.AllArgsConstructor;
@@ -26,6 +27,7 @@ public class PresencaController {
     private final AlunoRepository alunoRepository;
     private final HorarioDisciplinaRepository horarioDisciplinaRepository;
 
+    private final PresencaCustomRepository presencaCustomRepository;
     private final PresencaRepository presencaRepository;
 
     @GetMapping("/")
@@ -49,7 +51,7 @@ public class PresencaController {
             @RequestParam(value = "disciplina", required = false) String disciplina,
             @RequestParam(value = "sala", required = false) Integer sala,
             @RequestParam(value = "data", required = false) String data) {
-        List<Presenca> presencas = presencaRepository.findPresencaByDisciplinaAndSalaAndData(disciplina, sala, LocalDate.parse(data));
+        List<Presenca> presencas = presencaCustomRepository.find(disciplina, sala, LocalDate.parse(data));
 
         List<PresencaRs> presencasRs = presencas
                                        .stream()
