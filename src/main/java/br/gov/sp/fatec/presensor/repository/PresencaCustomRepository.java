@@ -17,7 +17,9 @@ public class PresencaCustomRepository {
 
     public List<Presenca> find(String disciplina, Integer sala, LocalDate dataPresenca) {
 
-        String query = "SELECT id, ra_aluno, id_horario_disciplina, data_presenca FROM presencas WHERE id IN (" +
+        System.out.println(disciplina.toString() + sala.toString() + dataPresenca.toString());
+
+        String query = "SELECT * FROM presencas p WHERE p.id IN (" +
                            "SELECT p.id FROM presencas p " +
                            "JOIN horarios_disciplinas hd ON p.id_horario_disciplina = hd.id " +
                            "JOIN salas s ON hd.uuid_beacon_sala = s.uuid_beacon";
@@ -53,6 +55,8 @@ public class PresencaCustomRepository {
         if(dataPresenca != null) {
             q.setParameter("data_presenca", dataPresenca);
         }
+
+        System.out.println(q.toString());
 
         return q.getResultList();
     }
