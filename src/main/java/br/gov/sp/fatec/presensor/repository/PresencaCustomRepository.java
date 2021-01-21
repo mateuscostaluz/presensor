@@ -17,10 +17,10 @@ public class PresencaCustomRepository {
 
     public List<Presenca> find(String disciplina, Integer sala, LocalDate data) {
 
-        String query = "SELECT ps FROM public.presencas ps WHERE ps.id IN (" +
-                           "SELECT ps.id FROM public.presencas p " +
-                           "JOIN public.horarios_disciplinas hd ON p.id_horario_disciplina = hd.id " +
-                           "JOIN public.salas s ON hd.uuid_beacon_sala = s.uuid_beacon";
+        String query = "SELECT P FROM Presenca P WHERE P.id IN (" +
+                           "SELECT P.id FROM presencas ps " +
+                           "JOIN horarios_disciplinas hd ON ps.id_horario_disciplina = hd.id " +
+                           "JOIN salas s ON hd.uuid_beacon_sala = s.uuid_beacon";
 
         String condicao = " WHERE ";
 
@@ -45,7 +45,7 @@ public class PresencaCustomRepository {
         System.out.println();
 
         TypedQuery<Presenca> q = em.createQuery(query, Presenca.class);
-        
+
         System.out.println("TYPED QUERY AQUI: ");
         System.out.println(q.toString());
         System.out.println();
