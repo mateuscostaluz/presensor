@@ -50,11 +50,11 @@ public class PresencaController {
     public ResponseEntity<List<PresencaRs>> findByFilter(
             @RequestParam(value = "disciplina", required = false) String disciplina,
             @RequestParam(value = "sala", required = false) Integer sala,
-            @RequestParam(value = "data", required = false) String data) {
+            @RequestParam(value = "data", required = false) String dataPresenca) {
         List<Presenca> presencas;
 
-        if(data != null) {
-            presencas = presencaCustomRepository.find(disciplina, sala, LocalDate.parse(data));
+        if(dataPresenca != null) {
+            presencas = presencaCustomRepository.find(disciplina, sala, LocalDate.parse(dataPresenca));
         } else {
             presencas = presencaCustomRepository.find(disciplina, sala, null);
         }
