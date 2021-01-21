@@ -6,10 +6,10 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 @SpringBootApplication(scanBasePackages = "br.gov.sp.fatec.presensor")
 @EntityScan(basePackages = "br.gov.sp.fatec.presensor.model")
-public class PresenceControlUsingBluetoothBeaconApplication {
+public class Presensor {
 
 	public static void main(String[] args) {
-		SpringApplication.run(PresenceControlUsingBluetoothBeaconApplication.class, args);
+		SpringApplication.run(Presensor.class, args);
 	}
 
 }

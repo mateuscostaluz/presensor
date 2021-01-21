@@ -11,8 +11,8 @@ import javax.persistence.Table;
 @Getter
 @Setter
 @Entity
-@Table(name = "usuarios")
-public class Usuario {
+@Table(name = "alunos")
+public class Aluno {
 
     @Id
     @Column(name = "ra", length = 20, nullable = false)
@@ -23,5 +23,8 @@ public class Usuario {
 
     @Column(name = "senha", length = 100, nullable = false)
     private String senha;
+
+    @Column(name = "nome", length = 100, nullable = false)
+    private String nome;
 
 }

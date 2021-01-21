@@ -5,10 +5,11 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class UsuarioRq {
+public class AlunoRq {
 
     private Long ra;
     private String email;
     private String senha;
+    private String nome;
 
 }

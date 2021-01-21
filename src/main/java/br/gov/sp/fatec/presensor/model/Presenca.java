@@ -18,8 +18,8 @@ public class Presenca {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "ra_usuario")
-    private Usuario usuario;
+    @JoinColumn(name = "ra_aluno")
+    private Aluno aluno;
 
     @ManyToOne
     @JoinColumn(name = "id_horario_disciplina", unique = true, nullable = false)
