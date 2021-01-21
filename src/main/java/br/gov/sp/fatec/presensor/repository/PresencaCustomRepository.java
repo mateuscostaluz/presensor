@@ -2,10 +2,10 @@ package br.gov.sp.fatec.presensor.repository;
 
 import br.gov.sp.fatec.presensor.model.Presenca;
 import lombok.AllArgsConstructor;
-import lombok.var;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -40,11 +40,15 @@ public class PresencaCustomRepository {
 
         query += ")";
 
-        System.out.println();
+        System.out.println("QUERY ORIGINAL AQUI: ");
         System.out.println(query);
         System.out.println();
 
-        var q = em.createQuery(query, Presenca.class);
+        TypedQuery<Presenca> q = em.createQuery(query, Presenca.class);
+
+        System.out.println("TYPED QUERY AQUI: ");
+        System.out.println(q.toString());
+        System.out.println();
 
         if(disciplina != null) {
             q.setParameter("disciplina", disciplina);
@@ -58,9 +62,9 @@ public class PresencaCustomRepository {
             q.setParameter("data_presenca", data);
         }
 
-        System.out.println();
-        System.out.println(query);
-        System.out.println();
+        System.out.println("TYPED QUERY AQUI DEPOIS DE PARAMETRIZADA: ");
+        System.out.println(q.toString());
+        System.out.println(q.getResultList().toString());
 
         return q.getResultList();
     }
