@@ -77,7 +77,7 @@ public class PresencaController {
         Optional<Aluno> aluno = alunoRepository.findById(raAluno);
 
         if (!aluno.isPresent()) {
-            return new ResponseEntity("Usuário não encontrado", HttpStatus.NOT_FOUND);
+            return new ResponseEntity("Aluno não encontrado", HttpStatus.NOT_FOUND);
         }
 
         Optional<HorarioDisciplina> horarioDisciplina = horarioDisciplinaRepository.findById(idHorarioDisciplina);
