@@ -10,13 +10,9 @@ import org.springframework.stereotype.Repository;
 public interface AlunoRepository extends CrudRepository<Aluno, Long> {
 
     @Query(value = "SELECT * FROM alunos " +
-                   "WHERE email = :email " +
-                   "AND senha = :senha ", nativeQuery = true)
-    Aluno findByEmailAndSenha(
-            @Param("email") String email,
-            @Param("senha") String senha
+                   "WHERE email = :email ", nativeQuery = true)
+    Aluno findByEmail(
+            @Param("email") String email
     );
-
-    Aluno findByEmail(String email);
 
 }
