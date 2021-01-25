@@ -31,9 +31,9 @@ public class HorarioDisciplinaController {
 
         if(horarioDisciplinasRs.isEmpty()) {
             return new ResponseEntity(HttpStatus.NO_CONTENT);
-        } else {
-            return new ResponseEntity(horarioDisciplinasRs, HttpStatus.OK);
         }
+
+        return new ResponseEntity(horarioDisciplinasRs, HttpStatus.OK);
     }
 
     @GetMapping("/atual")
@@ -48,9 +48,9 @@ public class HorarioDisciplinaController {
 
         if(horarioDisciplinaRs != null) {
             return new ResponseEntity(HorarioDisciplinaRs.converter(horarioDisciplinaRs), HttpStatus.OK);
-        } else {
-            return new ResponseEntity("Sem aula no momento", HttpStatus.NO_CONTENT);
         }
+
+        return new ResponseEntity("Sem aula no momento", HttpStatus.NO_CONTENT);
     }
 
 }

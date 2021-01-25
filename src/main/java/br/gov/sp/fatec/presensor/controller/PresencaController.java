@@ -10,6 +10,7 @@ import br.gov.sp.fatec.presensor.repository.AlunoRepository;
 import br.gov.sp.fatec.presensor.repository.HorarioDisciplinaRepository;
 import br.gov.sp.fatec.presensor.repository.PresencaCustomRepository;
 import br.gov.sp.fatec.presensor.repository.PresencaRepository;
+import br.gov.sp.fatec.presensor.security.WebSecurityConfig;
 import br.gov.sp.fatec.presensor.services.DateTimeServices;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -75,6 +76,10 @@ public class PresencaController {
 
     @PostMapping("/")
     public ResponseEntity<String> savePresenca(@RequestBody PresencaRq presencaRq) {
+
+        if (!WebSecurityConfig.isAuthenticated()) {
+            return new ResponseEntity("Aluno não logado", HttpStatus.UNAUTHORIZED);
+        }
 
         Optional<Aluno> aluno = alunoRepository.findById(presencaRq.getRaAluno());
 
