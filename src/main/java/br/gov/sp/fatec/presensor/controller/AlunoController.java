@@ -22,7 +22,7 @@ public class AlunoController {
     public ResponseEntity<AlunoRs> findAlunoByEmailAndSenha(
             @RequestParam(value = "email") String email,
             @RequestParam(value = "senha") String senha) {
-        Aluno aluno = alunoRepository.findAlunoByEmailAndSenha(email, senha);
+        Aluno aluno = alunoRepository.findByEmailAndSenha(email, senha);
 
         if(aluno != null) {
             AlunoRs alunoRs = AlunoRs.converter(aluno);
