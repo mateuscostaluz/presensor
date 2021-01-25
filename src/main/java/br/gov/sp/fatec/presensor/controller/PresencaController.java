@@ -77,10 +77,6 @@ public class PresencaController {
     @PostMapping("/")
     public ResponseEntity<String> savePresenca(@RequestBody PresencaRq presencaRq) {
 
-        if (!WebSecurityConfig.isAuthenticated()) {
-            return new ResponseEntity("Aluno não logado", HttpStatus.UNAUTHORIZED);
-        }
-
         Optional<Aluno> aluno = alunoRepository.findById(presencaRq.getRaAluno());
 
         if (!aluno.isPresent()) {
