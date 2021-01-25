@@ -100,7 +100,7 @@ public class PresencaController {
             presencaSave.setDataPresenca(dataPresenca);
             presencaRepository.save(presencaSave);
         } else {
-            return new ResponseEntity("Usuário já registrado", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity("Aluno já registrado nesta aula", HttpStatus.BAD_REQUEST);
         }
 
         return new ResponseEntity("Presença registrada", HttpStatus.OK);

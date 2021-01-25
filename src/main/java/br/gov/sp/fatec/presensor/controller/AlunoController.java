@@ -23,8 +23,6 @@ public class AlunoController {
     @PostMapping("/")
     public ResponseEntity<AlunoRq> saveAluno(@RequestBody AlunoRq alunoRq) {
 
-        System.out.println("AlunoRq: " + alunoRq.getEmail());
-
         if(alunoRepository.findByEmail(alunoRq.getEmail()) != null) {
             return new ResponseEntity("Aluno já registrado com o email:" + alunoRq.getEmail(), HttpStatus.CONFLICT);
         }
@@ -35,9 +33,6 @@ public class AlunoController {
         aluno.setEmail(alunoRq.getEmail());
         aluno.setSenha(passwordEncoder.encode(alunoRq.getSenha()));
         aluno.setNome(alunoRq.getSenha());
-        System.out.println("EMAIL CADASTRADO: " + alunoRq.getEmail());
-        System.out.println("SENHA CADASTRADA: " + alunoRq.getSenha());
-        System.out.println("SENHA CRIPTOGRAFADA: " + aluno.getSenha());
         alunoRepository.save(aluno);
 
         return new ResponseEntity("Aluno registrado com sucesso", HttpStatus.OK);

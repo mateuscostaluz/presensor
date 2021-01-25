@@ -49,7 +49,7 @@ public class HorarioDisciplinaController {
         if(horarioDisciplinaRs != null) {
             return new ResponseEntity(HorarioDisciplinaRs.converter(horarioDisciplinaRs), HttpStatus.OK);
         } else {
-            return new ResponseEntity(HttpStatus.NO_CONTENT);
+            return new ResponseEntity("Sem aula no momento", HttpStatus.NO_CONTENT);
         }
     }
 
