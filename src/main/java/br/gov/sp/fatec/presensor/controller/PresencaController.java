@@ -1,5 +1,7 @@
 package br.gov.sp.fatec.presensor.controller;
 
+import br.gov.sp.fatec.presensor.controller.dto.AlunoRq;
+import br.gov.sp.fatec.presensor.controller.dto.PresencaRq;
 import br.gov.sp.fatec.presensor.controller.dto.PresencaRs;
 import br.gov.sp.fatec.presensor.model.Aluno;
 import br.gov.sp.fatec.presensor.model.HorarioDisciplina;
@@ -71,16 +73,16 @@ public class PresencaController {
         }
     }
 
-    @RequestMapping(path = "/{raAluno}/{idHorarioDisciplina}", method = RequestMethod.POST)
-    public ResponseEntity<String> savePresenca(@PathVariable("raAluno") Long raAluno, @PathVariable("idHorarioDisciplina") Long idHorarioDisciplina) {
+    @PostMapping("/")
+    public ResponseEntity<String> savePresenca(@RequestBody PresencaRq presencaRq) {
 
-        Optional<Aluno> aluno = alunoRepository.findById(raAluno);
+        Optional<Aluno> aluno = alunoRepository.findById(presencaRq.getRaAluno());
 
         if (!aluno.isPresent()) {
             return new ResponseEntity("Aluno não encontrado", HttpStatus.NOT_FOUND);
         }
 
-        Optional<HorarioDisciplina> horarioDisciplina = horarioDisciplinaRepository.findById(idHorarioDisciplina);
+        Optional<HorarioDisciplina> horarioDisciplina = horarioDisciplinaRepository.findById(presencaRq.getIdHorarioDisciplina());
 
         if (!horarioDisciplina.isPresent()) {
             return new ResponseEntity("Disciplina não encontrada", HttpStatus.NOT_FOUND);
@@ -88,9 +90,7 @@ public class PresencaController {
 
         LocalDate dataPresenca = DateTimeServices.getLocalDate();
 
-        Presenca presenca = presencaRepository
-                .findByRaAlunoAndIdHorarioDisciplinaAndData
-                        (raAluno, idHorarioDisciplina, dataPresenca);
+        Presenca presenca = presencaRepository.findByRaAlunoAndIdHorarioDisciplinaAndData(presencaRq.getRaAluno(), presencaRq.getIdHorarioDisciplina(), dataPresenca);
 
         if (presenca == null) {
             Presenca presencaSave = new Presenca();

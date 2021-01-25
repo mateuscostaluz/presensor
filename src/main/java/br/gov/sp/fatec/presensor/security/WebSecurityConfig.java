@@ -29,7 +29,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public DaoAuthenticationProvider authProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
         authProvider.setUserDetailsService(userDetailsService);
-        System.out.println("UDS " + userDetailsService.toString());
         authProvider.setPasswordEncoder(encoder());
         return authProvider;
     }
@@ -38,6 +37,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().authorizeRequests()
         .antMatchers(HttpMethod.POST, "/aluno/").permitAll()
+        .antMatchers(HttpMethod.POST, "/presenca/{raAluno}/{idHorarioDisciplina}").permitAll()
         .anyRequest().authenticated()
         .and().formLogin().permitAll()
         .and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
