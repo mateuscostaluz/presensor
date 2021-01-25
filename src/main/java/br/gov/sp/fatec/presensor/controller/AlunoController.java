@@ -22,6 +22,8 @@ public class AlunoController {
     @PostMapping("/")
     public ResponseEntity<AlunoRq> saveAluno(AlunoRq alunoRq) {
 
+        System.out.println("AlunoRq: " + alunoRq.toString());
+
         if(alunoRepository.findByEmail(alunoRq.getEmail()) != null) {
             return new ResponseEntity("Aluno já registrado com o email:" + alunoRq.getEmail(), HttpStatus.CONFLICT);
         }
