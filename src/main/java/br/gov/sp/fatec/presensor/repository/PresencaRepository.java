@@ -15,7 +15,7 @@ public interface PresencaRepository extends JpaRepository<Presenca, Long> {
                    "WHERE ra_aluno = :ra_aluno " +
                    "AND id_horario_disciplina = :id_horario_disciplina " +
                    "AND data_presenca = :data", nativeQuery = true)
-    Presenca findPresencaByRaAlunoAndIdHorarioDisciplinaAndData(
+    Presenca findByRaAlunoAndIdHorarioDisciplinaAndData(
             @Param("ra_aluno") Long raUsuario,
             @Param("id_horario_disciplina") Long idHorarioDisciplina,
             @Param("data") LocalDate data

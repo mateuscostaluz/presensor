@@ -2,7 +2,6 @@ package br.gov.sp.fatec.presensor.repository;
 
 import br.gov.sp.fatec.presensor.model.Disciplina;
 import br.gov.sp.fatec.presensor.model.Presenca;
-import br.gov.sp.fatec.presensor.model.Sala;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -16,7 +15,6 @@ import java.util.List;
 public class PresencaCustomRepository {
 
     private final DisciplinaRepository disciplinaRepository;
-    private final SalaRepository salaRepository;
 
     private final EntityManager em;
 
@@ -48,7 +46,7 @@ public class PresencaCustomRepository {
         TypedQuery<Presenca> q = em.createQuery(query, Presenca.class);
 
         if(disciplina != null) {
-            Disciplina disciplinaObject = disciplinaRepository.findDisciplinaByBySiglaNamedParam(disciplina);
+            Disciplina disciplinaObject = disciplinaRepository.findBySigla(disciplina);
             q.setParameter("disciplina", disciplinaObject);
         }
 

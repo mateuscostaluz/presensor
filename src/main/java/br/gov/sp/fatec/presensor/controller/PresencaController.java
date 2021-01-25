@@ -89,7 +89,7 @@ public class PresencaController {
         LocalDate dataPresenca = DateTimeServices.getLocalDate();
 
         Presenca presenca = presencaRepository
-                .findPresencaByRaAlunoAndIdHorarioDisciplinaAndData
+                .findByRaAlunoAndIdHorarioDisciplinaAndData
                         (raAluno, idHorarioDisciplina, dataPresenca);
 
         if (presenca == null) {

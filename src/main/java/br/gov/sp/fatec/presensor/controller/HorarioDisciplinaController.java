@@ -41,7 +41,7 @@ public class HorarioDisciplinaController {
             @RequestParam(value = "beacon") String beacon) {
 
         HorarioDisciplina horarioDisciplinaRs = horarioDisciplinaRepository
-                                                .findHorarioDisciplinaByDiaSemanaAndHorarioNamedParams(
+                                                .findByDiaSemanaAndHorarioNamedParams(
                                                 DateTimeServices.getDayOfWeek(),
                                                 DateTimeServices.getLocalTime(),
                                                 beacon);
