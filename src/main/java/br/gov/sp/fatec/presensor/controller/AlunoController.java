@@ -24,7 +24,7 @@ public class AlunoController {
     public ResponseEntity<AlunoRq> saveAluno(@RequestBody AlunoRq alunoRq) {
 
         if(alunoRepository.findByEmail(alunoRq.getEmail()) != null) {
-            return new ResponseEntity("Aluno já registrado com o email:" + alunoRq.getEmail(), HttpStatus.CONFLICT);
+            return new ResponseEntity("Aluno já registrado com o email: " + alunoRq.getEmail(), HttpStatus.CONFLICT);
         }
 
         Aluno aluno = new Aluno();
