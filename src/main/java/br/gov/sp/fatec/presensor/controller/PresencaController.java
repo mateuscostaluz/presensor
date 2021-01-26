@@ -55,7 +55,7 @@ public class PresencaController {
         List<Presenca> presencas;
 
         if (dataPresenca != null) {
-            presencas = presencaCustomRepository.find(disciplina, sala, LocalDate.parse(dataPresenca));
+            presencas = presencaCustomRepository.find(disciplina, sala, dataPresenca);
         } else {
             presencas = presencaCustomRepository.find(disciplina, sala, null);
         }

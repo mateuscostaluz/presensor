@@ -2,15 +2,11 @@ package br.gov.sp.fatec.presensor.repository;
 
 import br.gov.sp.fatec.presensor.model.Disciplina;
 import br.gov.sp.fatec.presensor.model.Presenca;
-import br.gov.sp.fatec.presensor.model.Sala;
 import lombok.AllArgsConstructor;
-import org.springframework.data.jpa.repository.query.JpaQueryCreator;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
-import java.time.LocalDate;
 import java.util.List;
 
 @AllArgsConstructor
@@ -20,7 +16,7 @@ public class PresencaCustomRepository {
     private final DisciplinaRepository disciplinaRepository;
     private final EntityManager em;
 
-    public List<Presenca> find(String disciplina, Integer sala, LocalDate dataPresenca) {
+    public List<Presenca> find(String disciplina, Integer sala, String dataPresenca) {
 
         String query = "SELECT ps FROM Presenca ps WHERE ps.id IN (" +
                            "SELECT ps.id FROM Presenca p " +
@@ -50,21 +46,14 @@ public class PresencaCustomRepository {
         if(disciplina != null) {
             Disciplina disciplinaObject = disciplinaRepository.findBySigla(disciplina);
             q.setParameter("disciplina", disciplinaObject);
-
-            System.out.println(disciplinaObject.getSigla());
         }
 
         if(sala != null) { ;
             q.setParameter("sala", sala);
-
-            System.out.println(sala.toString());
         }
 
         if(dataPresenca != null) {
             q.setParameter("dataPresenca", dataPresenca);
-
-            System.out.println(dataPresenca.toString());
-            System.out.println(dataPresenca.getClass());
         }
 
         return q.getResultList();
