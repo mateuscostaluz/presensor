@@ -10,7 +10,6 @@ public class AlunoRs {
 
     private Long ra;
     private String email;
-    private String senha;
     private String nome;
 
     public static AlunoRs converter(Aluno u) {
