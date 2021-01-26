@@ -46,6 +46,8 @@ public class PresencaCustomRepository {
 
         query += ")";
 
+        System.out.println(query);
+
         TypedQuery<Presenca> q = em.createQuery(query, Presenca.class);
 
         if(disciplina != null) {

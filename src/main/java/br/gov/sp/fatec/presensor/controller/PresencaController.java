@@ -54,12 +54,10 @@ public class PresencaController {
             @RequestParam(value = "dataPresenca", required = false) String dataPresenca) {
         List<Presenca> presencas;
 
-        if(dataPresenca != null) {
+        if (dataPresenca != null) {
             presencas = presencaCustomRepository.find(disciplina, sala, LocalDate.parse(dataPresenca));
-            System.out.println("DIFERENTE DE NULO");
         } else {
             presencas = presencaCustomRepository.find(disciplina, sala, null);
-            System.out.println("NULO");
         }
 
         List<PresencaRs> presencasRs = presencas
@@ -67,7 +65,7 @@ public class PresencaController {
                                        .map(PresencaRs::converter)
                                        .collect(Collectors.toList());
 
-        if(presencasRs.isEmpty()) {
+        if (presencasRs.isEmpty()) {
             return new ResponseEntity(HttpStatus.NO_CONTENT);
         } else {
             return new ResponseEntity(presencasRs, HttpStatus.OK);
