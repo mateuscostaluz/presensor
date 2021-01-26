@@ -17,7 +17,6 @@ public class AlunoRs {
         AlunoRs alunoRs = new AlunoRs();
         alunoRs.setRa(u.getRa());
         alunoRs.setEmail(u.getEmail());
-        alunoRs.setSenha(u.getSenha());
         alunoRs.setNome(u.getNome());
         return alunoRs;
     }
