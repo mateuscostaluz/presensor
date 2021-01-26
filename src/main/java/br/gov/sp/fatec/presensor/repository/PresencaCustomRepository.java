@@ -3,9 +3,11 @@ package br.gov.sp.fatec.presensor.repository;
 import br.gov.sp.fatec.presensor.model.Disciplina;
 import br.gov.sp.fatec.presensor.model.Presenca;
 import lombok.AllArgsConstructor;
+import org.springframework.data.jpa.repository.query.JpaQueryCreator;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.time.LocalDate;
 import java.util.List;
@@ -57,7 +59,7 @@ public class PresencaCustomRepository {
             q.setParameter("dataPresenca", dataPresenca);
         }
 
-        System.out.println(q.toString());
+        System.out.println(q.unwrap(org.hibernate.Query.class).getQueryString());
 
         return q.getResultList();
     }
