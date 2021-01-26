@@ -27,23 +27,24 @@ public class PresencaCustomRepository {
         String condicao = " WHERE ";
 
         if(disciplina != null) {
-            query += condicao + "hd.disciplina = :disciplina";
+            query += condicao + "hd.disciplina = " + "IBD187";
             condicao = " AND ";
         }
 
         if(sala != null) {
-            query += condicao + "s.numero = :sala";
+            query += condicao + "s.numero = " + 408;
             condicao = " AND ";
         }
 
         if(dataPresenca != null) {
-            query += condicao + "p.dataPresenca = :dataPresenca";
+            query += condicao + "p.dataPresenca = " + "2020-11-12";
         }
 
         query += ")";
 
         TypedQuery<Presenca> q = em.createQuery(query, Presenca.class);
 
+        /*
         if(disciplina != null) {
             Disciplina disciplinaObject = disciplinaRepository.findBySigla(disciplina);
             q.setParameter("disciplina", disciplinaObject);
@@ -56,6 +57,7 @@ public class PresencaCustomRepository {
         if(dataPresenca != null) {
             q.setParameter("dataPresenca", dataPresenca);
         }
+         */
 
         return q.getResultList();
     }
