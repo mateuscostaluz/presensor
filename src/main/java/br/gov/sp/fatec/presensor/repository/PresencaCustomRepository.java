@@ -28,7 +28,7 @@ public class PresencaCustomRepository {
         }
 
         if(sala != null) {
-            query += " JOIN Sala s ON hd.sala = s.uuidBeacon";
+            query += " JOIN Sala s ON hd.sala = s";
         }
 
         String condicao = " WHERE ";
