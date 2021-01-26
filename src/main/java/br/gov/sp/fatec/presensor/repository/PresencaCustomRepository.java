@@ -51,7 +51,7 @@ public class PresencaCustomRepository {
             Disciplina disciplinaObject = disciplinaRepository.findBySigla(disciplina);
             q.setParameter("disciplina", disciplinaObject);
 
-            System.out.println(disciplinaObject.toString());
+            System.out.println(disciplinaObject.getSigla());
         }
 
         if(sala != null) { ;
@@ -64,6 +64,7 @@ public class PresencaCustomRepository {
             q.setParameter("dataPresenca", dataPresenca);
 
             System.out.println(dataPresenca.toString());
+            System.out.println(dataPresenca.getClass());
         }
 
         return q.getResultList();
