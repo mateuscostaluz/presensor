@@ -66,9 +66,9 @@ public class PresencaController {
 
     @GetMapping("/custom")
     public ResponseEntity<List<PresencaRs>> findByCustomFilter(
-            @RequestParam(value = "disciplina") String disciplina,
-            @RequestParam(value = "sala") Integer sala,
-            @RequestParam(value = "data") String dataPresenca) {
+            @RequestParam(value = "disciplina", required = false) String disciplina,
+            @RequestParam(value = "sala", required = false) Integer sala,
+            @RequestParam(value = "data", required = false) String dataPresenca) {
 
         List<Presenca> presencas;
 
