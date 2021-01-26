@@ -1,11 +1,11 @@
 package br.gov.sp.fatec.presensor.repository;
 
 import br.gov.sp.fatec.presensor.model.Aluno;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface AlunoRepository extends CrudRepository<Aluno, Long> {
+public interface AlunoRepository extends JpaRepository<Aluno, Long> {
 
     Aluno findByEmail(String email);
 

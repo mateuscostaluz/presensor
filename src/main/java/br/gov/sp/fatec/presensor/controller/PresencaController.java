@@ -40,7 +40,7 @@ public class PresencaController {
                                        .collect(Collectors.toList());
 
         if(presencasRs.isEmpty()) {
-            return new ResponseEntity(HttpStatus.NO_CONTENT);
+            return new ResponseEntity("Não existem listas de presenças cadastradas no sistema", HttpStatus.NO_CONTENT);
         } else {
             return new ResponseEntity(presencasRs, HttpStatus.OK);
         }
@@ -66,7 +66,7 @@ public class PresencaController {
                                        .collect(Collectors.toList());
 
         if (presencasRs.isEmpty()) {
-            return new ResponseEntity(HttpStatus.NO_CONTENT);
+            return new ResponseEntity("Nenhuma lista de presenças encontrada com estes filtros", HttpStatus.NO_CONTENT);
         } else {
             return new ResponseEntity(presencasRs, HttpStatus.OK);
         }

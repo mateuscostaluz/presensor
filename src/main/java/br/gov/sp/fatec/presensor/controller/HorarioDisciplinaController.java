@@ -33,7 +33,7 @@ public class HorarioDisciplinaController {
                                                          .collect(Collectors.toList());
 
         if(horarioDisciplinasRs.isEmpty()) {
-            return new ResponseEntity(HttpStatus.NO_CONTENT);
+            return new ResponseEntity("Não existem horários de disciplinas cadastrados no sistema", HttpStatus.NO_CONTENT);
         }
 
         return new ResponseEntity(horarioDisciplinasRs, HttpStatus.OK);
