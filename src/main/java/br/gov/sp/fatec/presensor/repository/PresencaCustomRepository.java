@@ -57,11 +57,6 @@ public class PresencaCustomRepository {
             q.setParameter("dataPresenca", dataPresenca);
         }
 
-        System.out.println("Disciplina " + q.getParameterValue("disciplina"));
-        System.out.println("Sala " + q.getParameterValue("sala"));
-        System.out.println("Data " + q.getParameterValue("dataPresenca"));
-        System.out.println(q.unwrap(org.hibernate.Query.class).getQueryString());
-
         return q.getResultList();
     }
 
