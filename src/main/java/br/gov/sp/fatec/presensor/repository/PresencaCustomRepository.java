@@ -21,15 +21,9 @@ public class PresencaCustomRepository {
 
     public List<Presenca> findBySiglaDisciplinaAndNumeroSalaAndData(Integer sala, String disciplina, LocalDate dataPresenca) {
 
-        String query = "SELECT p FROM Presenca p";
-
-        if(disciplina != null) {
-            query += " JOIN HorarioDisciplina hd ON p.horarioDisciplina = hd.id";
-        }
-
-        if(sala != null) {
-            query += " JOIN Sala s ON hd.sala = s";
-        }
+        String query = "SELECT p FROM Presenca p " +
+                       "JOIN HorarioDisciplina hd ON p.horarioDisciplina = hd " +
+                       "JOIN Sala s ON hd.sala = s";
 
         String condicao = " WHERE ";
 
