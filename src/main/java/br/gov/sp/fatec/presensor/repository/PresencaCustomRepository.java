@@ -19,6 +19,10 @@ public class PresencaCustomRepository {
 
     public List<Presenca> find(String disciplina, Integer sala, LocalDate dataPresenca) {
 
+        System.out.println("disciplina: " + disciplina);
+        System.out.println("sala: " + sala);
+        System.out.println("dataPresenca: " + dataPresenca);
+
         String query = "SELECT ps FROM Presenca ps WHERE ps.id IN (" +
                            "SELECT ps.id FROM Presenca p " +
                            "JOIN HorarioDisciplina hd ON p.horarioDisciplina = hd.id " +
