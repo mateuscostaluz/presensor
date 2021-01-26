@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -36,8 +37,11 @@ public class PresencaCustomRepository {
             condicao = " AND ";
         }
 
+        Date data = null;
+
         if(dataPresenca != null) {
-            query += condicao + "p.dataPresenca = :dataPresenca";
+            data = Date.valueOf(dataPresenca);
+            query += condicao + "p.dataPresenca = :data";
         }
 
         query += ")";
@@ -54,11 +58,13 @@ public class PresencaCustomRepository {
         }
 
         if(dataPresenca != null) {
-            q.setParameter("dataPresenca", dataPresenca);
+            q.setParameter("dataPresenca", data);
         }
 
         System.out.println(q.unwrap(org.hibernate.Query.class).getQueryString());
-        System.out.println(q.unwrap(org.hibernate.Query.class).getParameters().toArray().toString());
+        System.out.println(q.getParameterValue("disciplina"));
+        System.out.println(q.getParameterValue("sala"));
+        System.out.println(q.getParameterValue("dataPresenca"));
 
         return q.getResultList();
     }
