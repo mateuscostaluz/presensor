@@ -48,9 +48,9 @@ public class PresencaController {
     public ResponseEntity<List<PresencaRs>> findByFilter(
             @RequestParam(value = "disciplina") String disciplina,
             @RequestParam(value = "sala") Integer sala,
-            @RequestParam(value = "dataPresenca") String dataPresenca) {
+            @RequestParam(value = "data") String dataPresenca) {
 
-        List<Presenca> presencas = presencaRepository.findBySiglaDisciplinaAndNumeroSalaAndData(disciplina, sala, LocalDate.parse(dataPresenca));
+        List<Presenca> presencas = presencaRepository.findBySiglaDisciplinaAndNumeroSalaAndData(sala, disciplina, LocalDate.parse(dataPresenca));
 
         List<PresencaRs> presencasRs = presencas
                                        .stream()

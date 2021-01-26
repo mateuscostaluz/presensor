@@ -31,8 +31,8 @@ public interface PresencaRepository extends JpaRepository<Presenca, Long> {
                        "AND hd.sigla_disciplina = :sigla_disciplina " +
                        "AND p.data_presenca = :data" + ")", nativeQuery = true)
     List<Presenca> findBySiglaDisciplinaAndNumeroSalaAndData(
-            @Param("sigla_disciplina") String siglaDisciplina,
             @Param("numero_sala") Integer numeroSala,
+            @Param("sigla_disciplina") String siglaDisciplina,
             @Param("data") LocalDate data
     );
 
