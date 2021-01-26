@@ -18,7 +18,6 @@ import java.util.List;
 public class PresencaCustomRepository {
 
     private final DisciplinaRepository disciplinaRepository;
-    private final SalaRepository salaRepository;
     private final EntityManager em;
 
     public List<Presenca> find(String disciplina, Integer sala, LocalDate dataPresenca) {
@@ -55,11 +54,10 @@ public class PresencaCustomRepository {
             System.out.println(disciplinaObject.toString());
         }
 
-        if(sala != null) {
-            Sala salaObject = salaRepository.findByNumero(sala);
-            q.setParameter("sala", salaObject);
+        if(sala != null) { ;
+            q.setParameter("sala", sala);
 
-            System.out.println(salaObject.toString());
+            System.out.println(sala.toString());
         }
 
         if(dataPresenca != null) {
