@@ -48,7 +48,7 @@ public class PresencaCustomRepository {
             q.setParameter("disciplina", disciplinaObject);
         }
 
-        if(sala != null) { ;
+        if(sala != null) {
             q.setParameter("sala", sala);
         }
 
