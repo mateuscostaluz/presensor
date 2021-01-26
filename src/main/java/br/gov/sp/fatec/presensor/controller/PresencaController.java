@@ -44,7 +44,7 @@ public class PresencaController {
         }
     }
 
-    @GetMapping("")
+    @GetMapping("/filter")
     public ResponseEntity<List<PresencaRs>> findByFilter(
             @RequestParam(value = "disciplina") String disciplina,
             @RequestParam(value = "sala") Integer sala,
