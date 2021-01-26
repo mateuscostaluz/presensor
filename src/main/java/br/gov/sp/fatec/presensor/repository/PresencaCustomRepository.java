@@ -19,7 +19,7 @@ public class PresencaCustomRepository {
     private final SalaRepository salaRepository;
     private final EntityManager em;
 
-    public List<Presenca> findBySiglaDisciplinaAndNumeroSalaAndData(String disciplina, Integer sala, LocalDate dataPresenca) {
+    public List<Presenca> findBySiglaDisciplinaAndNumeroSalaAndData(Integer sala, String disciplina, LocalDate dataPresenca) {
 
         String query = "SELECT p FROM Presenca p";
 
