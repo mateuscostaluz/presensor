@@ -33,7 +33,7 @@ public class PresencaCustomRepository {
         }
 
         if(sala != null) {
-            query += condicao + "s = :sala";
+            query += condicao + "s.numero = :sala";
             condicao = " AND ";
         }
 
