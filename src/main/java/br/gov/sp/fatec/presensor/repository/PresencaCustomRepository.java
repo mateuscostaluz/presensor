@@ -2,6 +2,7 @@ package br.gov.sp.fatec.presensor.repository;
 
 import br.gov.sp.fatec.presensor.model.Disciplina;
 import br.gov.sp.fatec.presensor.model.Presenca;
+import br.gov.sp.fatec.presensor.model.Sala;
 import lombok.AllArgsConstructor;
 import org.springframework.data.jpa.repository.query.JpaQueryCreator;
 import org.springframework.stereotype.Repository;
@@ -17,6 +18,7 @@ import java.util.List;
 public class PresencaCustomRepository {
 
     private final DisciplinaRepository disciplinaRepository;
+    private final SalaRepository salaRepository;
     private final EntityManager em;
 
     public List<Presenca> find(String disciplina, Integer sala, LocalDate dataPresenca) {
@@ -49,17 +51,22 @@ public class PresencaCustomRepository {
         if(disciplina != null) {
             Disciplina disciplinaObject = disciplinaRepository.findBySigla(disciplina);
             q.setParameter("disciplina", disciplinaObject);
+
+            System.out.println(disciplinaObject.toString());
         }
 
         if(sala != null) {
-            q.setParameter("sala", sala);
+            Sala salaObject = salaRepository.findByNumero(sala);
+            q.setParameter("sala", salaObject);
+
+            System.out.println(salaObject.toString());
         }
 
         if(dataPresenca != null) {
             q.setParameter("dataPresenca", dataPresenca);
-        }
 
-        System.out.println(q.unwrap(org.hibernate.Query.class).getQueryString());
+            System.out.println(dataPresenca.toString());
+        }
 
         return q.getResultList();
     }
