@@ -50,7 +50,7 @@ public class PresencaCustomRepository {
 
         if(sala != null) {
             Sala salaObject = salaRepository.findByNumero(sala);
-            q.setParameter("sala", salaObject.getNumero());
+            q.setParameter("sala", salaObject);
         }
 
         if(dataPresenca != null) {
@@ -59,4 +59,5 @@ public class PresencaCustomRepository {
 
         return q.getResultList();
     }
+
 }
