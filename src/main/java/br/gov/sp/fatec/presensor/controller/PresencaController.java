@@ -7,7 +7,6 @@ import br.gov.sp.fatec.presensor.model.HorarioDisciplina;
 import br.gov.sp.fatec.presensor.model.Presenca;
 import br.gov.sp.fatec.presensor.repository.AlunoRepository;
 import br.gov.sp.fatec.presensor.repository.HorarioDisciplinaRepository;
-import br.gov.sp.fatec.presensor.repository.PresencaCustomRepository;
 import br.gov.sp.fatec.presensor.repository.PresencaRepository;
 import br.gov.sp.fatec.presensor.services.DateTimeServices;
 import lombok.AllArgsConstructor;
@@ -27,8 +26,6 @@ public class PresencaController {
 
     private final AlunoRepository alunoRepository;
     private final HorarioDisciplinaRepository horarioDisciplinaRepository;
-
-    private final PresencaCustomRepository presencaCustomRepository;
     private final PresencaRepository presencaRepository;
 
     @GetMapping("/")
@@ -49,16 +46,11 @@ public class PresencaController {
 
     @GetMapping("")
     public ResponseEntity<List<PresencaRs>> findByFilter(
-            @RequestParam(value = "disciplina", required = false) String disciplina,
-            @RequestParam(value = "sala", required = false) Integer sala,
-            @RequestParam(value = "dataPresenca", required = false) String dataPresenca) {
-        List<Presenca> presencas;
+            @RequestParam(value = "disciplina") String disciplina,
+            @RequestParam(value = "sala") Integer sala,
+            @RequestParam(value = "dataPresenca") String dataPresenca) {
 
-        if (dataPresenca != null) {
-            presencas = presencaCustomRepository.find(disciplina, sala, LocalDate.parse(dataPresenca));
-        } else {
-            presencas = presencaCustomRepository.find(disciplina, sala, null);
-        }
+        List<Presenca> presencas = presencaRepository.findBySiglaDisciplinaAndNumeroSalaAndData(disciplina, sala, LocalDate.parse(dataPresenca));
 
         List<PresencaRs> presencasRs = presencas
                                        .stream()
