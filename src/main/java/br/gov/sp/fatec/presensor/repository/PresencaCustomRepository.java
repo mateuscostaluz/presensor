@@ -58,6 +58,7 @@ public class PresencaCustomRepository {
         }
 
         System.out.println(q.unwrap(org.hibernate.Query.class).getQueryString());
+        System.out.println(q.unwrap(org.hibernate.Query.class).getParameters());
 
         return q.getResultList();
     }
