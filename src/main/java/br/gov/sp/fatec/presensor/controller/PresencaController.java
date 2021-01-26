@@ -64,6 +64,32 @@ public class PresencaController {
         }
     }
 
+    @GetMapping("/custom")
+    public ResponseEntity<List<PresencaRs>> findByCustomFilter(
+            @RequestParam(value = "disciplina") String disciplina,
+            @RequestParam(value = "sala") Integer sala,
+            @RequestParam(value = "data") String dataPresenca) {
+
+        List<Presenca> presencas;
+
+        if (dataPresenca != null) {
+            presencas = presencaRepository.findBySiglaDisciplinaAndNumeroSalaAndData(sala, disciplina, LocalDate.parse(dataPresenca));
+        } else {
+            presencas = presencaRepository.findBySiglaDisciplinaAndNumeroSalaAndData(sala, disciplina, null);
+        }
+
+        List<PresencaRs> presencasRs = presencas
+                                       .stream()
+                                       .map(PresencaRs::converter)
+                                       .collect(Collectors.toList());
+
+        if (presencasRs.isEmpty()) {
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity(presencasRs, HttpStatus.OK);
+        }
+    }
+
     @PostMapping("/")
     public ResponseEntity<String> savePresenca(@RequestBody PresencaRq presencaRq) {
 
