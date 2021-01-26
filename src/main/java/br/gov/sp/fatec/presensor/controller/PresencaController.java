@@ -15,7 +15,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -56,7 +55,7 @@ public class PresencaController {
         List<Presenca> presencas;
 
         if (dataPresenca != null) {
-            presencas = presencaCustomRepository.find(disciplina, sala, Date.valueOf(LocalDate.parse(dataPresenca)));
+            presencas = presencaCustomRepository.find(disciplina, sala, LocalDate.parse(dataPresenca));
         } else {
             presencas = presencaCustomRepository.find(disciplina, sala, null);
         }

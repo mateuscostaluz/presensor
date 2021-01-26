@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @AllArgsConstructor
@@ -17,7 +17,7 @@ public class PresencaCustomRepository {
     private final DisciplinaRepository disciplinaRepository;
     private final EntityManager em;
 
-    public List<Presenca> find(String disciplina, Integer sala, Date dataPresenca) {
+    public List<Presenca> find(String disciplina, Integer sala, LocalDate dataPresenca) {
 
         String query = "SELECT ps FROM Presenca ps WHERE ps.id IN (" +
                            "SELECT ps.id FROM Presenca p " +
@@ -57,10 +57,10 @@ public class PresencaCustomRepository {
             q.setParameter("dataPresenca", dataPresenca);
         }
 
-        System.out.println(q.unwrap(org.hibernate.Query.class).getQueryString());
         System.out.println("Disciplina " + q.getParameterValue("disciplina"));
         System.out.println("Sala " + q.getParameterValue("sala"));
         System.out.println("Data " + q.getParameterValue("dataPresenca"));
+        System.out.println(q.unwrap(org.hibernate.Query.class).getQueryString());
 
         return q.getResultList();
     }
