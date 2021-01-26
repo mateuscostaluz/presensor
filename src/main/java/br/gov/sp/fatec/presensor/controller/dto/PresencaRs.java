@@ -1,6 +1,7 @@
 package br.gov.sp.fatec.presensor.controller.dto;
 
 import br.gov.sp.fatec.presensor.model.Presenca;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,39 +11,48 @@ import java.time.LocalDate;
 @Setter
 public class PresencaRs {
 
-    private Long id_presenca;
+    @JsonProperty(value = "id_presenca")
+    private Long idPresenca;
 
-    private Long ra_aluno;
-    private String nome_aluno;
+    @JsonProperty(value = "ra_aluno")
+    private Long raAluno;
+    @JsonProperty(value = "nome_aluno")
+    private String nomeAluno;
 
-    private String sigla_disciplina;
-    private String nome_disciplina;
+    @JsonProperty(value = "sigla_disciplina")
+    private String siglaDisciplina;
+    @JsonProperty(value = "nome_disciplina")
+    private String nomeDisciplina;
 
-    private String uuid_beacon_sala;
-    private Integer numero_sala;
+    @JsonProperty(value = "uuid_beacon_sala")
+    private String uuidBeaconSala;
+    @JsonProperty(value = "numero_sala")
+    private Integer numeroSala;
 
-    private String dia_semana;
+    @JsonProperty(value = "dia_semana")
+    private String diaSemana;
 
-    private LocalDate data_presenca;
+    @JsonProperty(value = "data_presenca")
+    private LocalDate dataPresenca;
 
     public static PresencaRs converter(Presenca p) {
 
         PresencaRs presencaRs = new PresencaRs();
 
-        presencaRs.setId_presenca(p.getId());
+        presencaRs.setIdPresenca(p.getId());
 
-        presencaRs.setRa_aluno(p.getAluno().getRa());
-        presencaRs.setNome_aluno(p.getAluno().getNome());
+        presencaRs.setRaAluno(p.getAluno().getRa());
+        presencaRs.setNomeAluno(p.getAluno().getNome());
 
-        presencaRs.setSigla_disciplina(p.getHorarioDisciplina().getDisciplina().getSigla());
-        presencaRs.setNome_disciplina(p.getHorarioDisciplina().getDisciplina().getNome());
+        presencaRs.setSiglaDisciplina(p.getHorarioDisciplina().getDisciplina().getSigla());
+        presencaRs.setNomeDisciplina(p.getHorarioDisciplina().getDisciplina().getNome());
 
-        presencaRs.setUuid_beacon_sala(p.getHorarioDisciplina().getSala().getUuidBeacon());
-        presencaRs.setNumero_sala(p.getHorarioDisciplina().getSala().getNumero());
+        presencaRs.setUuidBeaconSala(p.getHorarioDisciplina().getSala().getUuidBeacon());
+        presencaRs.setNumeroSala(p.getHorarioDisciplina().getSala().getNumero());
 
-        presencaRs.setDia_semana(p.getHorarioDisciplina().getDiaSemana().getDia());
+        presencaRs.setDiaSemana(p.getHorarioDisciplina().getDiaSemana().getDia());
 
-        presencaRs.setData_presenca(p.getDataPresenca());
+        presencaRs.setDataPresenca(p.getDataPresenca());
 
         return presencaRs;
     }

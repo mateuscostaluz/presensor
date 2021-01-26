@@ -15,7 +15,6 @@ import java.util.List;
 public class PresencaCustomRepository {
 
     private final DisciplinaRepository disciplinaRepository;
-
     private final EntityManager em;
 
     public List<Presenca> find(String disciplina, Integer sala, LocalDate dataPresenca) {

@@ -1,6 +1,5 @@
 package br.gov.sp.fatec.presensor.controller;
 
-import br.gov.sp.fatec.presensor.controller.dto.AlunoRq;
 import br.gov.sp.fatec.presensor.controller.dto.PresencaRq;
 import br.gov.sp.fatec.presensor.controller.dto.PresencaRs;
 import br.gov.sp.fatec.presensor.model.Aluno;
@@ -10,7 +9,6 @@ import br.gov.sp.fatec.presensor.repository.AlunoRepository;
 import br.gov.sp.fatec.presensor.repository.HorarioDisciplinaRepository;
 import br.gov.sp.fatec.presensor.repository.PresencaCustomRepository;
 import br.gov.sp.fatec.presensor.repository.PresencaRepository;
-import br.gov.sp.fatec.presensor.security.WebSecurityConfig;
 import br.gov.sp.fatec.presensor.services.DateTimeServices;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
