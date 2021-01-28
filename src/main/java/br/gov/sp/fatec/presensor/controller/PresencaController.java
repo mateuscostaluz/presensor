@@ -9,7 +9,7 @@ import br.gov.sp.fatec.presensor.repository.AlunoRepository;
 import br.gov.sp.fatec.presensor.repository.HorarioDisciplinaRepository;
 import br.gov.sp.fatec.presensor.repository.PresencaCustomRepository;
 import br.gov.sp.fatec.presensor.repository.PresencaRepository;
-import br.gov.sp.fatec.presensor.services.DateTimeServices;
+import br.gov.sp.fatec.presensor.service.DateTimeServices;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

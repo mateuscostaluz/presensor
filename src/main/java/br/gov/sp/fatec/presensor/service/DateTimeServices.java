@@ -1,4 +1,4 @@
-package br.gov.sp.fatec.presensor.services;
+package br.gov.sp.fatec.presensor.service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

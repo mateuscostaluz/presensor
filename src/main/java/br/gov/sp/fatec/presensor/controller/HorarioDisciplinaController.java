@@ -4,7 +4,7 @@ package br.gov.sp.fatec.presensor.controller;
 import br.gov.sp.fatec.presensor.controller.dto.HorarioDisciplinaRs;
 import br.gov.sp.fatec.presensor.model.HorarioDisciplina;
 import br.gov.sp.fatec.presensor.repository.HorarioDisciplinaRepository;
-import br.gov.sp.fatec.presensor.services.DateTimeServices;
+import br.gov.sp.fatec.presensor.service.DateTimeServices;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
