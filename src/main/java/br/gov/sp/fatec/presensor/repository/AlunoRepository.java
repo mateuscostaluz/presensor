@@ -13,7 +13,4 @@ public interface AlunoRepository extends JpaRepository<Aluno, Long> {
 
     Aluno findByEmail(String email);
 
-    @Transactional
-    void deleteByEmail(String email);
-
 }

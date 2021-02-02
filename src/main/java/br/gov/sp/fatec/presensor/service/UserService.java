@@ -44,10 +44,6 @@ public class UserService {
         }
     }
 
-    public void delete(String email) {
-        alunoRepository.deleteByEmail(email);
-    }
-
     public Aluno search(String email) throws Exception {
         Aluno aluno = alunoRepository.findByEmail(email);
         if (aluno == null) {

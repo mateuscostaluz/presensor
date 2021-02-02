@@ -61,19 +61,6 @@ public class AlunoController {
         return userService.signup(modelMapper.map(aluno, Aluno.class));
     }
 
-    @DeleteMapping(value = "/{email}")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @ApiOperation(value = "${AlunoController.delete}", authorizations = { @Authorization(value="apiKey") })
-    @ApiResponses(value = {
-            @ApiResponse(code = 400, message = "Algo deu errado"),
-            @ApiResponse(code = 403, message = "Acesso negado"),
-            @ApiResponse(code = 404, message = "Aluno não encontradp"),
-            @ApiResponse(code = 500, message = "Token JWT expirado ou inválido")})
-    public String delete(@PathVariable String email) {
-        userService.delete(email);
-        return email;
-    }
-
     @GetMapping(value = "/{email}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @ApiOperation(value = "${AlunoController.search}", response = AlunoRs.class, authorizations = { @Authorization(value="apiKey") })
