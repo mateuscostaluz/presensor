@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -34,9 +33,6 @@ public class AlunoController {
     @Autowired
     private final AlunoRepository alunoRepository;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
     @PostMapping("/login")
     @ApiOperation(value = "${AlunoController.login}")
     @ApiResponses(value = {
@@ -44,7 +40,7 @@ public class AlunoController {
             @ApiResponse(code = 422, message = "Email e/ou senha inválidos")})
     public String login(@RequestParam String email,
                         @RequestParam String senha) throws Exception {
-        return userService.signin(email, passwordEncoder.encode(senha));
+        return userService.signin(email, senha);
     }
 
     @PostMapping("/cadastro")
