@@ -38,8 +38,8 @@ public class AlunoController {
     @ApiResponses(value = {
             @ApiResponse(code = 400, message = "Algo deu errado"),
             @ApiResponse(code = 422, message = "Email e/ou senha inválidos")})
-    public String login(@ApiParam("email") @RequestParam String email,
-                        @ApiParam("senha") @RequestParam String senha) throws Exception {
+    public String login(@RequestParam String email,
+                        @RequestParam String senha) throws Exception {
         return userService.signin(email, senha);
     }
 
@@ -69,7 +69,7 @@ public class AlunoController {
             @ApiResponse(code = 403, message = "Acesso negado"),
             @ApiResponse(code = 404, message = "Aluno não encontradp"),
             @ApiResponse(code = 500, message = "Token JWT expirado ou inválido")})
-    public String delete(@ApiParam("email") @PathVariable String email) {
+    public String delete(@PathVariable String email) {
         userService.delete(email);
         return email;
     }
