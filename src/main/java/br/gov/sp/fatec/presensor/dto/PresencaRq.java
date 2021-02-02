@@ -1,4 +1,4 @@
-package br.gov.sp.fatec.presensor.controller.dto;
+package br.gov.sp.fatec.presensor.dto;
 
 import lombok.Getter;
 import lombok.Setter;

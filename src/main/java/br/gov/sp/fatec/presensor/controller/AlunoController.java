@@ -1,13 +1,18 @@
 package br.gov.sp.fatec.presensor.controller;
 
-import br.gov.sp.fatec.presensor.controller.dto.AlunoRq;
-import br.gov.sp.fatec.presensor.controller.dto.AlunoRs;
+import br.gov.sp.fatec.presensor.dto.AlunoRq;
+import br.gov.sp.fatec.presensor.dto.AlunoRs;
 import br.gov.sp.fatec.presensor.model.Aluno;
+import br.gov.sp.fatec.presensor.model.Role;
 import br.gov.sp.fatec.presensor.repository.AlunoRepository;
+import br.gov.sp.fatec.presensor.service.UserService;
+import io.swagger.annotations.*;
 import lombok.AllArgsConstructor;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,10 +21,70 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @RestController
 @RequestMapping("/aluno")
+@Api(tags = "aluno")
 public class AlunoController {
 
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private ModelMapper modelMapper;
+
+    @Autowired
     private final AlunoRepository alunoRepository;
-    private final PasswordEncoder passwordEncoder;
+
+    @PostMapping("/login")
+    @ApiOperation(value = "${AlunoController.login}")
+    @ApiResponses(value = {
+            @ApiResponse(code = 400, message = "Algo deu errado"),
+            @ApiResponse(code = 422, message = "Email e/ou senha inválidos")})
+    public String login(@ApiParam("email") @RequestParam String email,
+                        @ApiParam("senha") @RequestParam String senha) throws Exception {
+        return userService.signin(email, senha);
+    }
+
+    @PostMapping("/cadastro")
+    @ApiOperation(value = "${AlunoController.cadastro}")
+    @ApiResponses(value = {
+            @ApiResponse(code = 400, message = "Algo deu errado"),
+            @ApiResponse(code = 403, message = "Acesso negado"),
+            @ApiResponse(code = 422, message = "Este email já está em uso")})
+    public String signup(@ApiParam("aluno") @RequestBody AlunoRq alunoRq) throws Exception {
+        Aluno aluno = new Aluno();
+
+        aluno.setRa(alunoRq.getRa());
+        aluno.setEmail(alunoRq.getEmail());
+        aluno.setSenha(alunoRq.getSenha());
+        aluno.setNome(alunoRq.getNome());
+        aluno.setRole(Role.ROLE_CLIENT.toString());
+
+        return userService.signup(modelMapper.map(aluno, Aluno.class));
+    }
+
+    @DeleteMapping(value = "/{email}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @ApiOperation(value = "${AlunoController.delete}", authorizations = { @Authorization(value="apiKey") })
+    @ApiResponses(value = {
+            @ApiResponse(code = 400, message = "Algo deu errado"),
+            @ApiResponse(code = 403, message = "Acesso negado"),
+            @ApiResponse(code = 404, message = "Aluno não encontradp"),
+            @ApiResponse(code = 500, message = "Token JWT expirado ou inválido")})
+    public String delete(@ApiParam("email") @PathVariable String email) {
+        userService.delete(email);
+        return email;
+    }
+
+    @GetMapping(value = "/{email}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @ApiOperation(value = "${AlunoController.search}", response = AlunoRs.class, authorizations = { @Authorization(value="apiKey") })
+    @ApiResponses(value = {
+            @ApiResponse(code = 400, message = "Algo deu errado"),
+            @ApiResponse(code = 403, message = "Acesso negado"),
+            @ApiResponse(code = 404, message = "Aluno não encontradp"),
+            @ApiResponse(code = 500, message = "Token JWT expirado ou inválido")})
+    public AlunoRs search(@ApiParam("email") @PathVariable String email) throws Exception {
+        return modelMapper.map(userService.search(email), AlunoRs.class);
+    }
 
     @GetMapping("/")
     public ResponseEntity<List<AlunoRs>> findAll() {
@@ -35,24 +100,6 @@ public class AlunoController {
         }
 
         return new ResponseEntity(alunoRs, HttpStatus.OK);
-    }
-
-    @PostMapping("/")
-    public ResponseEntity<AlunoRq> saveAluno(@RequestBody AlunoRq alunoRq) {
-
-        if(alunoRepository.findByEmail(alunoRq.getEmail()) != null) {
-            return new ResponseEntity("Aluno já registrado com o email: " + alunoRq.getEmail(), HttpStatus.CONFLICT);
-        }
-
-        Aluno aluno = new Aluno();
-
-        aluno.setRa(alunoRq.getRa());
-        aluno.setEmail(alunoRq.getEmail());
-        aluno.setSenha(passwordEncoder.encode(alunoRq.getSenha()));
-        aluno.setNome(alunoRq.getSenha());
-        alunoRepository.save(aluno);
-
-        return new ResponseEntity("Aluno registrado com sucesso", HttpStatus.OK);
     }
 
 }

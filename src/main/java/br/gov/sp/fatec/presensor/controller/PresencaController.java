@@ -1,7 +1,7 @@
 package br.gov.sp.fatec.presensor.controller;
 
-import br.gov.sp.fatec.presensor.controller.dto.PresencaRq;
-import br.gov.sp.fatec.presensor.controller.dto.PresencaRs;
+import br.gov.sp.fatec.presensor.dto.PresencaRq;
+import br.gov.sp.fatec.presensor.dto.PresencaRs;
 import br.gov.sp.fatec.presensor.model.Aluno;
 import br.gov.sp.fatec.presensor.model.HorarioDisciplina;
 import br.gov.sp.fatec.presensor.model.Presenca;

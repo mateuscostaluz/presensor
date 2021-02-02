@@ -1,4 +1,4 @@
-package br.gov.sp.fatec.presensor.controller.dto;
+package br.gov.sp.fatec.presensor.dto;
 
 import br.gov.sp.fatec.presensor.model.Presenca;
 import com.fasterxml.jackson.annotation.JsonProperty;

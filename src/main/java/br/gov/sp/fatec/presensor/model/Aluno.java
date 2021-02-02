@@ -2,20 +2,16 @@ package br.gov.sp.fatec.presensor.model;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import java.util.Collection;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
 @Entity
 @Table(name = "alunos")
-public class Aluno implements UserDetails {
+public class Aluno {
 
     @Id
     @Column(name = "ra", length = 20, nullable = false)
@@ -30,38 +26,14 @@ public class Aluno implements UserDetails {
     @Column(name = "nome", length = 100, nullable = false)
     private String nome;
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+    @Column(name = "role", length = 11, nullable = false)
+    private String role;
+
+    public List<Role> getRoles() {
+        List<Role> roles = new ArrayList<>();
+        roles.add(Role.valueOf(role));
+
+        return roles;
     }
 
-    @Override
-    public String getPassword() {
-        return getSenha();
-    }
-
-    @Override
-    public String getUsername() {
-        return getEmail();
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
 }
