@@ -27,7 +27,7 @@ public class UserService {
 
     public String signin(String email, String senha) throws Exception {
         try {
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, passwordEncoder.encode(senha)));
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, senha));
             return jwtTokenProvider.createToken(email, alunoRepository.findByEmail(email).getRoles());
         } catch (AuthenticationException e) {
             throw new Exception("Email e/ou senha inválidos", e);
