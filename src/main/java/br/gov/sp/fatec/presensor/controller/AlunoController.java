@@ -87,6 +87,7 @@ public class AlunoController {
     }
 
     @GetMapping("/")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<List<AlunoRs>> findAll() {
         List<Aluno> alunos = alunoRepository.findAll();
 

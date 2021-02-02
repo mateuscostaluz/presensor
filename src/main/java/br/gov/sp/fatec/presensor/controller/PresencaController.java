@@ -11,8 +11,10 @@ import br.gov.sp.fatec.presensor.repository.PresencaCustomRepository;
 import br.gov.sp.fatec.presensor.repository.PresencaRepository;
 import br.gov.sp.fatec.presensor.service.DateTimeServices;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -25,12 +27,20 @@ import java.util.stream.Collectors;
 @RequestMapping("/presenca")
 public class PresencaController {
 
+    @Autowired
     private final AlunoRepository alunoRepository;
+
+    @Autowired
     private final HorarioDisciplinaRepository horarioDisciplinaRepository;
+
+    @Autowired
     private final PresencaRepository presencaRepository;
+
+    @Autowired
     private final PresencaCustomRepository presencaCustomRepository;
 
     @GetMapping("/")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<List<PresencaRs>> findAll() {
         List<Presenca> presencas = presencaRepository.findAll();
 
@@ -47,6 +57,7 @@ public class PresencaController {
     }
 
     @GetMapping("/filter")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<List<PresencaRs>> findByCustomFilter(
             @RequestParam(value = "disciplina", required = false) String disciplina,
             @RequestParam(value = "sala", required = false) Integer sala,
