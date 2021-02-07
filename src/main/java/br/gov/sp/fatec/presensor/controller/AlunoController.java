@@ -49,7 +49,7 @@ public class AlunoController {
             @ApiResponse(code = 400, message = "Algo deu errado"),
             @ApiResponse(code = 403, message = "Acesso negado"),
             @ApiResponse(code = 422, message = "Este email já está em uso")})
-    public String signup(@ApiParam("aluno") @RequestBody AlunoRq alunoRq) throws Exception {
+    public String cadastro(@ApiParam("aluno") @RequestBody AlunoRq alunoRq) throws Exception {
         Aluno aluno = new Aluno();
 
         aluno.setRa(alunoRq.getRa());
