@@ -28,9 +28,6 @@ public class AlunoController {
     private UserService userService;
 
     @Autowired
-    private ModelMapper modelMapper;
-
-    @Autowired
     private final AlunoRepository alunoRepository;
 
     @PostMapping("/login")
