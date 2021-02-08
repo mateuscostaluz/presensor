@@ -7,9 +7,7 @@ import br.gov.sp.fatec.presensor.model.Aluno;
 import br.gov.sp.fatec.presensor.model.Role;
 import br.gov.sp.fatec.presensor.repository.AlunoRepository;
 import br.gov.sp.fatec.presensor.service.UserService;
-import io.swagger.annotations.*;
 import lombok.AllArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -50,7 +48,7 @@ public class AlunoController {
 
     @GetMapping(value = "/{email}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public Object search(@ApiParam("email") @PathVariable String email) {
+    public Object search(@RequestParam(value = "email") String email) {
         return userService.search(email);
     }
 
