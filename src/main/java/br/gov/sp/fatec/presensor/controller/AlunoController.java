@@ -22,7 +22,6 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @RestController
 @RequestMapping("/aluno")
-@Api(tags = "aluno")
 public class AlunoController {
 
     @Autowired
