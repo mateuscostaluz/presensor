@@ -1,5 +1,6 @@
 package br.gov.sp.fatec.presensor.controller;
 
+import br.gov.sp.fatec.presensor.dto.AlunoLogin;
 import br.gov.sp.fatec.presensor.dto.AlunoRq;
 import br.gov.sp.fatec.presensor.dto.AlunoRs;
 import br.gov.sp.fatec.presensor.model.Aluno;
@@ -34,22 +35,12 @@ public class AlunoController {
     private final AlunoRepository alunoRepository;
 
     @PostMapping("/login")
-    @ApiOperation(value = "${AlunoController.login}")
-    @ApiResponses(value = {
-            @ApiResponse(code = 400, message = "Algo deu errado"),
-            @ApiResponse(code = 422, message = "Email e/ou senha inválidos")})
-    public String login(@RequestParam String email,
-                        @RequestParam String senha) throws Exception {
-        return userService.signin(email, senha);
+    public ResponseEntity<String> login(@RequestBody AlunoLogin alunoLogin) {
+        return userService.signin(alunoLogin.getEmail(), alunoLogin.getSenha());
     }
 
     @PostMapping("/cadastro")
-    @ApiOperation(value = "${AlunoController.cadastro}")
-    @ApiResponses(value = {
-            @ApiResponse(code = 400, message = "Algo deu errado"),
-            @ApiResponse(code = 403, message = "Acesso negado"),
-            @ApiResponse(code = 422, message = "Este email já está em uso")})
-    public String cadastro(@ApiParam("aluno") @RequestBody AlunoRq alunoRq) throws Exception {
+    public ResponseEntity<String> cadastro(@RequestBody AlunoRq alunoRq) {
         Aluno aluno = new Aluno();
 
         aluno.setRa(alunoRq.getRa());
@@ -58,19 +49,13 @@ public class AlunoController {
         aluno.setNome(alunoRq.getNome());
         aluno.setRole(Role.ROLE_CLIENT.toString());
 
-        return userService.signup(modelMapper.map(aluno, Aluno.class));
+        return userService.signup(aluno);
     }
 
     @GetMapping(value = "/{email}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @ApiOperation(value = "${AlunoController.search}", response = AlunoRs.class, authorizations = { @Authorization(value="apiKey") })
-    @ApiResponses(value = {
-            @ApiResponse(code = 400, message = "Algo deu errado"),
-            @ApiResponse(code = 403, message = "Acesso negado"),
-            @ApiResponse(code = 404, message = "Aluno não encontradp"),
-            @ApiResponse(code = 500, message = "Token JWT expirado ou inválido")})
-    public AlunoRs search(@ApiParam("email") @PathVariable String email) throws Exception {
-        return modelMapper.map(userService.search(email), AlunoRs.class);
+    public Object search(@ApiParam("email") @PathVariable String email) {
+        return userService.search(email);
     }
 
     @GetMapping("/")

@@ -1,9 +1,12 @@
 package br.gov.sp.fatec.presensor.service;
 
+import br.gov.sp.fatec.presensor.dto.AlunoRs;
 import br.gov.sp.fatec.presensor.model.Aluno;
 import br.gov.sp.fatec.presensor.repository.AlunoRepository;
 import br.gov.sp.fatec.presensor.security.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
@@ -25,31 +28,36 @@ public class UserService {
     @Autowired
     private AuthenticationManager authenticationManager;
 
-    public String signin(String email, String senha) throws Exception {
+    public ResponseEntity<String> signin(String email, String senha) {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, senha));
-            return jwtTokenProvider.createToken(email, alunoRepository.findByEmail(email).getRoles());
+            return new ResponseEntity(jwtTokenProvider.createToken(email, alunoRepository.findByEmail(email).getRoles()), HttpStatus.OK);
         } catch (AuthenticationException e) {
-            throw new Exception("Email e/ou senha inválidos", e);
+            return new ResponseEntity("Email e/ou senha inválidos", HttpStatus.UNPROCESSABLE_ENTITY);
         }
     }
 
-    public String signup(Aluno aluno) throws Exception {
-        if (!alunoRepository.existsByEmail(aluno.getEmail()) && !alunoRepository.existsById(aluno.getRa())) {
-            aluno.setSenha(passwordEncoder.encode(aluno.getSenha()));
-            alunoRepository.save(aluno);
-            return jwtTokenProvider.createToken(aluno.getEmail(), aluno.getRoles());
-        } else {
-            throw new Exception("Este email e/ou RA já está em uso");
+    public ResponseEntity<String> signup(Aluno aluno) {
+        if (alunoRepository.existsByEmail(aluno.getEmail())) {
+            return new ResponseEntity("Este email já está em uso", HttpStatus.UNPROCESSABLE_ENTITY);
         }
+
+        if (alunoRepository.existsById(aluno.getRa())) {
+            return new ResponseEntity("Este RA já está em uso", HttpStatus.UNPROCESSABLE_ENTITY);
+        }
+
+        aluno.setSenha(passwordEncoder.encode(aluno.getSenha()));
+        alunoRepository.save(aluno);
+        return new ResponseEntity(jwtTokenProvider.createToken(aluno.getEmail(), aluno.getRoles()), HttpStatus.OK);
     }
 
-    public Aluno search(String email) throws Exception {
+    public Object search(String email) {
         Aluno aluno = alunoRepository.findByEmail(email);
         if (aluno == null) {
-            throw new Exception("Não existe algum aluno cadastrado com este email");
+            return new ResponseEntity("Aluno não encontradp", HttpStatus.NOT_FOUND);
         }
-        return aluno;
+        AlunoRs alunoRs = AlunoRs.converter(aluno);
+        return new ResponseEntity(alunoRs, HttpStatus.OK);
     }
 
 }
