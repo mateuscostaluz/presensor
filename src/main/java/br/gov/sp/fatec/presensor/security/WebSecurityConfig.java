@@ -31,7 +31,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .antMatchers("/aluno/login").permitAll()
         .antMatchers("/aluno/cadastro").permitAll()
         .anyRequest().authenticated()
-      //.and().formLogin().permitAll()
         .and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
 
         http.exceptionHandling().accessDeniedPage("/login");
