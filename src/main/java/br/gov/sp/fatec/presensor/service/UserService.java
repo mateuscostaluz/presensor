@@ -35,12 +35,12 @@ public class UserService {
     }
 
     public String signup(Aluno aluno) throws Exception {
-        if (!alunoRepository.existsByEmail(aluno.getEmail())) {
+        if (!alunoRepository.existsByEmail(aluno.getEmail()) && !alunoRepository.existsById(aluno.getRa())) {
             aluno.setSenha(passwordEncoder.encode(aluno.getSenha()));
             alunoRepository.save(aluno);
             return jwtTokenProvider.createToken(aluno.getEmail(), aluno.getRoles());
         } else {
-            throw new Exception("Este email já está em uso");
+            throw new Exception("Este email e/ou RA já está em uso");
         }
     }
 
