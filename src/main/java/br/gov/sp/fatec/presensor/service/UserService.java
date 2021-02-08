@@ -54,10 +54,8 @@ public class UserService {
     public Object search(String email) {
         Aluno aluno = alunoRepository.findByEmail(email);
         if (aluno == null) {
-            System.out.println(aluno.toString());
             return new ResponseEntity("Aluno não encontradp", HttpStatus.NOT_FOUND);
         }
-        System.out.println(aluno.toString());
         AlunoRs alunoRs = AlunoRs.converter(aluno);
         return new ResponseEntity(alunoRs, HttpStatus.OK);
     }
