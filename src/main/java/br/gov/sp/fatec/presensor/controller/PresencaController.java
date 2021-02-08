@@ -84,6 +84,7 @@ public class PresencaController {
     }
 
     @PostMapping("/")
+    @PreAuthorize("hasRole('ROLE_CLIENT')")
     public ResponseEntity<String> savePresenca(@RequestBody PresencaRq presencaRq) {
 
         Optional<Aluno> aluno = alunoRepository.findById(presencaRq.getRaAluno());
