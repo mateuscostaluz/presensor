@@ -46,7 +46,7 @@ public class AlunoController {
         return userService.signup(aluno);
     }
 
-    @GetMapping(value = "/{email}")
+    @GetMapping(value = "")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Object search(@RequestParam(value = "email") String email) {
         return userService.search(email);
