@@ -31,9 +31,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
         .antMatchers("/aluno/login").permitAll()
         .antMatchers("/aluno/cadastro").permitAll()
-        .anyRequest().authenticated()
-        .and().formLogin().permitAll()
-        .and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
+        .anyRequest().authenticated();
 
         http.apply(new JwtTokenFilterConfigurer(jwtTokenProvider));
     }
