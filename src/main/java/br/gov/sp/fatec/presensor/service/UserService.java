@@ -30,7 +30,7 @@ public class UserService {
     public ResponseEntity<String> signin(String email, String senha) {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, senha));
-            return new ResponseEntity(jwtTokenProvider.createToken(email, alunoRepository.findByEmail(email).getRoles()), HttpStatus.OK);
+            return new ResponseEntity(jwtTokenProvider.createToken(alunoRepository.findByEmail(email)), HttpStatus.OK);
         } catch (AuthenticationException e) {
             return new ResponseEntity("Email e/ou senha inválidos", HttpStatus.UNPROCESSABLE_ENTITY);
         }
