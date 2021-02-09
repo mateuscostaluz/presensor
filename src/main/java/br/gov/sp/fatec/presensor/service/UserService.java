@@ -1,6 +1,5 @@
 package br.gov.sp.fatec.presensor.service;
 
-import br.gov.sp.fatec.presensor.dto.AlunoRs;
 import br.gov.sp.fatec.presensor.model.Aluno;
 import br.gov.sp.fatec.presensor.repository.AlunoRepository;
 import br.gov.sp.fatec.presensor.security.JwtTokenProvider;
@@ -49,15 +48,6 @@ public class UserService {
         aluno.setSenha(passwordEncoder.encode(aluno.getSenha()));
         alunoRepository.save(aluno);
         return new ResponseEntity("Cadastro efetuado com sucesso", HttpStatus.OK);
-    }
-
-    public Object search(String email) {
-        Aluno aluno = alunoRepository.findByEmail(email);
-        if (aluno == null) {
-            return new ResponseEntity("Aluno não encontradp", HttpStatus.NOT_FOUND);
-        }
-        AlunoRs alunoRs = AlunoRs.converter(aluno);
-        return new ResponseEntity(alunoRs, HttpStatus.OK);
     }
 
 }

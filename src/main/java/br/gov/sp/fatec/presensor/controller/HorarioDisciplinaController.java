@@ -26,8 +26,24 @@ public class HorarioDisciplinaController {
     @Autowired
     private final HorarioDisciplinaRepository horarioDisciplinaRepository;
 
+    @GetMapping("/atual")
+    @PreAuthorize("hasRole('ROLE_CLIENT')")
+    public ResponseEntity<HorarioDisciplina> findHorarioDisciplinaByDiaSemanaAndHorario(@RequestParam(value = "beacon") String beacon) {
+
+        HorarioDisciplina horarioDisciplinaRs = horarioDisciplinaRepository
+                .findByDiaSemanaAndHorarioNamedParams(
+                        DateTimeServices.getDayOfWeek(),
+                        DateTimeServices.getLocalTime(),
+                        beacon);
+
+        if(horarioDisciplinaRs != null) {
+            return new ResponseEntity(HorarioDisciplinaRs.converter(horarioDisciplinaRs), HttpStatus.OK);
+        }
+
+        return new ResponseEntity("Sem aula no momento", HttpStatus.NO_CONTENT);
+    }
+
     @GetMapping("/")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<List<HorarioDisciplinaRs>> findAll() {
         List<HorarioDisciplina> horarioDisciplinas = horarioDisciplinaRepository.findAll();
 
@@ -41,23 +57,6 @@ public class HorarioDisciplinaController {
         }
 
         return new ResponseEntity(horarioDisciplinasRs, HttpStatus.OK);
-    }
-
-    @GetMapping("/atual")
-    @PreAuthorize("hasRole('ROLE_CLIENT')")
-    public ResponseEntity<HorarioDisciplina> findHorarioDisciplinaByDiaSemanaAndHorario(@RequestParam(value = "beacon") String beacon) {
-
-        HorarioDisciplina horarioDisciplinaRs = horarioDisciplinaRepository
-                                                .findByDiaSemanaAndHorarioNamedParams(
-                                                DateTimeServices.getDayOfWeek(),
-                                                DateTimeServices.getLocalTime(),
-                                                beacon);
-
-        if(horarioDisciplinaRs != null) {
-            return new ResponseEntity(HorarioDisciplinaRs.converter(horarioDisciplinaRs), HttpStatus.OK);
-        }
-
-        return new ResponseEntity("Sem aula no momento", HttpStatus.NO_CONTENT);
     }
 
 }

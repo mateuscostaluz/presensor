@@ -39,50 +39,6 @@ public class PresencaController {
     @Autowired
     private final PresencaCustomRepository presencaCustomRepository;
 
-    @GetMapping("/")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ResponseEntity<List<PresencaRs>> findAll() {
-        List<Presenca> presencas = presencaRepository.findAll();
-
-        List<PresencaRs> presencasRs = presencas
-                                       .stream()
-                                       .map(PresencaRs::converter)
-                                       .collect(Collectors.toList());
-
-        if(presencasRs.isEmpty()) {
-            return new ResponseEntity("Não existem listas de presenças cadastradas no sistema", HttpStatus.NO_CONTENT);
-        } else {
-            return new ResponseEntity(presencasRs, HttpStatus.OK);
-        }
-    }
-
-    @GetMapping("/filter")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ResponseEntity<List<PresencaRs>> findByCustomFilter(
-            @RequestParam(value = "disciplina", required = false) String disciplina,
-            @RequestParam(value = "sala", required = false) Integer sala,
-            @RequestParam(value = "data", required = false) String dataPresenca) {
-
-        List<Presenca> presencas;
-
-        if (dataPresenca != null) {
-            presencas = presencaCustomRepository.findBySiglaDisciplinaAndNumeroSalaAndData(sala, disciplina, LocalDate.parse(dataPresenca));
-        } else {
-            presencas = presencaCustomRepository.findBySiglaDisciplinaAndNumeroSalaAndData(sala, disciplina, null);
-        }
-
-        List<PresencaRs> presencasRs = presencas
-                                       .stream()
-                                       .map(PresencaRs::converter)
-                                       .collect(Collectors.toList());
-
-        if (presencasRs.isEmpty()) {
-            return new ResponseEntity("Nenhuma lista de presenças encontrada com estes filtros", HttpStatus.NO_CONTENT);
-        } else {
-            return new ResponseEntity(presencasRs, HttpStatus.OK);
-        }
-    }
-
     @PostMapping("/")
     @PreAuthorize("hasRole('ROLE_CLIENT')")
     public ResponseEntity<String> savePresenca(@RequestBody PresencaRq presencaRq) {
@@ -116,6 +72,48 @@ public class PresencaController {
 
         return new ResponseEntity("Presença registrada", HttpStatus.OK);
 
+    }
+
+    @GetMapping("/")
+    public ResponseEntity<List<PresencaRs>> findAll() {
+        List<Presenca> presencas = presencaRepository.findAll();
+
+        List<PresencaRs> presencasRs = presencas
+                                       .stream()
+                                       .map(PresencaRs::converter)
+                                       .collect(Collectors.toList());
+
+        if(presencasRs.isEmpty()) {
+            return new ResponseEntity("Não existem listas de presenças cadastradas no sistema", HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity(presencasRs, HttpStatus.OK);
+        }
+    }
+
+    @GetMapping("/filter")
+    public ResponseEntity<List<PresencaRs>> findByCustomFilter(
+            @RequestParam(value = "disciplina", required = false) String disciplina,
+            @RequestParam(value = "sala", required = false) Integer sala,
+            @RequestParam(value = "data", required = false) String dataPresenca) {
+
+        List<Presenca> presencas;
+
+        if (dataPresenca != null) {
+            presencas = presencaCustomRepository.findBySiglaDisciplinaAndNumeroSalaAndData(sala, disciplina, LocalDate.parse(dataPresenca));
+        } else {
+            presencas = presencaCustomRepository.findBySiglaDisciplinaAndNumeroSalaAndData(sala, disciplina, null);
+        }
+
+        List<PresencaRs> presencasRs = presencas
+                                       .stream()
+                                       .map(PresencaRs::converter)
+                                       .collect(Collectors.toList());
+
+        if (presencasRs.isEmpty()) {
+            return new ResponseEntity("Nenhuma lista de presenças encontrada com estes filtros", HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity(presencasRs, HttpStatus.OK);
+        }
     }
 
 }

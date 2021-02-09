@@ -11,7 +11,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,11 +27,6 @@ public class AlunoController {
     @Autowired
     private final AlunoRepository alunoRepository;
 
-    @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody AlunoLogin alunoLogin) {
-        return userService.signin(alunoLogin.getEmail(), alunoLogin.getSenha());
-    }
-
     @PostMapping("/cadastro")
     public ResponseEntity<String> cadastro(@RequestBody AlunoRq alunoRq) {
         Aluno aluno = new Aluno();
@@ -46,14 +40,12 @@ public class AlunoController {
         return userService.signup(aluno);
     }
 
-    @GetMapping(value = "")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public Object search(@RequestParam(value = "email") String email) {
-        return userService.search(email);
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@RequestBody AlunoLogin alunoLogin) {
+        return userService.signin(alunoLogin.getEmail(), alunoLogin.getSenha());
     }
 
     @GetMapping("/")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<List<AlunoRs>> findAll() {
         List<Aluno> alunos = alunoRepository.findAll();
 
