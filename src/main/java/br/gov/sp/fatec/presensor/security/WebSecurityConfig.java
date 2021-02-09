@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -27,7 +28,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
         .antMatchers("/aluno/login").permitAll()
         .antMatchers("/aluno/cadastro").permitAll()
-        .anyRequest().authenticated();
+        .anyRequest().authenticated()
+        .and().formLogin().permitAll()
+        .and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"));;
 
         http.apply(new JwtTokenFilterConfigurer(jwtTokenProvider));
     }
