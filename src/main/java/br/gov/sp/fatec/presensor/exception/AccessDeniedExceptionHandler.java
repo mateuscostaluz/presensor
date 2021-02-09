@@ -14,4 +14,5 @@ class AccessDeniedExceptionHandler {
     public void handleConflict(HttpServletResponse response) throws IOException {
         response.sendError(403, "Acesso não autorizado");
     }
+
 }
