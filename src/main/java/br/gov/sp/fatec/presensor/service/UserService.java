@@ -48,7 +48,7 @@ public class UserService {
 
         aluno.setSenha(passwordEncoder.encode(aluno.getSenha()));
         alunoRepository.save(aluno);
-        return new ResponseEntity(jwtTokenProvider.createToken(aluno.getEmail(), aluno.getRoles()), HttpStatus.OK);
+        return new ResponseEntity("Cadastro efetuado com sucesso", HttpStatus.OK);
     }
 
     public Object search(String email) {
