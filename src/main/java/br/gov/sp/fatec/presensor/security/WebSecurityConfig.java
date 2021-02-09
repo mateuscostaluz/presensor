@@ -35,10 +35,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .and().formLogin().permitAll()
         .and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
 
-        http.exceptionHandling().accessDeniedPage("/login");
-
         http.apply(new JwtTokenFilterConfigurer(jwtTokenProvider));
-
     }
 
     @Bean
