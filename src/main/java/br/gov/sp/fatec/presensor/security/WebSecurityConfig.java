@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
@@ -31,6 +32,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .antMatchers("/aluno/login").permitAll()
         .antMatchers("/aluno/cadastro").permitAll()
         .anyRequest().authenticated()
+        .and().exceptionHandling().accessDeniedHandler(new AccessDeniedExceptionHandler())
         .and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
 
         http.exceptionHandling().accessDeniedPage("/login");
