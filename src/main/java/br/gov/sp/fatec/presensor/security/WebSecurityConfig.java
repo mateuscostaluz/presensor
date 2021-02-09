@@ -1,5 +1,6 @@
 package br.gov.sp.fatec.presensor.security;
 
+import br.gov.sp.fatec.presensor.exception.AccessDeniedExceptionHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,6 +29,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .antMatchers("/aluno/login").permitAll()
         .antMatchers("/aluno/cadastro").permitAll()
         .anyRequest().authenticated();
+
+        http.exceptionHandling().accessDeniedHandler(new AccessDeniedExceptionHandler());
 
         http.apply(new JwtTokenFilterConfigurer(jwtTokenProvider));
     }
