@@ -18,7 +18,7 @@ public class Presenca {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "ra_aluno")
+    @JoinColumn(name = "ra_aluno", unique = true, nullable = false)
     private Aluno aluno;
 
     @ManyToOne
