@@ -3,6 +3,7 @@ package br.gov.sp.fatec.presensor.controller;
 import br.gov.sp.fatec.presensor.dto.AlunoLogin;
 import br.gov.sp.fatec.presensor.dto.AlunoRq;
 import br.gov.sp.fatec.presensor.dto.AlunoRs;
+import br.gov.sp.fatec.presensor.dto.AlunoToken;
 import br.gov.sp.fatec.presensor.model.Aluno;
 import br.gov.sp.fatec.presensor.model.Role;
 import br.gov.sp.fatec.presensor.repository.AlunoRepository;
@@ -41,7 +42,7 @@ public class AlunoController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody AlunoLogin alunoLogin) {
+    public ResponseEntity<AlunoToken> login(@RequestBody AlunoLogin alunoLogin) {
         return userService.signin(alunoLogin.getEmail(), alunoLogin.getSenha());
     }
 
