@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 public class AlunoController {
 
     @Autowired
-    private UserService userService;
+    private final UserService userService;
 
     @Autowired
     private final AlunoRepository alunoRepository;
