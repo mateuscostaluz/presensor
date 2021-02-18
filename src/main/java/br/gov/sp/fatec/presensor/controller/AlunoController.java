@@ -3,7 +3,7 @@ package br.gov.sp.fatec.presensor.controller;
 import br.gov.sp.fatec.presensor.dto.AlunoLogin;
 import br.gov.sp.fatec.presensor.dto.AlunoRq;
 import br.gov.sp.fatec.presensor.dto.AlunoRs;
-import br.gov.sp.fatec.presensor.dto.AlunoToken;
+import br.gov.sp.fatec.presensor.dto.BodyRs;
 import br.gov.sp.fatec.presensor.model.Aluno;
 import br.gov.sp.fatec.presensor.model.Role;
 import br.gov.sp.fatec.presensor.repository.AlunoRepository;
@@ -30,7 +30,7 @@ public class AlunoController {
     private final AlunoRepository alunoRepository;
 
     @PostMapping("/cadastro")
-    public ResponseEntity<String> cadastro(@RequestBody AlunoRq alunoRq) {
+    public ResponseEntity<BodyRs> cadastro(@RequestBody AlunoRq alunoRq) {
         Aluno aluno = new Aluno();
 
         aluno.setRa(alunoRq.getRa());
@@ -43,7 +43,7 @@ public class AlunoController {
     }
 
     @PostMapping(value = "/login", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<AlunoToken> login(@RequestBody AlunoLogin alunoLogin) {
+    public ResponseEntity<BodyRs> login(@RequestBody AlunoLogin alunoLogin) {
         return userService.signin(alunoLogin.getEmail(), alunoLogin.getSenha());
     }
 
@@ -57,7 +57,7 @@ public class AlunoController {
                 .collect(Collectors.toList());
 
         if(alunoRs.isEmpty()) {
-            return new ResponseEntity("Não existem alunos cadastrados no sistema", HttpStatus.NO_CONTENT);
+            return new ResponseEntity(new BodyRs("Não existem alunos cadastrados no sistema"), HttpStatus.NOT_FOUND);
         }
 
         return new ResponseEntity(alunoRs, HttpStatus.OK);

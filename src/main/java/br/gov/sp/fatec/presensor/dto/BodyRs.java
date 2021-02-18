@@ -7,8 +7,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class AlunoToken {
+public class BodyRs {
 
-    private String token;
+    private String body;
 
 }

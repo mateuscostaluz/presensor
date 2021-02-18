@@ -1,6 +1,7 @@
 package br.gov.sp.fatec.presensor.controller;
 
 
+import br.gov.sp.fatec.presensor.dto.BodyRs;
 import br.gov.sp.fatec.presensor.dto.HorarioDisciplinaRs;
 import br.gov.sp.fatec.presensor.model.HorarioDisciplina;
 import br.gov.sp.fatec.presensor.repository.HorarioDisciplinaRepository;
@@ -40,7 +41,7 @@ public class HorarioDisciplinaController {
             return new ResponseEntity(HorarioDisciplinaRs.converter(horarioDisciplinaRs), HttpStatus.OK);
         }
 
-        return new ResponseEntity("Sem aula no momento", HttpStatus.NO_CONTENT);
+        return new ResponseEntity(new BodyRs("Sem aula no momento"), HttpStatus.NOT_FOUND);
     }
 
     @GetMapping("/")
@@ -53,7 +54,7 @@ public class HorarioDisciplinaController {
                                                          .collect(Collectors.toList());
 
         if(horarioDisciplinasRs.isEmpty()) {
-            return new ResponseEntity("Não existem horários de disciplinas cadastrados no sistema", HttpStatus.NO_CONTENT);
+            return new ResponseEntity(new BodyRs("Não existem horários de disciplinas cadastrados no sistema"), HttpStatus.NO_CONTENT);
         }
 
         return new ResponseEntity(horarioDisciplinasRs, HttpStatus.OK);

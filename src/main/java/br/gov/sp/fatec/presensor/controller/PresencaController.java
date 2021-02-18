@@ -1,5 +1,6 @@
 package br.gov.sp.fatec.presensor.controller;
 
+import br.gov.sp.fatec.presensor.dto.BodyRs;
 import br.gov.sp.fatec.presensor.dto.PresencaRq;
 import br.gov.sp.fatec.presensor.dto.PresencaRs;
 import br.gov.sp.fatec.presensor.model.Aluno;
@@ -46,13 +47,13 @@ public class PresencaController {
         Optional<Aluno> aluno = alunoRepository.findById(presencaRq.getRaAluno());
 
         if (!aluno.isPresent()) {
-            return new ResponseEntity("Aluno não encontrado", HttpStatus.NOT_FOUND);
+            return new ResponseEntity(new BodyRs("Aluno não encontrado"), HttpStatus.NOT_FOUND);
         }
 
         Optional<HorarioDisciplina> horarioDisciplina = horarioDisciplinaRepository.findById(presencaRq.getIdHorarioDisciplina());
 
         if (!horarioDisciplina.isPresent()) {
-            return new ResponseEntity("Disciplina não encontrada", HttpStatus.NOT_FOUND);
+            return new ResponseEntity(new BodyRs("Disciplina não encontrada"), HttpStatus.NOT_FOUND);
         }
 
         LocalDate dataPresenca = DateTimeServices.getLocalDate();
@@ -67,10 +68,10 @@ public class PresencaController {
             presencaSave.setDataPresenca(dataPresenca);
             presencaRepository.save(presencaSave);
         } else {
-            return new ResponseEntity("Aluno já registrado nesta aula", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(new BodyRs("Aluno já registrado nesta aula"), HttpStatus.BAD_REQUEST);
         }
 
-        return new ResponseEntity("Presença registrada", HttpStatus.OK);
+        return new ResponseEntity(new BodyRs("Presença registrada com sucesso"), HttpStatus.OK);
 
     }
 
@@ -84,7 +85,7 @@ public class PresencaController {
                                        .collect(Collectors.toList());
 
         if(presencasRs.isEmpty()) {
-            return new ResponseEntity("Não existem listas de presenças cadastradas no sistema", HttpStatus.NO_CONTENT);
+            return new ResponseEntity(new BodyRs("Não existem listas de presenças cadastradas no sistema"), HttpStatus.NOT_FOUND);
         } else {
             return new ResponseEntity(presencasRs, HttpStatus.OK);
         }
@@ -110,7 +111,7 @@ public class PresencaController {
                                        .collect(Collectors.toList());
 
         if (presencasRs.isEmpty()) {
-            return new ResponseEntity("Nenhuma lista de presenças encontrada com estes filtros", HttpStatus.NO_CONTENT);
+            return new ResponseEntity(new BodyRs("Nenhuma lista de presenças encontrada com estes filtros"), HttpStatus.NOT_FOUND);
         } else {
             return new ResponseEntity(presencasRs, HttpStatus.OK);
         }
