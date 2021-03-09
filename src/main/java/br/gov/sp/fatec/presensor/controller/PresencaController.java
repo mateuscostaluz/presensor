@@ -1,8 +1,8 @@
 package br.gov.sp.fatec.presensor.controller;
 
-import br.gov.sp.fatec.presensor.dto.BodyRs;
 import br.gov.sp.fatec.presensor.dto.PresencaRq;
 import br.gov.sp.fatec.presensor.dto.PresencaRs;
+import br.gov.sp.fatec.presensor.dto.Response;
 import br.gov.sp.fatec.presensor.model.Aluno;
 import br.gov.sp.fatec.presensor.model.HorarioDisciplina;
 import br.gov.sp.fatec.presensor.model.Presenca;
@@ -14,7 +14,6 @@ import br.gov.sp.fatec.presensor.service.DateTimeServices;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,18 +41,18 @@ public class PresencaController {
 
     @PostMapping("/")
     @PreAuthorize("hasRole('ROLE_CLIENT')")
-    public ResponseEntity<String> savePresenca(@RequestBody PresencaRq presencaRq) {
+    public Response savePresenca(@RequestBody PresencaRq presencaRq) {
 
         Optional<Aluno> aluno = alunoRepository.findById(presencaRq.getRaAluno());
 
         if (!aluno.isPresent()) {
-            return new ResponseEntity(new BodyRs("Aluno não encontrado"), HttpStatus.NOT_FOUND);
+            return new Response(null, HttpStatus.NOT_FOUND.value(), "Aluno não encontrado.");
         }
 
         Optional<HorarioDisciplina> horarioDisciplina = horarioDisciplinaRepository.findById(presencaRq.getIdHorarioDisciplina());
 
         if (!horarioDisciplina.isPresent()) {
-            return new ResponseEntity(new BodyRs("Disciplina não encontrada"), HttpStatus.NOT_FOUND);
+            return new Response(null, HttpStatus.NOT_FOUND.value(), "Disciplina não encontrada.");
         }
 
         LocalDate dataPresenca = DateTimeServices.getLocalDate();
@@ -68,15 +67,15 @@ public class PresencaController {
             presencaSave.setDataPresenca(dataPresenca);
             presencaRepository.save(presencaSave);
         } else {
-            return new ResponseEntity(new BodyRs("Aluno já registrado nesta aula"), HttpStatus.BAD_REQUEST);
+            return new Response(null, HttpStatus.BAD_REQUEST.value(), "Aluno já registrado nesta aula.");
         }
 
-        return new ResponseEntity(new BodyRs("Presença registrada com sucesso"), HttpStatus.OK);
+        return new Response(null, HttpStatus.OK.value(), "Presença registrada com sucesso.");
 
     }
 
     @GetMapping("/")
-    public ResponseEntity<List<PresencaRs>> findAll() {
+    public Response findAll() {
         List<Presenca> presencas = presencaRepository.findAll();
 
         List<PresencaRs> presencasRs = presencas
@@ -85,14 +84,14 @@ public class PresencaController {
                                        .collect(Collectors.toList());
 
         if(presencasRs.isEmpty()) {
-            return new ResponseEntity(new BodyRs("Não existem listas de presenças cadastradas no sistema"), HttpStatus.NOT_FOUND);
+            return new Response(null, HttpStatus.NOT_FOUND.value(), "Não existem listas de presenças cadastradas no sistema.");
         } else {
-            return new ResponseEntity(presencasRs, HttpStatus.OK);
+            return new Response(presencasRs, HttpStatus.OK.value(), null);
         }
     }
 
     @GetMapping("/filter")
-    public ResponseEntity<List<PresencaRs>> findByCustomFilter(
+    public Response findByCustomFilter(
             @RequestParam(value = "disciplina", required = false) String disciplina,
             @RequestParam(value = "sala", required = false) Integer sala,
             @RequestParam(value = "data", required = false) String dataPresenca) {
@@ -111,9 +110,9 @@ public class PresencaController {
                                        .collect(Collectors.toList());
 
         if (presencasRs.isEmpty()) {
-            return new ResponseEntity(new BodyRs("Nenhuma lista de presenças encontrada com estes filtros"), HttpStatus.NOT_FOUND);
+            return new Response(null, HttpStatus.NOT_FOUND.value(), "Nenhuma lista de presenças encontrada com estes filtros.");
         } else {
-            return new ResponseEntity(presencasRs, HttpStatus.OK);
+            return new Response(presencasRs, HttpStatus.OK.value(), null);
         }
     }
 

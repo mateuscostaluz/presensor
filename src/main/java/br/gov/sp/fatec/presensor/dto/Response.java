@@ -7,8 +7,10 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class BodyRs {
+public class Response {
 
-    private String body;
+    private Object data;
+    private Integer status;
+    private String message;
 
 }

@@ -1,15 +1,14 @@
 package br.gov.sp.fatec.presensor.controller;
 
 
-import br.gov.sp.fatec.presensor.dto.BodyRs;
 import br.gov.sp.fatec.presensor.dto.HorarioDisciplinaRs;
+import br.gov.sp.fatec.presensor.dto.Response;
 import br.gov.sp.fatec.presensor.model.HorarioDisciplina;
 import br.gov.sp.fatec.presensor.repository.HorarioDisciplinaRepository;
 import br.gov.sp.fatec.presensor.service.DateTimeServices;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,7 +28,7 @@ public class HorarioDisciplinaController {
 
     @GetMapping("/atual")
     @PreAuthorize("hasRole('ROLE_CLIENT')")
-    public ResponseEntity<HorarioDisciplina> findHorarioDisciplinaByDiaSemanaAndHorario(@RequestParam(value = "beacon") String beacon) {
+    public Response findHorarioDisciplinaByDiaSemanaAndHorario(@RequestParam(value = "beacon") String beacon) {
 
         HorarioDisciplina horarioDisciplinaRs = horarioDisciplinaRepository
                 .findByDiaSemanaAndHorarioNamedParams(
@@ -38,14 +37,14 @@ public class HorarioDisciplinaController {
                         beacon);
 
         if(horarioDisciplinaRs != null) {
-            return new ResponseEntity(HorarioDisciplinaRs.converter(horarioDisciplinaRs), HttpStatus.OK);
+            return new Response(HorarioDisciplinaRs.converter(horarioDisciplinaRs), HttpStatus.OK.value(), null);
         }
 
-        return new ResponseEntity(new BodyRs("Sem aula no momento"), HttpStatus.NOT_FOUND);
+        return new Response(null, HttpStatus.NOT_FOUND.value(), "Sem aula no momento.");
     }
 
     @GetMapping("/")
-    public ResponseEntity<List<HorarioDisciplinaRs>> findAll() {
+    public Response findAll() {
         List<HorarioDisciplina> horarioDisciplinas = horarioDisciplinaRepository.findAll();
 
         List<HorarioDisciplinaRs> horarioDisciplinasRs = horarioDisciplinas
@@ -54,10 +53,10 @@ public class HorarioDisciplinaController {
                                                          .collect(Collectors.toList());
 
         if(horarioDisciplinasRs.isEmpty()) {
-            return new ResponseEntity(new BodyRs("Não existem horários de disciplinas cadastrados no sistema"), HttpStatus.NO_CONTENT);
+            return new Response(null, HttpStatus.NO_CONTENT.value(), "Não existem horários de disciplinas cadastrados no sistema.");
         }
 
-        return new ResponseEntity(horarioDisciplinasRs, HttpStatus.OK);
+        return new Response(horarioDisciplinasRs, HttpStatus.OK.value(), null);
     }
 
 }
