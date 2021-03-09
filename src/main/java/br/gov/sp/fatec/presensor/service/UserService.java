@@ -31,7 +31,7 @@ public class UserService {
     public ResponseEntity<BodyRs> signin(String email, String senha) {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, senha));
-            return new ResponseEntity(new BodyRs(jwtTokenProvider.createToken(alunoRepository.findByEmail(email))), HttpStatus.OK);
+            return new ResponseEntity(new BodyRs(jwtTokenProvider.createToken(alunoRepository.findByEmail(email))).toString(), HttpStatus.OK);
         } catch (AuthenticationException e) {
             return new ResponseEntity(new BodyRs("Email e/ou senha inválidos"), HttpStatus.BAD_REQUEST);
         }
