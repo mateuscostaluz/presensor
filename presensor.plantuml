@@ -1,0 +1,363 @@
+@startuml
+
+title __PRESENCE-CONTROL-USING-BLUETOOTH-BEACON's Class Diagram__\n
+
+        class br.gov.sp.fatec.presensor.controller.AlunoController {
+            + AlunoController()
+            + cadastro()
+            + findAll()
+            + login()
+        }
+
+
+        class br.gov.sp.fatec.presensor.controller.HorarioDisciplinaController {
+            + HorarioDisciplinaController()
+            + findAll()
+            + findHorarioDisciplinaByDiaSemanaAndHorario()
+        }
+
+
+        class br.gov.sp.fatec.presensor.controller.PresencaController {
+            + PresencaController()
+            + findAll()
+            + findByCustomFilter()
+            + savePresenca()
+        }
+
+
+        class br.gov.sp.fatec.presensor.dto.AlunoLogin {
+            - email : String
+            - senha : String
+            + getEmail()
+            + getSenha()
+        }
+
+
+        class br.gov.sp.fatec.presensor.dto.AlunoRq {
+            - email : String
+            - nome : String
+            - ra : Long
+            - senha : String
+            + getEmail()
+            + getNome()
+            + getRa()
+            + getSenha()
+            + setEmail()
+            + setNome()
+            + setRa()
+            + setSenha()
+        }
+
+
+        class br.gov.sp.fatec.presensor.dto.AlunoRs {
+            - email : String
+            - nome : String
+            - ra : Long
+            {static} + converter()
+            + getEmail()
+            + getNome()
+            + getRa()
+            + setEmail()
+            + setNome()
+            + setRa()
+        }
+
+
+        class br.gov.sp.fatec.presensor.dto.HorarioDisciplinaRs {
+            - horarioFim : Time
+            - horarioInicio : Time
+            - id : Long
+            {static} + converter()
+            + getDiaSemana()
+            + getDisciplina()
+            + getHorarioFim()
+            + getHorarioInicio()
+            + getId()
+            + getSala()
+            + setDiaSemana()
+            + setDisciplina()
+            + setHorarioFim()
+            + setHorarioInicio()
+            + setId()
+            + setSala()
+        }
+
+
+        class br.gov.sp.fatec.presensor.dto.PresencaRq {
+            - idHorarioDisciplina : Long
+            - raAluno : Long
+            + getIdHorarioDisciplina()
+            + getRaAluno()
+            + setIdHorarioDisciplina()
+            + setRaAluno()
+        }
+
+
+        class br.gov.sp.fatec.presensor.dto.PresencaRs {
+            - dataPresenca : LocalDate
+            - diaSemana : String
+            - idPresenca : Long
+            - nomeAluno : String
+            - nomeDisciplina : String
+            - numeroSala : Integer
+            - raAluno : Long
+            - siglaDisciplina : String
+            - uuidBeaconSala : String
+            {static} + converter()
+            + getDataPresenca()
+            + getDiaSemana()
+            + getIdPresenca()
+            + getNomeAluno()
+            + getNomeDisciplina()
+            + getNumeroSala()
+            + getRaAluno()
+            + getSiglaDisciplina()
+            + getUuidBeaconSala()
+            + setDataPresenca()
+            + setDiaSemana()
+            + setIdPresenca()
+            + setNomeAluno()
+            + setNomeDisciplina()
+            + setNumeroSala()
+            + setRaAluno()
+            + setSiglaDisciplina()
+            + setUuidBeaconSala()
+        }
+
+
+        class br.gov.sp.fatec.presensor.dto.Response {
+            - data : Object
+            - message : String
+            - status : Integer
+            + Response()
+            + getData()
+            + getMessage()
+            + getStatus()
+            + setData()
+            + setMessage()
+            + setStatus()
+        }
+
+
+        class br.gov.sp.fatec.presensor.exception.CustomException {
+            - httpStatus : HttpStatus
+            - message : String
+            {static} - serialVersionUID : long
+            + CustomException()
+            + getHttpStatus()
+            + getMessage()
+        }
+
+
+        class br.gov.sp.fatec.presensor.model.Aluno {
+            - email : String
+            - nome : String
+            - ra : Long
+            - role : String
+            - senha : String
+            + getEmail()
+            + getNome()
+            + getRa()
+            + getRole()
+            + getRoles()
+            + getSenha()
+            + setEmail()
+            + setNome()
+            + setRa()
+            + setRole()
+            + setSenha()
+        }
+
+
+        class br.gov.sp.fatec.presensor.model.DiaSemana {
+            - dia : String
+            - id : Integer
+            + getDia()
+            + getId()
+            + setDia()
+            + setId()
+        }
+
+
+        class br.gov.sp.fatec.presensor.model.Disciplina {
+            - nome : String
+            - sigla : String
+            + getNome()
+            + getSigla()
+            + setNome()
+            + setSigla()
+        }
+
+
+        class br.gov.sp.fatec.presensor.model.HorarioDisciplina {
+            - horarioFim : Time
+            - horarioInicio : Time
+            - id : Long
+            + getDiaSemana()
+            + getDisciplina()
+            + getHorarioFim()
+            + getHorarioInicio()
+            + getId()
+            + getSala()
+            + setDiaSemana()
+            + setDisciplina()
+            + setHorarioFim()
+            + setHorarioInicio()
+            + setId()
+            + setSala()
+        }
+
+
+        class br.gov.sp.fatec.presensor.model.Presenca {
+            - dataPresenca : LocalDate
+            - id : Long
+            + getAluno()
+            + getDataPresenca()
+            + getHorarioDisciplina()
+            + getId()
+            + setAluno()
+            + setDataPresenca()
+            + setHorarioDisciplina()
+            + setId()
+        }
+
+
+        enum br.gov.sp.fatec.presensor.model.Role {
+          ROLE_ADMIN
+          ROLE_CLIENT
+        }
+
+
+        class br.gov.sp.fatec.presensor.model.Sala {
+            - numero : Integer
+            - uuidBeacon : String
+            + getNumero()
+            + getUuidBeacon()
+            + setNumero()
+            + setUuidBeacon()
+        }
+
+
+        interface br.gov.sp.fatec.presensor.repository.AlunoRepository {
+            {abstract} + existsByEmail()
+            {abstract} + findByEmail()
+        }
+
+
+        interface br.gov.sp.fatec.presensor.repository.DisciplinaRepository {
+            {abstract} + findBySigla()
+        }
+
+
+        interface br.gov.sp.fatec.presensor.repository.HorarioDisciplinaRepository {
+            {abstract} + findByDiaSemanaAndHorarioNamedParams()
+        }
+
+
+        class br.gov.sp.fatec.presensor.repository.PresencaCustomRepository {
+            - em : EntityManager
+            + PresencaCustomRepository()
+            + findBySiglaDisciplinaAndNumeroSalaAndData()
+        }
+
+
+        interface br.gov.sp.fatec.presensor.repository.PresencaRepository {
+            {abstract} + findByRaAlunoAndIdHorarioDisciplinaAndData()
+        }
+
+
+        interface br.gov.sp.fatec.presensor.repository.SalaRepository {
+            {abstract} + findByNumero()
+        }
+
+
+        class br.gov.sp.fatec.presensor.security.JwtTokenFilter {
+            + JwtTokenFilter()
+            # doFilterInternal()
+        }
+
+
+        class br.gov.sp.fatec.presensor.security.JwtTokenFilterConfigurer {
+            + JwtTokenFilterConfigurer()
+            + configure()
+        }
+
+
+        class br.gov.sp.fatec.presensor.security.JwtTokenProvider {
+            - secretKey : String
+            - validityInMilliseconds : long
+            + createToken()
+            + getAuthentication()
+            + getUsername()
+            + resolveToken()
+            + validateToken()
+            # init()
+        }
+
+
+        class br.gov.sp.fatec.presensor.security.MyUserDetails {
+            + loadUserByUsername()
+        }
+
+
+        class br.gov.sp.fatec.presensor.security.WebConfig {
+            + addCorsMappings()
+        }
+
+
+        class br.gov.sp.fatec.presensor.security.WebSecurityConfig {
+            + authenticationManagerBean()
+            + passwordEncoder()
+            # configure()
+        }
+
+
+        class br.gov.sp.fatec.presensor.service.DateTimeServices {
+            {static} + getDayOfWeek()
+            {static} + getLocalDate()
+            {static} + getLocalTime()
+        }
+
+
+        class br.gov.sp.fatec.presensor.service.UserService {
+            - authenticationManager : AuthenticationManager
+            - passwordEncoder : PasswordEncoder
+            + signin()
+            + signup()
+        }
+
+
+  br.gov.sp.fatec.presensor.controller.AlunoController o-- br.gov.sp.fatec.presensor.repository.AlunoRepository : alunoRepository
+  br.gov.sp.fatec.presensor.controller.AlunoController o-- br.gov.sp.fatec.presensor.service.UserService : userService
+  br.gov.sp.fatec.presensor.controller.HorarioDisciplinaController o-- br.gov.sp.fatec.presensor.repository.HorarioDisciplinaRepository : horarioDisciplinaRepository
+  br.gov.sp.fatec.presensor.controller.PresencaController o-- br.gov.sp.fatec.presensor.repository.AlunoRepository : alunoRepository
+  br.gov.sp.fatec.presensor.controller.PresencaController o-- br.gov.sp.fatec.presensor.repository.HorarioDisciplinaRepository : horarioDisciplinaRepository
+  br.gov.sp.fatec.presensor.controller.PresencaController o-- br.gov.sp.fatec.presensor.repository.PresencaCustomRepository : presencaCustomRepository
+  br.gov.sp.fatec.presensor.controller.PresencaController o-- br.gov.sp.fatec.presensor.repository.PresencaRepository : presencaRepository
+  br.gov.sp.fatec.presensor.dto.HorarioDisciplinaRs o-- br.gov.sp.fatec.presensor.model.DiaSemana : diaSemana
+  br.gov.sp.fatec.presensor.dto.HorarioDisciplinaRs o-- br.gov.sp.fatec.presensor.model.Disciplina : disciplina
+  br.gov.sp.fatec.presensor.dto.HorarioDisciplinaRs o-- br.gov.sp.fatec.presensor.model.Sala : sala
+  br.gov.sp.fatec.presensor.model.HorarioDisciplina o-- br.gov.sp.fatec.presensor.model.DiaSemana : diaSemana
+  br.gov.sp.fatec.presensor.model.HorarioDisciplina o-- br.gov.sp.fatec.presensor.model.Disciplina : disciplina
+  br.gov.sp.fatec.presensor.model.HorarioDisciplina o-- br.gov.sp.fatec.presensor.model.Sala : sala
+  br.gov.sp.fatec.presensor.model.Presenca o-- br.gov.sp.fatec.presensor.model.Aluno : aluno
+  br.gov.sp.fatec.presensor.model.Presenca o-- br.gov.sp.fatec.presensor.model.HorarioDisciplina : horarioDisciplina
+  br.gov.sp.fatec.presensor.repository.PresencaCustomRepository o-- br.gov.sp.fatec.presensor.repository.DisciplinaRepository : disciplinaRepository
+  br.gov.sp.fatec.presensor.repository.PresencaCustomRepository o-- br.gov.sp.fatec.presensor.repository.SalaRepository : salaRepository
+  br.gov.sp.fatec.presensor.security.JwtTokenFilter o-- br.gov.sp.fatec.presensor.security.JwtTokenProvider : jwtTokenProvider
+  br.gov.sp.fatec.presensor.security.JwtTokenFilterConfigurer o-- br.gov.sp.fatec.presensor.security.JwtTokenProvider : jwtTokenProvider
+  br.gov.sp.fatec.presensor.security.JwtTokenProvider o-- br.gov.sp.fatec.presensor.security.MyUserDetails : myUserDetails
+  br.gov.sp.fatec.presensor.security.MyUserDetails o-- br.gov.sp.fatec.presensor.repository.AlunoRepository : alunoRepository
+  br.gov.sp.fatec.presensor.security.WebSecurityConfig o-- br.gov.sp.fatec.presensor.security.JwtTokenProvider : jwtTokenProvider
+  br.gov.sp.fatec.presensor.service.UserService o-- br.gov.sp.fatec.presensor.repository.AlunoRepository : alunoRepository
+  br.gov.sp.fatec.presensor.service.UserService o-- br.gov.sp.fatec.presensor.security.JwtTokenProvider : jwtTokenProvider
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml
