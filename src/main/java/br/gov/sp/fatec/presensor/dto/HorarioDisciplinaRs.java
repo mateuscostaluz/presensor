@@ -19,9 +19,9 @@ public class HorarioDisciplinaRs {
     private Integer numeroSala;
     @JsonProperty(value = "dia_semana")
     private String diaSemana;
-    @JsonProperty(value = "horario_inicio_disciplina")
+    @JsonProperty(value = "horario_inicio")
     private String horarioInicio;
-    @JsonProperty(value = "horario_fim_disciplina")
+    @JsonProperty(value = "horario_fim")
     private String horarioFim;
 
     public static HorarioDisciplinaRs converter(HorarioDisciplina hd) {
