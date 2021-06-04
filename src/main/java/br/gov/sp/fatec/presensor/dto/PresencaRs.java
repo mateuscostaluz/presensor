@@ -22,8 +22,6 @@ public class PresencaRs {
     @JsonProperty(value = "nome_disciplina")
     private String nomeDisciplina;
 
-    @JsonProperty(value = "uuid_beacon_sala")
-    private String uuidBeaconSala;
     @JsonProperty(value = "numero_sala")
     private Integer numeroSala;
 
@@ -45,7 +43,6 @@ public class PresencaRs {
         presencaRs.setSiglaDisciplina(p.getHorarioDisciplina().getDisciplina().getSigla());
         presencaRs.setNomeDisciplina(p.getHorarioDisciplina().getDisciplina().getNome());
 
-        presencaRs.setUuidBeaconSala(p.getHorarioDisciplina().getSala().getUuidBeacon());
         presencaRs.setNumeroSala(p.getHorarioDisciplina().getSala().getNumero());
 
         presencaRs.setDiaSemana(p.getHorarioDisciplina().getDiaSemana().getDia());
