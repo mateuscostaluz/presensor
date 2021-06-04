@@ -14,20 +14,22 @@ import java.sql.Time;
 public class HorarioDisciplinaRs {
 
     private Long id;
-    private Disciplina disciplina;
-    private Sala sala;
-    private DiaSemana diaSemana;
-    private Time horarioInicio;
-    private Time horarioFim;
+    private String siglaDisciplina;
+    private String nomeDisciplina;
+    private String numeroSala;
+    private String diaSemana;
+    private String horarioInicio;
+    private String horarioFim;
 
     public static HorarioDisciplinaRs converter(HorarioDisciplina hd) {
         HorarioDisciplinaRs horarioDisciplinaRs = new HorarioDisciplinaRs();
         horarioDisciplinaRs.setId(hd.getId());
-        horarioDisciplinaRs.setDisciplina(hd.getDisciplina());
-        horarioDisciplinaRs.setSala(hd.getSala());
-        horarioDisciplinaRs.setDiaSemana(hd.getDiaSemana());
-        horarioDisciplinaRs.setHorarioInicio(hd.getHorarioInicio());
-        horarioDisciplinaRs.setHorarioFim(hd.getHorarioFim());
+        horarioDisciplinaRs.setSiglaDisciplina(hd.getDisciplina().getSigla());
+        horarioDisciplinaRs.setNomeDisciplina(hd.getDisciplina().getNome());
+        horarioDisciplinaRs.setDiaSemana(hd.getDiaSemana().getDia());
+        horarioDisciplinaRs.setNumeroSala(hd.getDiaSemana().getDia());
+        horarioDisciplinaRs.setHorarioInicio(hd.getHorarioInicio().toString());
+        horarioDisciplinaRs.setHorarioFim(hd.getHorarioFim().toString());
         return horarioDisciplinaRs;
     }
 
