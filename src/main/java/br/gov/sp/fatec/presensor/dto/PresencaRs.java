@@ -5,8 +5,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDate;
-
 @Getter
 @Setter
 public class PresencaRs {
@@ -33,7 +31,7 @@ public class PresencaRs {
     private String diaSemana;
 
     @JsonProperty(value = "data_presenca")
-    private LocalDate dataPresenca;
+    private String dataPresenca;
 
     public static PresencaRs converter(Presenca p) {
 
@@ -52,7 +50,7 @@ public class PresencaRs {
 
         presencaRs.setDiaSemana(p.getHorarioDisciplina().getDiaSemana().getDia());
 
-        presencaRs.setDataPresenca(p.getDataPresenca());
+        presencaRs.setDataPresenca(p.getDataPresenca().toString());
 
         return presencaRs;
     }
