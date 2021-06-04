@@ -8,6 +8,7 @@ import lombok.Setter;
 @Setter
 public class HorarioDisciplinaRs {
 
+    private Long id;
     private String siglaDisciplina;
     private String nomeDisciplina;
     private Integer numeroSala;
@@ -17,6 +18,7 @@ public class HorarioDisciplinaRs {
 
     public static HorarioDisciplinaRs converter(HorarioDisciplina hd) {
         HorarioDisciplinaRs horarioDisciplinaRs = new HorarioDisciplinaRs();
+        horarioDisciplinaRs.setId(hd.getId());
         horarioDisciplinaRs.setSiglaDisciplina(hd.getDisciplina().getSigla());
         horarioDisciplinaRs.setNomeDisciplina(hd.getDisciplina().getNome());
         horarioDisciplinaRs.setDiaSemana(hd.getDiaSemana().getDia());
