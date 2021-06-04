@@ -16,7 +16,7 @@ public class HorarioDisciplinaRs {
     private Long id;
     private String siglaDisciplina;
     private String nomeDisciplina;
-    private String numeroSala;
+    private Integer numeroSala;
     private String diaSemana;
     private String horarioInicio;
     private String horarioFim;
@@ -27,7 +27,7 @@ public class HorarioDisciplinaRs {
         horarioDisciplinaRs.setSiglaDisciplina(hd.getDisciplina().getSigla());
         horarioDisciplinaRs.setNomeDisciplina(hd.getDisciplina().getNome());
         horarioDisciplinaRs.setDiaSemana(hd.getDiaSemana().getDia());
-        horarioDisciplinaRs.setNumeroSala(hd.getDiaSemana().getDia());
+        horarioDisciplinaRs.setNumeroSala(hd.getSala().getNumero());
         horarioDisciplinaRs.setHorarioInicio(hd.getHorarioInicio().toString());
         horarioDisciplinaRs.setHorarioFim(hd.getHorarioFim().toString());
         return horarioDisciplinaRs;
