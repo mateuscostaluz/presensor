@@ -1,6 +1,7 @@
 package br.gov.sp.fatec.presensor.controller;
 
 
+import br.gov.sp.fatec.presensor.dto.HorarioDisciplinaAtualRs;
 import br.gov.sp.fatec.presensor.dto.HorarioDisciplinaRs;
 import br.gov.sp.fatec.presensor.dto.Response;
 import br.gov.sp.fatec.presensor.model.HorarioDisciplina;
@@ -28,16 +29,16 @@ public class HorarioDisciplinaController {
 
     @GetMapping("/atual")
     @PreAuthorize("hasRole('ROLE_CLIENT')")
-    public Response findHorarioDisciplinaByDiaSemanaAndHorario(@RequestParam(value = "beacon") String beacon) {
+    public Response findHorarioDisciplinaAtual(@RequestParam(value = "beacon") String beacon) {
 
         HorarioDisciplina horarioDisciplinaRs = horarioDisciplinaRepository
                 .findByDiaSemanaAndHorarioNamedParams(
-                        DateTimeServices.getDayOfWeek(),
-                        DateTimeServices.getLocalTime(),
-                        beacon);
+                DateTimeServices.getDayOfWeek(),
+                DateTimeServices.getLocalTime(),
+                beacon);
 
         if(horarioDisciplinaRs != null) {
-            return new Response(HorarioDisciplinaRs.converter(horarioDisciplinaRs), HttpStatus.OK.value(), null);
+            return new Response(HorarioDisciplinaAtualRs.converter(horarioDisciplinaRs), HttpStatus.OK.value(), null);
         }
 
         return new Response(null, HttpStatus.NOT_FOUND.value(), "Sem aula no momento.");
