@@ -29,7 +29,7 @@ public class HorarioDisciplinaController {
 
     @GetMapping("/atual")
     @PreAuthorize("hasRole('ROLE_CLIENT')")
-    public Response findHorarioDisciplinaAtual(@RequestParam(value = "beacon") String beacon) {
+    public Response findHorarioDisciplinaByDiaSemanaAndHorario(@RequestParam(value = "beacon") String beacon) {
 
         HorarioDisciplina horarioDisciplinaRs = horarioDisciplinaRepository
                 .findByDiaSemanaAndHorarioNamedParams(
